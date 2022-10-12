@@ -21,8 +21,8 @@
     </title>
 </head>
 
-<body class="w-screen h-screen relative font-light lg:font-normal z-0 bg-stone-900">
+<body class="w-screen h-screen relative font-light lg:font-normal z-0 bg-gray-800">
+    <x-sidebar />
 {{ $slot }}
 </body>
-
 </html>
