@@ -5,7 +5,7 @@
             "name" => "Dashboard",
             'path' => 'dashboard',
             'icon_class' => 'fa-regular fa-house',
-        ],
+        ], 
     ];
 @endphp
 {{-- Menu Items End --}}
