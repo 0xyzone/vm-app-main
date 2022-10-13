@@ -1,5 +1,5 @@
 @if (session()->has('error'))
-    <div class="hidden lg:block absolute z-20 w-max py-2 px-4 lg:bottom-8 bottom-16 lg:right-8 bg-lime-200 text-lime-800 border border-current fadeInLeft text-xl shadow-main rounded"
+    <div class="hidden lg:block absolute z-20 w-max py-2 px-4 lg:bottom-8 bottom-16 lg:right-8 bg-rose-200 text-rose-800 border border-current fadeInLeft text-xl shadow-main rounded"
         id="error">
         {{ session('error') }}
     </div>

@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.sacrollbar {
+  @apply scrollbar-thin scrollbar-thumb-rounded-md scrollbar-track-rounded-md scrollbar-thumb-gray-800 scrollbar-track-gray-400/50;
+}
+
 .smooth {
     @apply transform duration-300 ease-in-out;
 }

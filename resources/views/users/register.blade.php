@@ -1,15 +1,15 @@
 <x-layout>
 
-    <div class="px-10 max-w-lg mx-auto ">
+    <div class="px-10 max-w-lg mx-auto pb-10 overflow-y-auto overflow-x-hidden">
         <div class=" flex text-white text-lg w-full justify-center">
             <img src="img/logo.png" alt="logo" class="w-40">
         </div>
 
-        <h2 class="text-2xl font-bold text-gray-800 uppercase text-center my-10">
+        <h2 class="text-2xl font-bold text-gray-800 uppercase text-center my-5">
             Register
         </h2>
 
-        <form method="POST" action="/users" class="rounded-lg border border-black bg-gray-800 p-10" id="signup">
+        <form method="POST" action="/users" class="rounded-lg border border-black bg-gray-800 p-10 mb-10 h-full" id="signup">
             @csrf
             <div class="mb-6">
                 <label for="name" class="inline-block text-white text-lg mb-2">
