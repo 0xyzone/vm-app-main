@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -15,6 +16,10 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', function () {
+    if (Auth::guest()) {
+        //is a Laravel guest so redirect
+        return redirect('login');
+       }
     return view('main');
 });
 

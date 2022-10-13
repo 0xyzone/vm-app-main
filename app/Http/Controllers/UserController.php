@@ -36,8 +36,12 @@ class UserController extends Controller
      }
 
     //Logout user
-    public function logout(){
-        return redirect('/login');
+    public function logout(Request $request){
+        auth()->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login')->with('success', "You have been successfully logged out!");
     }
 
     //show login form
