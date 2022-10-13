@@ -1,3 +1,6 @@
+@if (\Request::path() == ("register"))
+@elseif(\Request::path() == ("login"))
+@else
 <aside class="z-20 flex-shrink-0 bg-gray-300 w-72 h-full p-4 hidden md:flex flex-col justify-between shadow-lg">
     <x-sidebar-items />
 </aside>
@@ -14,3 +17,4 @@
     @keydown.escape="closeSideMenu">
     <x-sidebar-items />
 </aside>
+@endif

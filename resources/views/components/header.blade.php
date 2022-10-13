@@ -1,4 +1,6 @@
-
+@if (\Request::path() == ("register"))
+@elseif(\Request::path() == ("login"))
+@else
 <header class="z-20 py-4 shadow-md bg-gray-900 sticky top-0">
     <div class="container flex items-center justify-between md:justify-end h-full px-6 mx-auto text-white">
         <!-- Mobile hamburger -->
@@ -47,3 +49,4 @@
         </ul>
     </div>
 </header>
+@endif

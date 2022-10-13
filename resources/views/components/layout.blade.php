@@ -51,18 +51,19 @@
         display_c7()
     </script>
 </head>
+<body class="w-screen h-screen relative font-light lg:font-normal z-0 @if(\Request::path() == ("register" || "login")) {{'bg-gray-300'}} @else {{'bg-gray-800'}} @endif" onload='display_ct7();'>
 
-<body class="w-screen h-screen relative font-light lg:font-normal z-0 bg-gray-800" onload='display_ct7();'>
     <div class="flex h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <x-sidebar />
         <div class="flex flex-col flex-1 w-full">
             <x-header />
             <x-container class="pt-10 px-10">
+
                 {{ $slot }}
+
             </x-container>
         </div>
     </div>
-    {{ $slot }}
 
     <!-- Modal backdrop. This what you want to place close to the closing body tag -->
     <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
