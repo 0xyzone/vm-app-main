@@ -10,19 +10,19 @@
       </h2>
   </header>
     {{-- Login form --}}
-    <form method="POST" action="/users " class=" rounded-lg border border-black bg-gray-800 p-10">
+    <form method="POST" action="/users/authenticate" class=" rounded-lg border border-black bg-gray-800 p-10">
       @csrf
         <div class="mb-6">
-            <label for="email" class="inline-block text-white text-lg mb-2"
-                >Email</label
+            <label for="username" class="inline-block text-white text-lg mb-2"
+                >Username</label
             >
             <input
-                type="email"
+                type="text"
                 class="border border-gray-200 rounded p-2 w-full"
-                name="email"
-                value="{{old('email')}}"
+                name="username"
+                value="{{old('username')}}"
             />
-            @error('email')
+            @error('username')
             <p class="text-white text-xs mt-1">{{$message}}</p>
             @enderror
             <!-- Error Example -->
@@ -49,7 +49,6 @@
   
         <div class="mb-6">
             <button
-            href="/"
                 type="submit"
                 class="bg-laravel text-white border border-sky-200 rounded py-2 px-4 hover:bg-black"
             >
