@@ -2,12 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Auth\User;
 
 class UserController extends Controller
 {
+    
+
+    // Register a user
+    public function store(Request $request){
+        $formFields = $request->validate([
+            'name' => ['required'],
+            'username' => ['required', Rule::unique('users','username')],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => 'required|confirmed|min:8',
+            'phone' => ['required', 'max:10', Rule::unique('users', 'phone')],
+            'role' => ['required'],
+        ]);
+
+        // Hash Password
+        $formFields['password'] = bcrypt($formFields['password']);
+        
+        // Create user
+        $user = User::create($formFields);
+
+        return redirect('/')->with('message', 'User registered successfully.');
+    }
+
+    //show register
+    public function create(){
+        return view('users.register');
+     }
+
     //Logout user
     public function logout(){
         return redirect('/login');
@@ -17,31 +44,4 @@ class UserController extends Controller
     public function login(){
         return view('users.login');
     }
-
-    //show register
-    public function create(){
-        return view('users.register');
-     }
-
-    // Register a user
-    public function store(Request $request){
-        $formFields = $request->validate([
-            'name' => ['required', 'min:3'],
-            'username' => ['required', Rule::unique('users','username')],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => 'required|confirmed|min:8',
-            'phone' => ['required', Rule::unique('users', 'phone')],
-            'role' => ['required'],
-        ]);
-
-        // Hash Password
-        $formFields['password'] = bcrypt($formFields['password']);
-
-        // Create user
-        $user = User::create($formFields);
-
-        return redirect('/register')->with('message', 'User registered successfully.');
-
-    }
-
 }

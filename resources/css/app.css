@@ -5,3 +5,98 @@
 .smooth {
     @apply transform duration-300 ease-in-out;
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+/* ----
+    Animations
+  ---- */
+
+  .fadeInRight {
+    animation: fadeInRight 1s;
+  }
+  @keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .fadeInLeft {
+    animation: fadeInLeft 1s;
+  }
+  @keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  .fadeInTop {
+    animation: fadeInTop 1s;
+  }
+
+  @keyframes fadeInTop {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fadeInBottom {
+    animation: fadeInBottom 1s;
+  }
+  @keyframes fadeInBottom {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fadeIn {
+    animation: fadeIn 1s ease-in-out;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .fadeOut {
+    animation: fadeOut 1s 3s ease-in-out;
+  }
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+/* ----
+    Animations - end
+  ---- */

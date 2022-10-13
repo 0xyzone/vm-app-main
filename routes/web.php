@@ -21,12 +21,11 @@ Route::get('/', function () {
 //Show register form
 Route::get('/register', [UserController::class, 'create']);
 
-//Log user out
-Route::post('/logout', [UserController::class, 'logout' ]);
+// Store user
+Route::post('/users', [UserController::class, 'store']);
 
 //show login form
 Route::get('/login', [UserController::class, 'login']);
 
-
-// Store user
-Route::post('/users', [UserController::class, 'store']);
+//Log user out
+Route::post('/logout', [UserController::class, 'logout' ]);

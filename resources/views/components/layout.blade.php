@@ -51,7 +51,11 @@
         display_c7()
     </script>
 </head>
-<body class="w-screen h-screen relative font-light lg:font-normal z-0 @if(\Request::path() == ("register" || "login")) {{'bg-gray-300'}} @else {{'bg-gray-800'}} @endif" onload='display_ct7();'>
+<body class="w-screen h-screen relative font-light lg:font-normal z-0 @if(Request::path() == ("register" || "login")) {{'bg-gray-300'}} @else {{'bg-gray-800'}} @endif" onload='display_ct7();'>
+
+    <x-flash-error />
+
+    <x-flash-success />
 
     <div class="flex h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <x-sidebar />

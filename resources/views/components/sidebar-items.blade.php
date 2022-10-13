@@ -10,6 +10,11 @@
             "name" => "Transactions",
             'path' => 'transactions',
             'icon_class' => 'fa-regular fa-money-from-bracket',
+        ],
+        [
+            "name" => "Registration",
+            'path' => 'register',
+            'icon_class' => 'fa-regular fa-money-from-bracket',
         ], 
     ];
 @endphp
