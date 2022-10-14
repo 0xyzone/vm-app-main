@@ -37,3 +37,12 @@ Route::post('/logout', [UserController::class, 'logout' ]);
 
 //log user in
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+
+// Dashboard
+Route::get('/dashboard', function() {
+    if (Auth::guest()) {
+        //is a Laravel guest so redirect
+        return redirect('login');
+       }
+    return view('dashboard');
+});
