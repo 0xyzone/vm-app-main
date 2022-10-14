@@ -7,13 +7,13 @@ $menuItems = [
         'icon_class' => 'fa-regular fa-house',
     ],
     [
-        'name' => 'Transactions',
-        'path' => 'transactions',
-        'icon_class' => 'fa-regular fa-money-from-bracket',
+        'name' => 'User Management',
+        'path' => 'umgmt',
+        'icon_class' => 'fa-regular fa-user-cog',
     ],
     [
-        'name' => 'Registration',
-        'path' => 'register',
+        'name' => 'Transactions',
+        'path' => 'transactions',
         'icon_class' => 'fa-regular fa-money-from-bracket',
     ],
 ];

@@ -64,4 +64,9 @@ class UserController extends Controller
 
         return back()->withErrors(['username' => 'Invalid Username'])->onlyInput('username');
     }
+
+    // User Management
+    public function usermanagement(){
+        return view('users.management');
+    }
 }

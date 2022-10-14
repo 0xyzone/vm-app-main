@@ -26,6 +26,9 @@ Route::get('/', function () {
 //Show register form
 Route::get('/register', [UserController::class, 'create']);
 
+//Show User Management form
+Route::get('/umgmt', [UserController::class, 'usermanagement']);
+
 // Store user
 Route::post('/users', [UserController::class, 'store']);
 
