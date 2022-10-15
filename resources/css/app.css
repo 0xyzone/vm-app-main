@@ -17,6 +17,18 @@ input[type="number"]::-webkit-inner-spin-button,
     margin: 0;
   }
 
+.reg-label{
+  @apply inline-block text-gray-900 text-lg mb-2;
+}
+
+input{
+  @apply outline-none;
+}
+
+.user-td {
+  @apply px-6 py-4;
+}
+
 /* ----
     Animations
   ---- */

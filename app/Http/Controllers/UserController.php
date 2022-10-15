@@ -8,10 +8,8 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    
-
-    // Register a user
-    public function store(Request $request){
+// Register a user
+ public function store(Request $request){
         $formFields = $request->validate([
             'name' => ['required'],
             'username' => ['required', Rule::unique('users','username')],
@@ -21,13 +19,13 @@ class UserController extends Controller
             'role' => ['required'],
         ]);
 
-        // Hash Password
-        $formFields['password'] = bcrypt($formFields['password']);
-        
-        // Create user
-        $user = User::create($formFields);
+    // Hash Password
+    $formFields['password'] = bcrypt($formFields['password']);
+   
+    // Create user
+     $user = User::create($formFields);
 
-        return redirect('/')->with('message', 'User registered successfully.');
+     return redirect('/umgmt')->with('success', 'User registered successfully.');
     }
 
     //show register
@@ -62,11 +60,46 @@ class UserController extends Controller
             return redirect('/')->with('success', 'You are now logged in!');
         }
 
-        return back()->withErrors(['username' => 'Invalid Username'])->onlyInput('username');
+       /*  return back()->withErrors(['username' => 'Invalid Username'])->onlyInput('username'); */
+
+       return back()->with('error', 'Credentials does not match in our database.');
+
     }
 
     // User Management
     public function usermanagement(){
-        return view('users.management');
+        return view('users.management',[
+            'users' =>  User::all()
+        ]);
+    }
+
+    //edit user
+    public function edit(user $user){
+        return view('users.edit', [
+            'user' =>  $user
+        ]);
+    }
+
+    //update user
+    public function update(Request $request, user $user){
+        $formFields = $request->validate([
+            'name' => ['required'],
+            'username' => ['required'],
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'max:10'],
+            'role' => ['required'],
+        ]);
+   
+    // Update user
+     $user->update($formFields);
+
+     return redirect('/umgmt')->with('success', 'User updated successfully.');
+    }
+
+    // Delete User
+    public function destroy( user $user){
+        $user->delete();
+        
+        return redirect('/umgmt')->with('success', 'User deleted successfully!');
     }
 }

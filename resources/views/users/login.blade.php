@@ -37,13 +37,6 @@
                         Sign In
                     </button>
                 </div>
-
-                <div class="mt-8 text-white">
-                    <p>
-                        Don't have an account?
-                        <a href="/register" class="text-white">Register </a>
-                    </p>
-                </div>
             </form>
             {{-- login end --}}
         </div>
