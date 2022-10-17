@@ -1,4 +1,4 @@
-@if(Request::path() == 'login')
+@if (Request::path() == 'login')
 @else
     <header class="z-20 py-4 shadow-md bg-gray-900 sticky top-0">
         <div class="container flex items-center justify-between md:justify-end h-full px-6 mx-auto text-white">
@@ -13,10 +13,12 @@
             </button>
 
             <span id='ct7' class="mr-2"></span>
+            <p>Hi <span class="mr-2 font-bold text-amber-500">{{auth()->user()->name}}</span></p>
             <ul class="flex items-center flex-shrink-0 space-x-6">
-              
+
                 <li>
-                    <button @click="openModal" id="lgbtn2" class="hidden lg:block"><i class="fa-solid fa-right-from-bracket"></i>
+                    <button @click="openModal" id="lgbtn2" class="hidden lg:block"><i
+                            class="fa-solid fa-right-from-bracket"></i>
                         Logout</button>
 
                     <script>

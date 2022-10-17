@@ -61,12 +61,12 @@ Route::get('/dashboard', function() {
 });
 
 // transactions
-Route::get('/transactions', function() {
+Route::get('/finance', function() {
     if (Auth::guest()) {
         //is a Laravel guest so redirect
         return redirect('login');
        }
-    return view('transactions');
+    return view('finance.index');
 });
 
 //Inventory Management
@@ -77,7 +77,42 @@ Route::get('/imgmt', function(){
     return view('inventory.index');
 });
 
+//Customers 
+Route::get('/customers', function(){
+    if (Auth::guest()){
+        return redirect('login');
+    }
+    return view('customers.index');
+});
 
+//Kitchen 
+Route::get('/kitchen', function(){
+    if (Auth::guest()){
+        return redirect('login');
+    }
+    return view('kitchen.index');
+});
 
+//Bar 
+Route::get('/bar', function(){
+    if (Auth::guest()){
+        return redirect('login');
+    }
+    return view('bar.index');
+});
 
+//Order 
+Route::get('/orders', function(){
+    if (Auth::guest()){
+        return redirect('login');
+    }
+    return view('orders.index');
+});
 
+//Tables 
+Route::get('/tables', function(){
+    if (Auth::guest()){
+        return redirect('login');
+    }
+    return view('tables.index');
+});
