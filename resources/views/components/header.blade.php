@@ -20,7 +20,6 @@
                     <button @click="openModal" id="lgbtn2" class="hidden lg:block"><i
                             class="fa-solid fa-right-from-bracket"></i>
                         Logout</button>
-
                     <script>
                         $('#lgbtn2').click(function() {
                             console.log('btn clicked');
