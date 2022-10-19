@@ -1,14 +1,16 @@
 <x-layout>
-  <a href="{{ url()->previous() }}" class="text-white" ><i class="fa-solid fa-arrow-left"></i> Back</a>
-  <div class="m-6 flex flex-col  w-max h-max">
-    <label for="category" class=" font-bold text-amber-600 text-xl">
-        Category
-    </label>
-   <form method='POST' action='/category/store' class="rounded-xl border-2 border-white bg-transparent shadow-lg  p-10 mb-10 mt-3 h-full" id="submit">
+  <div class="flex flex-col w-full h-max items-center gap-5">
+    <div class="flex justify-between 2xl:w-6/12 w-full">
+        <a href="{{ url()->previous() }}" class="text-white"><i class="fa-solid fa-arrow-left"></i> Back</a>
+        <label for="category" class="font-bold text-amber-600 text-xl">
+            Add Category
+        </label>
+    </div>
+   <form method='POST' action='/category/store' class="w-full 2xl:w-6/12 rounded-xl border-2 border-white bg-transparent shadow-lg p-10 mb-10 mt-3 h-full" id="submit">
     @csrf
     <div class="mb-6">
       <label for="name">
-          Category
+          Name
       </label>
       <input type="text" class="border border-gray-200 rounded p-2 w-full" name="name"
           value="{{ old('name') }}" autofocus placeholder="MoMo" />

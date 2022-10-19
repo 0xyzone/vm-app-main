@@ -7,6 +7,11 @@
             </div>
 
             <table>
+                @php
+                    $count_categories = $categories->count();
+                @endphp
+                @if ($count_categories == 0)
+                @else
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full">
                         <td class="tabledata">ID</td>
@@ -15,7 +20,13 @@
                         <td class="tabledata">Action</td>
                     </tr>
                 </thead>
+                @endif
                 <tbody>
+
+                    @if ($count_categories == 0)
+                <p class="text-white ">No categories found!</p>
+                    @endif
+
                     @foreach ($categories as $category)
                         <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300">
                             <td class="user-td">{{ $category->id }}</td>
@@ -43,9 +54,9 @@
             @php
                 $count_items = $items->count();
             @endphp
-                @if ($count_items == 0)
-                    <p class="text-white text-center">No items found!</p>
-                @endif
+            @if ($count_items == 0)
+                <p class="text-white">No items found!</p>
+            @endif
             @foreach ($items as $item)
                 <x-card class="justify-between">
                     <div class="flex items-center gap-4">
