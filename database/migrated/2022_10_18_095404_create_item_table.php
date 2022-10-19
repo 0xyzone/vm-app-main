@@ -15,10 +15,11 @@ class CreateItemTable extends Migration
     {
         Schema::create('item', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string('name');
             $table->string('category');
+            $table->string('name');
             $table->integer('price');
+            $table->string('unit');
+            $table->timestamps();
         });
     }
 

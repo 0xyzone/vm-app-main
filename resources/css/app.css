@@ -18,7 +18,11 @@ input[type="number"]::-webkit-inner-spin-button,
   }
 
 .reg-label{
-  @apply inline-block text-gray-900 text-lg mb-2;
+  @apply inline-block text-gray-900 text-lg;
+}
+
+label{
+  @apply text-white;
 }
 
 input{
@@ -29,6 +33,13 @@ input{
   @apply px-6 py-4;
 }
 
+.tabledata {
+  @apply py-3 px-6 text-left;
+}
+
+.btn-primary {
+  @apply border border-gray-300 p-2 rounded-lg hover:bg-gray-300 hover:text-gray-800 smooth;
+}
 /* ----
     Animations
   ---- */

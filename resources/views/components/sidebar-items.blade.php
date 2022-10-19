@@ -7,12 +7,12 @@ $menuItems = [
         'icon_class' => 'fa-regular fa-house',
     ],
     [
-        'name' => 'User Management',
+        'name' => 'Users',
         'path' => 'umgmt',
         'icon_class' => 'fa-regular fa-user-cog',
     ],
     [
-        'name' => 'Inventory Management',
+        'name' => 'Inventory',
         'path' => 'imgmt',
         'icon_class' => 'fa-solid fa-box-circle-check',
     ],
@@ -47,10 +47,12 @@ $menuItems = [
         'icon_class' => 'fa-duotone fa-loveseat',
     ],
 ];
+
 @endphp
 {{-- Menu Items End --}}
 <div class="flex flex-col gap-2">
     @foreach ($menuItems as $item)
+
         <a class="w-full text-white items-center flex gap-4 hover:bg-amber-600 rounded-lg px-5 py-2.5 smooth text-2xl @if (Request::path() == $item['path']) bg-amber-600 @else bg-gray-800 @endif"
             @if (Request::path() == $item['path']) @else href="/{{ $item['path'] }}" @endif>
             <i class="w-10 text-center {{ $item['icon_class'] }}"></i>

@@ -2,18 +2,18 @@
 
     <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
         <p>Manage User</p>
-        <a href="/register" class="border border-gray-300 p-2"> Create user </a>
+        <a href="/register" class="btn-primary"> Create user </a>
     </div>
     <table class="w-full mt-5 hidden md:inline-block">
         <thead class="w-full">
             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full">
-                <td class="py-3 px-6 text-left">id</td>
-                <td class="py-3 px-6 text-left w-full">Name</td>
-                <td class="py-3 px-6 text-left">Username</td>
-                <td class="py-3 px-6 text-left">Email</td>
-                <td class="py-3 px-6 text-left">Phone no.</td>
-                <td class="py-3 px-6 text-left">Role</td>
-                <td class="py-3 px-6 text-left">Actions</td>
+                <td class="tabledata">id</td>
+                <td class="tabledata w-full">Name</td>
+                <td class="tabledata">Username</td>
+                <td class="tabledata">Email</td>
+                <td class="tabledata">Phone no.</td>
+                <td class="tabledata">Role</td>
+                <td class="tabledata">Actions</td>
             </tr>
         </thead>
         @php
@@ -37,9 +37,9 @@
                     <td class="user-td">{{ $user->phone }}</td>
                     <td class="user-td">{{ $user->role }} </td>
                     <td class="user-td">
-                        <div class="flex gap-4">
+                        <div class="flex gap-4 justify-center w-full">
                             <a href="users/{{ $user->id }}/edit"><i
-                                    class="fa-solid fa-edit hover:text-amber-600 hover:font-bold"></i></a>
+                                    class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i></a>
                             <form method="POST" action="/users/{{ $user->id }}">
                                 @csrf
                                 @method('DELETE')

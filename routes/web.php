@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InventoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -70,12 +71,19 @@ Route::get('/finance', function() {
 });
 
 //Inventory Management
-Route::get('/imgmt', function(){
-    if (Auth::guest()){
-        return redirect('login');
-    }
-    return view('inventory.index');
-});
+Route::get('/imgmt', [InventoryController::class, 'view']);
+
+//Store catagory
+Route::post('/category/store', [InventoryController::class,'category_store']);
+
+//Category Management
+Route::get('/ctmgmt', [InventoryController::class, 'categories']);
+
+//store item
+Route::post('/item/store', [InventoryController::class, 'item_store']);
+
+//Item Management
+Route::get('/itmgmt', [InventoryController::class, 'item']);
 
 //Customers 
 Route::get('/customers', function(){
