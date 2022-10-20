@@ -44,7 +44,7 @@
 
             </table>
         </div>
-        <div class="lg:w-6/12 flex flex-col gap-4">
+        <div class="lg:w-6/12 flex flex-col gap-4 pb-20">
             <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
                 <p>Items</p>
                 <a href="/itmgmt" class="btn-primary"> Add Item</a>
@@ -60,11 +60,11 @@
                 <x-card class="justify-between">
                     <div class="flex items-center gap-4">
                         <div
-                            class="px-6 py-4 text-3xl rounded-lg bg-gray-300 font-bold justify-center items-center flex">
+                            class="w-32 h-32 rounded-lg bg-gray-300 font-bold justify-center items-center flex">
                             @if ($item->image)
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="item image" class="w-32 h-32">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="item image" class="w-32 h-32 rounded-lg">
                             @else
-                                {{ $item->id }}
+                            <img src="{{ asset('img/logo.png') }}" alt="item image" class="w-32 h-32 rounded-lg object-contain">
                             @endif
                         </div>
                         <div>
@@ -78,9 +78,9 @@
                         </div>
                     </div>
                     <div class="flex gap-4 mr-2">
-                        <a href="item/{{ $item->id }}/edit"><i
+                        <a href="items/{{ $item->id }}/edit"><i
                                 class="fa-solid fa-edit hover:text-amber-600 hover:font-bold"></i></a>
-                        <form method="POST" action="/item/delete/{{ $item->id }}">
+                        <form method="POST" action="/items/delete/{{ $item->id }}">
                             @csrf
                             @method('DELETE')
                             <button id="delete"

@@ -82,6 +82,12 @@ Route::get('/ctmgmt', [InventoryController::class, 'categories']);
 //store item
 Route::post('/item/store', [InventoryController::class, 'store']);
 
+//edit item
+Route::get('/items/{item}/edit', [InventoryController::class, 'item_edit']);
+
+//Update user
+Route::put('/item/{item}', [InventoryController::class, 'item_update']);
+
 //Item Management
 Route::get('/itmgmt', [InventoryController::class, 'item']);
 

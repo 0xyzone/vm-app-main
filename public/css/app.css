@@ -845,6 +845,10 @@ video {
 .to-gray-50\/80 {
   --tw-gradient-to: rgb(249 250 251 / 0.8);
 }
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 .p-4 {
   padding: 1rem;
 }
@@ -897,6 +901,9 @@ video {
 }
 .pb-10 {
   padding-bottom: 2.5rem;
+}
+.pb-20 {
+  padding-bottom: 5rem;
 }
 .text-center {
   text-align: center;

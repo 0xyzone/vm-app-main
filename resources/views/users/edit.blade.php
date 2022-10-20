@@ -24,7 +24,7 @@
                   Username
               </label>
               <input type="text" class="border border-gray-200 rounded p-2 w-full" name="username"
-                  value="{{$user-> username}}" />
+                  value="{{$user->username}}" />
               @error('username')
                   <p class="text-white text-xs mt-1">{{ $message }}</p>
               @enderror
@@ -33,7 +33,7 @@
           <div class="mb-6">
               <label for="email" class="inline-block text-white text-lg mb-2">Email</label>
               <input type="email" class="border border-gray-200 rounded p-2 w-full" name="email"
-                  value="{{$user-> email}}" />
+                  value="{{$user->email}}" />
               @error('email')
                   <p class="text-white text-xs mt-1">{{ $message }}</p>
               @enderror

@@ -7,6 +7,7 @@ use App\Models\Categories;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InventoryController extends Controller
 {
@@ -70,5 +71,34 @@ class InventoryController extends Controller
         return view('inventory.item', [
             'categories' => Categories::all()
         ]);
+    }
+
+    //edit item
+    public function item_edit(items $item){
+        return view('inventory.item-edit', [
+            'categories' => Categories::all(),
+            'item' =>  $item,
+        ]);
+    }
+
+    //update item
+    public function item_update(Request $request, Items $items){
+        $formFields = $request->validate([
+            'name' => ['required'],
+            'price' => ['required'],
+            'unit' => ['required'],
+            'category' => ['required'],
+        ]);
+        
+        if($request->hasFile('image')){
+            Storage::delete($items->image);
+            $items->image = $request->file('image')->store('images', 'public');
+        }
+    // Update item
+     $items->update($formFields + [
+        'image' => $items->image
+     ]);
+
+     return redirect('/imgmt')->with('success', 'Item updated successfully.');
     }
 }
