@@ -12,24 +12,23 @@
                 @endphp
                 @if ($count_categories == 0)
                 @else
-                <thead>
-                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full">
-                        <td class="tabledata">ID</td>
-                        <td class="tabledata w-full">Category</td>
-                        <td class="tabledata">Type</td>
-                        <td class="tabledata">Action</td>
-                    </tr>
-                </thead>
+                    <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full">
+                            <td class="tabledata">ID</td>
+                            <td class="tabledata w-full">Category</td>
+                            <td class="tabledata">Type</td>
+                            <td class="tabledata">Action</td>
+                        </tr>
+                    </thead>
                 @endif
                 <tbody>
-
                     @if ($count_categories == 0)
-                <p class="text-white ">No categories found!</p>
+                        <p class="text-white ">No categories found!</p>
                     @endif
 
                     @foreach ($categories as $category)
                         <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300">
-                            <td class="user-td">{{ $category->id }}</td>
+                            <td class="user-td">{{ $category->id }} </td>
                             <td class="user-td w-full">{{ $category->name }}</td>
                             <td class="user-td">{{ $category->type }}</td>
                             <td>
@@ -62,7 +61,12 @@
                     <div class="flex items-center gap-4">
                         <div
                             class="px-6 py-4 text-3xl rounded-lg bg-gray-300 font-bold justify-center items-center flex">
-                            {{ $item->id }} </div>
+                            @if ($item->image)
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="item image" class="w-32 h-32">
+                            @else
+                                {{ $item->id }}
+                            @endif
+                        </div>
                         <div>
                             <span class="text-gray-500 font-thin text-xs">
                                 <i class="fa-regular fa-layer-group"></i> {{ $item->category }}</span>

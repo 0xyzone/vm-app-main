@@ -80,7 +80,7 @@ Route::post('/category/store', [InventoryController::class,'category_store']);
 Route::get('/ctmgmt', [InventoryController::class, 'categories']);
 
 //store item
-Route::post('/item/store', [InventoryController::class, 'item_store']);
+Route::post('/item/store', [InventoryController::class, 'store']);
 
 //Item Management
 Route::get('/itmgmt', [InventoryController::class, 'item']);

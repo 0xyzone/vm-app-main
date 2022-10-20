@@ -6,7 +6,7 @@
                 Add Item
             </label>
         </div>
-        <form method="POST" action="/item/store"
+        <form method="POST" action="/item/store" enctype="multipart/form-data"
             class="w-full 2xl:w-6/12 rounded-xl border-2 border-white bg-transparent shadow-lg p-10 mb-10 mt-3 h-full" id="submit">
             @csrf
             <div class="mb-6">
@@ -62,11 +62,11 @@
                     Item image
                 </label>
                 <input type="file" class="border border-gray-200 rounded p-2 text-white w-full" name="image" />
-
                 @error('image')
                     <p class="text-white text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
             <div class="mb-6">
                 <button type="submit" class="text-white  border border-sky-200 rounded py-2 px-4 hover:bg-black">
                     Add

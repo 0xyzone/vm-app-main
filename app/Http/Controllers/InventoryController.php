@@ -24,13 +24,17 @@ class InventoryController extends Controller
     }
 
      //create an item
-     public function item_store(Request $request){
+     public function store(Request $request){
         $formFields = $request->validate([
             'name' => ['required', Rule::unique('items', 'name')],
             'price' => ['required'],
             'unit' => ['required'],
-            'category' => ['required'],
+            'category' => ['required']
         ]);
+
+        if($request->hasFile('image')){
+            $formFields['image'] = $request->file('image')->store('images', 'public');
+        }
 
         //create item
         Items::create($formFields);
