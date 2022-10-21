@@ -93,6 +93,14 @@ class InventoryController extends Controller
         ]);
     }
 
+    //edit item
+    public function item_edit(items $item){
+        return view('inventory.item-edit', [
+            'categories' => Categories::all(),
+            'item' =>  $item,
+        ]);
+    }
+
     //update item
     public function item_update(Request $request, Items $item){
         $formFields = $request->validate([
@@ -106,7 +114,7 @@ class InventoryController extends Controller
             $item->image = $request->file('image')->store('images', 'public');
             $formFields['image'] = $item->image;
         }
-        // Update item
+    // Update item
      $item->update($formFields);
      return redirect('/imgmt')->with('success', 'Item updated successfully.');
     }

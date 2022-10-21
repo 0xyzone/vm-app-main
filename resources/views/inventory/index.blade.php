@@ -36,7 +36,6 @@
                                 <div class="flex gap-4 justify-center w-full">
                                     <a href="categories/{{ $category->id }}/edit"><i
                                             class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i></a>
-                                    <a><i class="fa-regular fa-trash smooth hover:text-rose-600"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -62,17 +61,24 @@
             @foreach ($items as $item)
                 <x-card class="justify-between">
                     <div class="flex items-center gap-4">
-                        <div
-                            class="w-32 h-32 rounded-lg bg-gray-300 font-bold justify-center items-center flex">
+                        <div class="w-32 h-32 rounded-lg bg-gray-300 font-bold justify-center items-center flex">
                             @if ($item->image)
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="item image" class="w-32 h-32 rounded-lg object-cover">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="item image"
+                                    class="w-32 h-32 rounded-lg object-cover">
                             @else
-                            <img src="{{ asset('img/logo.png') }}" alt="item image" class="w-32 h-32 rounded-lg object-contain">
+                                <img src="{{ asset('img/logo.png') }}" alt="item image"
+                                    class="w-32 h-32 rounded-lg object-contain">
                             @endif
                         </div>
                         <div>
                             <span class="text-gray-500 font-thin text-xs">
-                                <i class="fa-regular fa-layer-group"></i> {{ $item->category }}</span>
+                                <i class="fa-regular fa-layer-group"></i>
+                                @foreach ($categories as $category)
+                                    @if ($item->category == $category['id'])
+                                        {{ $category['name'] }}
+                                    @endif
+                                @endforeach
+                            </span>
                             <p>
                                 <span class="text-3xl font-thin text-amber-600">{{ $item->name }}</span>
                             </p>

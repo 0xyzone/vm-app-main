@@ -46,9 +46,15 @@
                     Category
                 </label>
                 <select name="category" id="category" class="border border-gray-200 rounded p-2 w-full">
-                    <option value="{{ $item->category }}" selected hidden>{{ $item->category }}</option>
+                    <option value="{{ $item->category }}" selected hidden>
+                        @foreach ($categories as $category)
+                            @if ($item->category == $category['id'])
+                            {{$category['name']}}
+                            @endif
+                        @endforeach
+                    </option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category['name'] }}" @if (old('category') === $category['name']) selected @else @endif>
+                        <option value="{{ $category['id'] }}" @if (old('category') === $category['id']) selected @else @endif>
                             {{ $category['name'] }}</option>
                     @endforeach
                 </select>

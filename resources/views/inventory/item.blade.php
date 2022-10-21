@@ -48,7 +48,7 @@
                 <select name="category" id="category" class="border border-gray-200 rounded p-2 w-full">
                     <option value="" disabled selected hidden>Please Choose an option.</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category['name'] }}" @if (old('category') === $category['name']) selected @else @endif>
+                        <option value="{{ $category['id'] }}" @if (old('category') === $category['id']) selected @else @endif>
                             {{ $category['name'] }}</option>
                     @endforeach
                 </select>
