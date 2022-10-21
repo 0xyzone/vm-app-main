@@ -4,8 +4,8 @@
         <h2 class="text-2xl font-bold text-white uppercase text-center my-5">
             Edit item
         </h2>
-
-        <form method="POST" action="/item/{{ $item->id }}"
+ 
+        <form method="POST" action="/item/{{ $item->id }}" enctype="multipart/form-data"
             class="rounded-lg border border-black bg-gray-800 p-10 mb-10 h-full" id="signup">
             @csrf
             @method('PUT')
@@ -65,7 +65,10 @@
                 @error('image')
                     <p class="text-white text-xs mt-1">{{ $message }}</p>
                 @enderror
-                <img src="{{ asset('storage/' . $item->image) }}" alt="item image" class="w-32 h-32 rounded-lg mt-4">
+                @if($item->image)
+                <img src="{{ asset('storage/' . $item->image) }}" alt="item image" class="w-32 h-32 rounded-lg mt-4 object-cover">
+                @else
+                @endif
             </div>
 
             <div class="mb-6">

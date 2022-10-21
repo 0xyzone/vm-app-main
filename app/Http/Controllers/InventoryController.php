@@ -51,6 +51,26 @@ class InventoryController extends Controller
         return view('inventory.category');
     }
 
+     //category edit
+     public function category_edit(categories $category){
+        return view('inventory.category-edit', [
+            'categories' => Categories::all(),
+            'category' =>  $category,
+        ]);
+    }
+
+    //update category
+    public function category_update(Request $request, Categories $category){
+        $formFields = $request->validate([
+            'name' => ['required'],
+            'type' => ['required'],
+        ]);
+        
+        $category->update($formFields);
+
+        return redirect('/imgmt')->with('success', 'Category updated successfully.');
+    }
+
     //Inventory main view 
     public function view(){
         if (Auth::guest()){
@@ -73,32 +93,21 @@ class InventoryController extends Controller
         ]);
     }
 
-    //edit item
-    public function item_edit(items $item){
-        return view('inventory.item-edit', [
-            'categories' => Categories::all(),
-            'item' =>  $item,
-        ]);
-    }
-
     //update item
-    public function item_update(Request $request, Items $items){
+    public function item_update(Request $request, Items $item){
         $formFields = $request->validate([
             'name' => ['required'],
             'price' => ['required'],
             'unit' => ['required'],
             'category' => ['required'],
         ]);
-        
         if($request->hasFile('image')){
-            Storage::delete($items->image);
-            $items->image = $request->file('image')->store('images', 'public');
+            Storage::delete('public/'.$item->image);
+            $item->image = $request->file('image')->store('images', 'public');
+            $formFields['image'] = $item->image;
         }
-    // Update item
-     $items->update($formFields + [
-        'image' => $items->image
-     ]);
-
+        // Update item
+     $item->update($formFields);
      return redirect('/imgmt')->with('success', 'Item updated successfully.');
     }
 }

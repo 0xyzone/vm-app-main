@@ -4,17 +4,17 @@
         [
             'name' => 'Dashboard',
             'path' => 'dashboard',
-            'icon_class' => 'fa-regular fa-house',
+            'icon_class' => 'fa-duotone fa-house',
         ],
         [
             'name' => 'Users',
             'path' => 'umgmt',
-            'icon_class' => 'fa-regular fa-user-cog',
+            'icon_class' => 'fa-duotone fa-user-cog',
         ],
         [
             'name' => 'Inventory',
             'path' => 'imgmt',
-            'icon_class' => 'fa-solid fa-box-circle-check',
+            'icon_class' => 'fa-duotone fa-box-circle-check',
         ],
         [
             'name' => 'Tables',
@@ -24,7 +24,7 @@
         [
             'name' => 'Finance',
             'path' => 'finance',
-            'icon_class' => 'fa-regular fa-cash-register',
+            'icon_class' => 'fa-duotone fa-cash-register',
         ],
         [
             'name' => 'Customers',

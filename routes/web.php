@@ -79,13 +79,19 @@ Route::post('/category/store', [InventoryController::class,'category_store']);
 //Category Management
 Route::get('/ctmgmt', [InventoryController::class, 'categories']);
 
+//edit category
+Route::get('/categories/{category}/edit', [InventoryController::class, 'category_edit']);
+
+//update category
+Route::put('/category/{category}', [InventoryController::class, 'category_update']);
+
 //store item
 Route::post('/item/store', [InventoryController::class, 'store']);
 
 //edit item
 Route::get('/items/{item}/edit', [InventoryController::class, 'item_edit']);
 
-//Update user
+//Update item
 Route::put('/item/{item}', [InventoryController::class, 'item_update']);
 
 //Item Management

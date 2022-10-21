@@ -849,6 +849,10 @@ video {
   -o-object-fit: contain;
      object-fit: contain;
 }
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 .p-4 {
   padding: 1rem;
 }

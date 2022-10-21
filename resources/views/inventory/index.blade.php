@@ -2,6 +2,7 @@
     <div class="grid grid-cols-1 gap-10 h-32 w-full place-items-center">
         <div class="lg:w-6/12 flex flex-col gap-4">
             <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
+                {{-- category --}}
                 <p>Categories</p>
                 <a href="/ctmgmt" class="btn-primary"> Add Catagory</a>
             </div>
@@ -33,7 +34,7 @@
                             <td class="user-td">{{ $category->type }}</td>
                             <td>
                                 <div class="flex gap-4 justify-center w-full">
-                                    <a href=""><i
+                                    <a href="categories/{{ $category->id }}/edit"><i
                                             class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i></a>
                                     <a><i class="fa-regular fa-trash smooth hover:text-rose-600"></i></a>
                                 </div>
@@ -44,6 +45,8 @@
 
             </table>
         </div>
+
+        {{-- items --}}
         <div class="lg:w-6/12 flex flex-col gap-4 pb-20">
             <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
                 <p>Items</p>
@@ -62,7 +65,7 @@
                         <div
                             class="w-32 h-32 rounded-lg bg-gray-300 font-bold justify-center items-center flex">
                             @if ($item->image)
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="item image" class="w-32 h-32 rounded-lg">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="item image" class="w-32 h-32 rounded-lg object-cover">
                             @else
                             <img src="{{ asset('img/logo.png') }}" alt="item image" class="w-32 h-32 rounded-lg object-contain">
                             @endif
