@@ -1,6 +1,6 @@
 @if (Request::path() == 'login')
 @else
-    <header class="z-20 py-4 shadow-md bg-gray-900 sticky top-0">
+    <header class="z-20 py-4 shadow-md bg-gray-900 sticky top-0 w-full">
         <div class="container flex items-center justify-between md:justify-end h-full px-6 mx-auto text-white">
             <!-- Mobile hamburger -->
             <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-lime"
@@ -11,10 +11,11 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </button>
-
-            <span id='ct7' class="mr-2"></span>
-            <p>Hi <span class="mr-2 font-bold text-amber-500">{{auth()->user()->name}}</span></p>
-            <ul class="flex items-center flex-shrink-0 space-x-6">
+            <div class="flex md:justify-between w-full">
+                <span id='ct7' class="w-full md:w-auto text-center md:text-left"></span>
+                <p class="hidden md:block">Hi <span class="mr-2 font-bold text-amber-500">{{ auth()->user()->name }}</span></p>
+            </div>
+            <ul class="md:flex items-center flex-shrink-0 space-x-6 hidden">
 
                 <li>
                     <button @click="openModal" id="lgbtn2" class="hidden lg:block"><i

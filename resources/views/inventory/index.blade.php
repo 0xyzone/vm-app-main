@@ -64,7 +64,7 @@
                         <div class="w-32 h-32 rounded-lg bg-gray-300 font-bold justify-center items-center flex">
                             @if ($item->image)
                                 <img src="{{ asset('storage/' . $item->image) }}" alt="item image"
-                                    class="w-32 h-32 rounded-lg object-cover">
+                                    class="w-32 h-32 rounded-lg object-cover" onerror="this.onerror=null;this.src='{{asset('img/logo.png')}}';">
                             @else
                                 <img src="{{ asset('img/logo.png') }}" alt="item image"
                                     class="w-32 h-32 rounded-lg object-contain">

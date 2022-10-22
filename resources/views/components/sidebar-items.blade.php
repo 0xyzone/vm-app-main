@@ -60,41 +60,17 @@
             $name = $item['name'];
         @endphp
         @if ($role == 'BarMaster' && $name == 'Bar')
-            <a class="w-full text-white items-center flex gap-4 hover:bg-amber-600 rounded-lg px-5 py-2.5 smooth text-2xl @if (Request::path() == $item['path']) bg-amber-600 @else bg-gray-800 @endif"
-                @if (Request::path() == $item['path']) @else href="/{{ $item['path'] }}" @endif>
-                <i class="w-10 text-center {{ $item['icon_class'] }}"></i>
-                <span class="text-lg font-normal">{{ $item['name'] }}</span>
-            </a>
+            @include('components.menubutton')
         @elseif ($role == 'KitchenMaster' && $name == 'Kitchen')
-            <a class="w-full text-white items-center flex gap-4 hover:bg-amber-600 rounded-lg px-5 py-2.5 smooth text-2xl @if (Request::path() == $item['path']) bg-amber-600 @else bg-gray-800 @endif"
-                @if (Request::path() == $item['path']) @else href="/{{ $item['path'] }}" @endif>
-                <i class="w-10 text-center {{ $item['icon_class'] }}"></i>
-                <span class="text-lg font-normal">{{ $item['name'] }}</span>
-            </a>
+            @include('components.menubutton')
         @elseif ($role == 'Cashier' && ($name == 'Tables' || $name == 'Finance' || $name == 'Customers'))
-            <a class="w-full text-white items-center flex gap-4 hover:bg-amber-600 rounded-lg px-5 py-2.5 smooth text-2xl @if (Request::path() == $item['path']) bg-amber-600 @else bg-gray-800 @endif"
-                @if (Request::path() == $item['path']) @else href="/{{ $item['path'] }}" @endif>
-                <i class="w-10 text-center {{ $item['icon_class'] }}"></i>
-                <span class="text-lg font-normal">{{ $item['name'] }}</span>
-            </a>
+            @include('components.menubutton')
         @elseif ($role == 'Cook' && $name == 'Kitchen')
-            <a class="w-full text-white items-center flex gap-4 hover:bg-amber-600 rounded-lg px-5 py-2.5 smooth text-2xl @if (Request::path() == $item['path']) bg-amber-600 @else bg-gray-800 @endif"
-                @if (Request::path() == $item['path']) @else href="/{{ $item['path'] }}" @endif>
-                <i class="w-10 text-center {{ $item['icon_class'] }}"></i>
-                <span class="text-lg font-normal">{{ $item['name'] }}</span>
-            </a>
+            @include('components.menubutton')
         @elseif ($role == 'Waiter' && ($name == 'Tables' || $name == 'Orders' || $name == 'Customers'))
-            <a class="w-full text-white items-center flex gap-4 hover:bg-amber-600 rounded-lg px-5 py-2.5 smooth text-2xl @if (Request::path() == $item['path']) bg-amber-600 @else bg-gray-800 @endif"
-                @if (Request::path() == $item['path']) @else href="/{{ $item['path'] }}" @endif>
-                <i class="w-10 text-center {{ $item['icon_class'] }}"></i>
-                <span class="text-lg font-normal">{{ $item['name'] }}</span>
-            </a>
+            @include('components.menubutton')
         @elseif ($role == 'Admin')
-            <a class="w-full text-white items-center flex gap-4 hover:bg-amber-600 rounded-lg px-5 py-2.5 smooth text-2xl @if (Request::path() == $item['path']) bg-amber-600 @else bg-gray-800 @endif"
-                @if (Request::path() == $item['path']) @else href="/{{ $item['path'] }}" @endif>
-                <i class="w-10 text-center {{ $item['icon_class'] }}"></i>
-                <span class="text-lg font-normal">{{ $item['name'] }}</span>
-            </a>
+            @include('components.menubutton')
         @else
         @endif
     @endforeach

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -130,9 +131,10 @@ Route::get('/orders', function(){
 });
 
 //Tables 
-Route::get('/tables', function(){
-    if (Auth::guest()){
-        return redirect('login');
-    }
-    return view('tables.index');
-});
+Route::get('/tables', [TableController::class, 'view']);
+
+// Show add table form
+Route::get('/tables/add', [TableController::class, 'show']);
+
+// Add table to database
+Route::post('/tables/store', [TableController::class, 'store']);
