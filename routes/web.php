@@ -92,6 +92,9 @@ Route::post('/item/store', [InventoryController::class, 'store']);
 //edit item
 Route::get('/items/{item}/edit', [InventoryController::class, 'item_edit']);
 
+//delete item
+Route::delete('/items/{item}/delete', [InventoryController::class, 'item_delete']);
+
 //Update item
 Route::put('/item/{item}', [InventoryController::class, 'item_update']);
 

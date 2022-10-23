@@ -101,6 +101,14 @@ class InventoryController extends Controller
         ]);
     }
 
+    //ddelete item
+    public function item_delete(items $item){
+        Storage::delete('public/'.$item->image);
+        $item->delete();
+
+        return redirect('/imgmt')->with('success', 'Item deleted successfully.');
+    }
+
     //update item
     public function item_update(Request $request, Items $item){
         $formFields = $request->validate([
