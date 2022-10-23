@@ -45,7 +45,9 @@
                         </tr>
                     @endforeach
                 </tbody>
-
+                <div class="mt-6 ">
+                    {{ $categories->links() }}
+                </div>
             </table>
         </div>
 
@@ -84,9 +86,13 @@
                             <td class="user-td">{{ $item['id'] }} </td>
                             <td class="user-td">
                                 @if ($item->image)
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="item image" class="w-10 h-10 object-cover rounded-lg" onerror="this.onerror=null;this.src='{{asset('img/logo.png')}}';">
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="item image"
+                                        class="w-10 h-10 object-cover rounded-lg"
+                                        onerror="this.onerror=null;this.src='{{ asset('img/logo.png') }}';">
                                 @else
-                                <img src="{{ asset('img/logo.png') }}" alt="item image" class="w-10 h-10 object-cover rounded-lg" onerror="this.onerror=null;this.src='{{asset('img/logo.png')}}';">
+                                    <img src="{{ asset('img/logo.png') }}" alt="item image"
+                                        class="w-10 h-10 object-cover rounded-lg"
+                                        onerror="this.onerror=null;this.src='{{ asset('img/logo.png') }}';">
                                 @endif
                             </td>
                             <td class="user-td">{{ $item['name'] }}</td>
@@ -104,19 +110,25 @@
                                     <a href="items/{{ $item->id }}/edit">
                                         <i class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i>
                                     </a>
-                                    <form method="POST" action="/items/{{$item->id}}/delete">
+                                    <form method="POST" action="/items/{{ $item->id }}/delete">
                                         @csrf
                                         @method('DELETE')
-                                        <button class=""  onclick="return confirm('Are you sure you want to delete this item?')">
+                                        <button class=""
+                                            onclick="return confirm('Are you sure you want to delete this item?')">
                                             <i class="fa-regular fa-trash smooth hover:text-rose-600"></i>
                                         </button>
-                                    </form></form>
+                                    </form>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            <div class="mt-6 ">
+                {{ $items->links() }}
+            </div>
         </div>
     </div>
+
 </x-layout>

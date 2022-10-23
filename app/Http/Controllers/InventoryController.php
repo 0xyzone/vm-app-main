@@ -77,8 +77,8 @@ class InventoryController extends Controller
             return redirect('login');
         }
         return view('inventory.index',[
-            'categories' => Categories::all(),
-            'items' => Items::all()
+            'categories' => Categories::latest()->paginate(1),
+            'items' => Items::latest()->Paginate(2),
         ]);
         
     }

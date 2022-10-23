@@ -38,7 +38,7 @@ input{
 }
 
 .btn-primary {
-  @apply border border-gray-300 p-2 rounded-lg hover:bg-gray-300 hover:text-gray-800 smooth;
+  @apply border border-gray-300 p-2 rounded-lg text-white hover:bg-gray-300 hover:text-gray-800 smooth;
 }
 /* ----
     Animations
