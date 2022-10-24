@@ -14,7 +14,7 @@
                 @if ($count_categories == 0)
                 @else
                     <thead>
-                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full">
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full font-bold">
                             <td class="tabledata">ID</td>
                             <td class="tabledata w-full">Category</td>
                             <td class="tabledata">Type</td>
@@ -44,10 +44,10 @@
                             </td>
                         </tr>
                     @endforeach
+                    <div class="mt-6 ">
+                        {{ $categories->appends(['items' => $items->currentPage()])->links('pagination::tailwind') }}
+                    </div>
                 </tbody>
-                <div class="mt-6 ">
-                    {{ $categories->links() }}
-                </div>
             </table>
         </div>
 
@@ -63,13 +63,12 @@
             @endphp
             <table class="w-full">
                 <thead>
-                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full">
+                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full font-bold">
                         <td class="tabledata"> ID </td>
-                        <td class="tabledata"> Image </td>
+                        <td class="tabledata hidden lg:block"> Image </td>
                         <td class="tabledata"> Name </td>
                         <td class="tabledata"> Price </td>
-                        <td class="tabledata"> Unit </td>
-                        <td class="tabledata"> Category </td>
+                        <td class="tabledata hidden lg:block"> Category </td>
                         <td class="tabledata">
                             <div class="flex gap-4 justify-center w-full">
                                 Action
@@ -84,7 +83,7 @@
                     @foreach ($items as $item)
                         <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300">
                             <td class="user-td">{{ $item['id'] }} </td>
-                            <td class="user-td">
+                            <td class="user-td hidden lg:inline-block">
                                 @if ($item->image)
                                     <img src="{{ asset('storage/' . $item->image) }}" alt="item image"
                                         class="w-10 h-10 object-cover rounded-lg"
@@ -97,8 +96,7 @@
                             </td>
                             <td class="user-td">{{ $item['name'] }}</td>
                             <td class="user-td">{{ $item['price'] }}</td>
-                            <td class="user-td">{{ $item['unit'] }}</td>
-                            <td class="user-td">
+                            <td class="user-td hidden lg:inline-block">
                                 @foreach ($categories as $category)
                                     @if ($item['category'] == $category['id'])
                                         {{ $category['name'] }}
@@ -126,7 +124,7 @@
                 </tbody>
             </table>
             <div class="mt-6 ">
-                {{ $items->links() }}
+                {{ $items->appends(['categories' => $categories->currentPage()])->links() }}
             </div>
         </div>
     </div>

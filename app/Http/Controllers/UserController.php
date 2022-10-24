@@ -69,7 +69,7 @@ class UserController extends Controller
     // User Management
     public function usermanagement(){
         return view('users.management',[
-            'users' =>  User::all()
+            'users' =>  User::paginate(5, ['*'], 'users')
         ]);
     }
 

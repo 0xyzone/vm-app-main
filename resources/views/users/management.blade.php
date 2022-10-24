@@ -48,7 +48,6 @@
                                         class="fa-regular fa-trash smooth hover:text-rose-600"></i></button>
                             </form>
                         </div>
-
                     </td>
                 </tr>
             @endforeach
@@ -86,5 +85,8 @@
 
             </x-card>
         @endforeach
+    </div>
+    <div class="mt-6">
+        {{ $users->links() }}
     </div>
 </x-layout>

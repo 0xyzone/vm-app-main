@@ -22,6 +22,11 @@
             'icon_class' => 'fa-duotone fa-loveseat',
         ],
         [
+            'name' => 'Orders',
+            'path' => 'orders',
+            'icon_class' => 'fa-duotone fa-clipboard-list',
+        ],
+        [
             'name' => 'Finance',
             'path' => 'finance',
             'icon_class' => 'fa-duotone fa-cash-register',
@@ -40,11 +45,6 @@
             'name' => 'Bar',
             'path' => 'bar',
             'icon_class' => 'fa-duotone fa-martini-glass-citrus',
-        ],
-        [
-            'name' => 'Orders',
-            'path' => 'orders',
-            'icon_class' => 'fa-duotone fa-clipboard-list',
         ],
     ];
     

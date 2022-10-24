@@ -62,7 +62,7 @@ class InventoryController extends Controller
     //update category
     public function category_update(Request $request, Categories $category){
         $formFields = $request->validate([
-            'name' => ['required'],
+            'name' => ['required', Rule::unique('categories', 'name')],
             'type' => ['required'],
         ]);
         
@@ -77,8 +77,8 @@ class InventoryController extends Controller
             return redirect('login');
         }
         return view('inventory.index',[
-            'categories' => Categories::latest()->paginate(1),
-            'items' => Items::latest()->Paginate(2),
+            'categories' => Categories::paginate(3, ['*'], 'categories'),
+            'items' => Items::paginate(3, ['*'], 'items'),
         ]);
         
     }
@@ -112,7 +112,7 @@ class InventoryController extends Controller
     //update item
     public function item_update(Request $request, Items $item){
         $formFields = $request->validate([
-            'name' => ['required'],
+            'name' => ['required', Rule::unique('items', 'name')],
             'price' => ['required'],
             'unit' => ['required'],
             'category' => ['required'],

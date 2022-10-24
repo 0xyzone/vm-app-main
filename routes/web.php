@@ -141,3 +141,9 @@ Route::get('/tables/add', [TableController::class, 'show']);
 
 // Add table to database
 Route::post('/tables/store', [TableController::class, 'store']);
+
+//Reserve table 
+Route::get('/tables/{table}', [TableController::class, 'reserve']);
+
+//Reserve table 
+Route::post('/tables/{table}/reserve', [TableController::class, 'reserve_update']);

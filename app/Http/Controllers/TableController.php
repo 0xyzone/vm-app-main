@@ -35,7 +35,27 @@ class TableController extends Controller
             return redirect('login');
         }
         return view('tables.index',[
-            'tables' => Tables::all()
+            'tables' => Tables::paginate(8)
         ]);
+    }
+
+    // Show reserve table view
+    public function reserve(Tables $table){
+        if (Auth::guest()){
+            return redirect('login');
+        }
+        return view('tables.table',[
+            'tables' => $table,
+        ]);
+    }
+    // Reserve a table
+    public function reserve_update(Request $request, Tables $table){
+        $formFields = $request->validate([
+            'availability' => ['required'],
+        ]);
+
+        $table->update($formFields);
+
+        return redirect('/tables')->with('success', 'Table updated successfully');
     }
 }
