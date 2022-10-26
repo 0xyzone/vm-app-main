@@ -4,7 +4,7 @@
             <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
                 {{-- category --}}
                 <p>Categories</p>
-                <a href="/ctmgmt" class="btn-primary"> Add Catagory</a>
+                <a href="/inventory/category/add" class="btn-primary"> Add Catagory</a>
             </div>
 
             <table>
@@ -38,7 +38,7 @@
                             <td class="user-td">{{ $category->type }}</td>
                             <td>
                                 <div class="flex gap-4 justify-center w-full">
-                                    <a href="categories/{{ $category->id }}/edit"><i
+                                    <a href="inventory/categories/{{ $category->id }}/edit"><i
                                             class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i></a>
                                 </div>
                             </td>
@@ -55,7 +55,7 @@
         <div class="2xl:w-6/12 w-full flex flex-col gap-4 pb-20">
             <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
                 <p>Items</p>
-                <a href="/itmgmt" class="btn-primary"> Add Item</a>
+                <a href="/inventory/item/add" class="btn-primary"> Add Item</a>
             </div>
 
             @php
@@ -105,10 +105,10 @@
                             </td>
                             <td class="user-td">
                                 <div class="flex gap-4 justify-center w-full">
-                                    <a href="items/{{ $item->id }}/edit">
+                                    <a href="/inventory/items/{{ $item->id }}/edit">
                                         <i class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i>
                                     </a>
-                                    <form method="POST" action="/items/{{ $item->id }}/delete">
+                                    <form method="POST" action="items/{{ $item->id }}/delete">
                                         @csrf
                                         @method('DELETE')
                                         <button class=""

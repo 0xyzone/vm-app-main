@@ -2,7 +2,7 @@
 
     <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
         <p>Manage User</p>
-        <a href="/register" class="btn-primary"> Create user </a>
+        <a href="/users/register" class="btn-primary"> Create user </a>
     </div>
     <table class="w-full mt-5 hidden md:inline-block">
         <thead class="w-full">

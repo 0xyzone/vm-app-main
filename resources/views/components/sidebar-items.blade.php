@@ -8,18 +8,23 @@
         ],
         [
             'name' => 'Users',
-            'path' => 'umgmt',
+            'path' => 'users',
             'icon_class' => 'fa-duotone fa-user-cog',
         ],
         [
             'name' => 'Inventory',
-            'path' => 'imgmt',
+            'path' => 'inventory',
             'icon_class' => 'fa-duotone fa-box-circle-check',
         ],
         [
             'name' => 'Tables',
             'path' => 'tables',
             'icon_class' => 'fa-duotone fa-loveseat',
+        ],
+        [
+            'name' => 'Customers',
+            'path' => 'customers',
+            'icon_class' => 'fa-duotone fa-users',
         ],
         [
             'name' => 'Orders',
@@ -30,11 +35,6 @@
             'name' => 'Finance',
             'path' => 'finance',
             'icon_class' => 'fa-duotone fa-cash-register',
-        ],
-        [
-            'name' => 'Customers',
-            'path' => 'customers',
-            'icon_class' => 'fa-duotone fa-users',
         ],
         [
             'name' => 'Kitchen',
@@ -60,17 +60,17 @@
             $name = $item['name'];
         @endphp
         @if ($role == 'BarMaster' && $name == 'Bar')
-            @include('components.menubutton')
+            @include('inc.menubutton')
         @elseif ($role == 'KitchenMaster' && $name == 'Kitchen')
-            @include('components.menubutton')
+            @include('inc.menubutton')
         @elseif ($role == 'Cashier' && ($name == 'Tables' || $name == 'Finance' || $name == 'Customers'))
-            @include('components.menubutton')
+            @include('inc.menubutton')
         @elseif ($role == 'Cook' && $name == 'Kitchen')
-            @include('components.menubutton')
+            @include('inc.menubutton')
         @elseif ($role == 'Waiter' && ($name == 'Tables' || $name == 'Orders' || $name == 'Customers'))
-            @include('components.menubutton')
+            @include('inc.menubutton')
         @elseif ($role == 'Admin')
-            @include('components.menubutton')
+            @include('inc.menubutton')
         @else
         @endif
     @endforeach

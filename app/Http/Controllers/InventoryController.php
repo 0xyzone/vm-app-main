@@ -62,13 +62,13 @@ class InventoryController extends Controller
     //update category
     public function category_update(Request $request, Categories $category){
         $formFields = $request->validate([
-            'name' => ['required', Rule::unique('categories', 'name')],
+            'name' => ['required', Rule::unique('categories', 'name')->ignore($category->id)],
             'type' => ['required'],
         ]);
         
         $category->update($formFields);
 
-        return redirect('/imgmt')->with('success', 'Category updated successfully.');
+        return redirect('/inventory')->with('success', 'Category updated successfully.');
     }
 
     //Inventory main view 
@@ -106,13 +106,13 @@ class InventoryController extends Controller
         Storage::delete('public/'.$item->image);
         $item->delete();
 
-        return redirect('/imgmt')->with('success', 'Item deleted successfully.');
+        return redirect('/inventory')->with('success', 'Item deleted successfully.');
     }
 
     //update item
     public function item_update(Request $request, Items $item){
         $formFields = $request->validate([
-            'name' => ['required', Rule::unique('items', 'name')],
+            'name' => ['required', Rule::unique('items', 'name')->ignore($item->id)],
             'price' => ['required'],
             'unit' => ['required'],
             'category' => ['required'],
@@ -124,6 +124,6 @@ class InventoryController extends Controller
         }
     // Update item
      $item->update($formFields);
-     return redirect('/imgmt')->with('success', 'Item updated successfully.');
+     return redirect('/inventory')->with('success', 'Item updated successfully.');
     }
 }

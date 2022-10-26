@@ -4,7 +4,7 @@
             Register
         </h2>
 
-        <form method="POST" action="/users"
+        <form method="POST" action="/users/store"
             class="rounded-xl border-2 border-white bg-gradient-to-t to-gray-50/80 from-gray-500/80 shadow-lg  p-10 mb-10 h-full"
             id="signup">
             @csrf

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Auth;
@@ -27,13 +29,13 @@ Route::get('/', function () {
 });
 
 //Show register form
-Route::get('/register', [UserController::class, 'create']);
+Route::get('/users/register', [UserController::class, 'create']);
 
 //Show User Management form
-Route::get('/umgmt', [UserController::class, 'usermanagement']);
+Route::get('/users', [UserController::class, 'usermanagement']);
 
 // Store user
-Route::post('/users', [UserController::class, 'store']);
+Route::post('/users/store', [UserController::class, 'store']);
 
 // Show edit user form
 Route::get('/users/{user}/edit', [UserController::class, 'edit']);
@@ -54,13 +56,7 @@ Route::post('/logout', [UserController::class, 'logout' ]);
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
 // Dashboard
-Route::get('/dashboard', function() {
-    if (Auth::guest()) {
-        //is a Laravel guest so redirect
-        return redirect('login');
-       }
-    return view('dashboard');
-});
+Route::get('/dashboard', [DashboardController::class, 'view']);
 
 // transactions
 Route::get('/finance', function() {
@@ -72,16 +68,16 @@ Route::get('/finance', function() {
 });
 
 //Inventory Management
-Route::get('/imgmt', [InventoryController::class, 'view']);
+Route::get('/inventory', [InventoryController::class, 'view']);
 
 //Store catagory
 Route::post('/category/store', [InventoryController::class,'category_store']);
 
 //Category Management
-Route::get('/ctmgmt', [InventoryController::class, 'categories']);
+Route::get('/inventory/category/add', [InventoryController::class, 'categories']);
 
 //edit category
-Route::get('/categories/{category}/edit', [InventoryController::class, 'category_edit']);
+Route::get('/inventory/categories/{category}/edit', [InventoryController::class, 'category_edit']);
 
 //update category
 Route::put('/category/{category}', [InventoryController::class, 'category_update']);
@@ -90,7 +86,7 @@ Route::put('/category/{category}', [InventoryController::class, 'category_update
 Route::post('/item/store', [InventoryController::class, 'store']);
 
 //edit item
-Route::get('/items/{item}/edit', [InventoryController::class, 'item_edit']);
+Route::get('/inventory/items/{item}/edit', [InventoryController::class, 'item_edit']);
 
 //delete item
 Route::delete('/items/{item}/delete', [InventoryController::class, 'item_delete']);
@@ -99,15 +95,13 @@ Route::delete('/items/{item}/delete', [InventoryController::class, 'item_delete'
 Route::put('/item/{item}', [InventoryController::class, 'item_update']);
 
 //Item Management
-Route::get('/itmgmt', [InventoryController::class, 'item']);
+Route::get('/inventory/item/add', [InventoryController::class, 'item']);
 
 //Customers 
-Route::get('/customers', function(){
-    if (Auth::guest()){
-        return redirect('login');
-    }
-    return view('customers.index');
-});
+Route::get('/customers', [CustomerController::class, 'view']);
+
+// Add customers - View Form
+Route::get('/customers/add', [CustomerController::class, 'add']);
 
 //Kitchen 
 Route::get('/kitchen', function(){
