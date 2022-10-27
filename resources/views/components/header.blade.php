@@ -1,6 +1,7 @@
 @if (Request::path() == 'login')
 @else
     <header class="z-20 py-4 shadow-md bg-gray-900 sticky top-0 w-full">
+        
         <div class="container flex items-center justify-between md:justify-end h-full px-6 mx-auto text-white">
             <!-- Mobile hamburger -->
             <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-lime"

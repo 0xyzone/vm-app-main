@@ -16,6 +16,7 @@ class TableController extends Controller
             'name' => ['required', Rule::unique('tables', 'name')],
             'availability' => ['required'],
             'floor' => ['required'],
+            'seats' => ['required'],
         ]);
 
         //create table

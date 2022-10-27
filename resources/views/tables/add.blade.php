@@ -82,6 +82,17 @@
             </div>
 
             <div class="mb-6">
+                <label for="seats">
+                    Seats
+                </label>
+                <input type="number" class="border border-gray-200 rounded p-2 w-full" name="seats"
+                    value="{{ old('seats') }}" autofocus placeholder="4" />
+                @error('seats')
+                    <p class="text-white text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
                 <button type="submit" class="text-white border border-sky-200 rounded py-2 px-4 hover:bg-black">
                     Add
                 </button>

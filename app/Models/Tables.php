@@ -12,5 +12,6 @@ class Tables extends Model
         'name',
         'availability',
         'floor',
+        'seats',
     ];
 }

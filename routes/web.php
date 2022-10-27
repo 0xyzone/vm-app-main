@@ -103,6 +103,15 @@ Route::get('/customers', [CustomerController::class, 'view']);
 // Add customers - View Form
 Route::get('/customers/add', [CustomerController::class, 'add']);
 
+// Store Customer
+Route::post('/customers/store', [CustomerController::class, 'store']);
+
+// Edit Form Customer
+Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit']);
+
+// Update Customer
+Route::put('/customers/{customer}/update', [CustomerController::class, 'update']);
+
 //Kitchen 
 Route::get('/kitchen', function(){
     if (Auth::guest()){

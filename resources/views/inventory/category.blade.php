@@ -1,7 +1,7 @@
 <x-layout>
   <div class="flex flex-col w-full h-max items-center gap-5">
     <div class="flex justify-between 2xl:w-6/12 w-full">
-        <a href="{{ url()->previous() }}" class="text-white"><i class="fa-solid fa-arrow-left"></i> Back</a>
+        <button onclick="history.back()" class="text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
         <label for="category" class="font-bold text-amber-600 text-xl">
             Add Category
         </label>

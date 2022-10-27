@@ -18,6 +18,7 @@ class CreateTablesTable extends Migration
             $table->string('name');
             $table->string('availability');
             $table->string('floor');
+            $table->string('seats');
             $table->timestamps();
         });
     }

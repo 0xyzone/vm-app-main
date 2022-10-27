@@ -12,7 +12,9 @@
                         <td class="tabledata">Name</td>
                         <td class="tabledata">Email</td>
                         <td class="tabledata">Phone</td>
-                        <td class="tabledata">Address</td>
+                        <td class="tabledata flex justify-center">Address</td>
+                        <td class="tabledata text-center">Visits(Points)</td>
+                        <td class="tabledata flex justify-center">Action</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -21,7 +23,25 @@
                             <td class="user-td">{{ $customer->id }}</td>
                             <td class="user-td">{{ $customer->name }}</td>
                             <td class="user-td">{{ $customer->email }}</td>
-                            <td class="user-td">{{ $customer->street }}, {{ $customer->city }}, {{ $customer->country }}
+                            <td class="user-td">{{ $customer->phone }}</td>
+                            <td class="user-td flex justify-center">{{ $customer->street }}, {{ $customer->city }}, {{ $customer->country }}
+                            </td>
+                            <td class="user-td">{{ $customer->visit }}</td>
+                            <td class="user-td">
+                                <div class="flex gap-4 justify-center w-full">
+                                    <a href="/customers/{{ $customer->id }}/edit">
+                                        <i class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i>
+                                    </a>
+                                    <form method="POST" action="/customers/{{ $customer->id }}/delete">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class=""
+                                            onclick="return confirm('Are you sure you want to delete this item?')">
+                                            <i class="fa-regular fa-trash smooth hover:text-rose-600"></i>
+                                        </button>
+                                    </form>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
