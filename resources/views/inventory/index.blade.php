@@ -44,11 +44,11 @@
                             </td>
                         </tr>
                     @endforeach
-                    <div class="mt-6 ">
-                        {{ $categories->appends(['items' => $items->currentPage()])->links('pagination::tailwind') }}
-                    </div>
                 </tbody>
             </table>
+            <div class="">
+                {{ $categories->appends(['items' => $items->currentPage()])->links('pagination::tailwind') }}
+            </div>
         </div>
 
         {{-- items --}}

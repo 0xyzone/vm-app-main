@@ -21,7 +21,7 @@ class InventoryController extends Controller
         //create  category
         Categories::create($formFields);
 
-        return redirect('/ctmgmt')->with('success', 'Category created sucessfully');
+        return redirect('/inventory')->with('success', 'Category created sucessfully');
     }
 
      //create an item
@@ -40,7 +40,7 @@ class InventoryController extends Controller
         //create item
         Items::create($formFields);
 
-        return redirect('/itmgmt')->with('success', 'Item created sucessfully');
+        return redirect('/inventory')->with('success', 'Item created sucessfully');
     }
 
     //catagory form
