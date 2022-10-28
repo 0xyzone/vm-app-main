@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -112,6 +113,9 @@ Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit']);
 // Update Customer
 Route::put('/customers/{customer}/update', [CustomerController::class, 'update']);
 
+// Delete customer
+Route::delete('/customers/{customer}/delete', [CustomerController::class, 'delete']);
+
 //Kitchen 
 Route::get('/kitchen', function(){
     if (Auth::guest()){
@@ -129,12 +133,7 @@ Route::get('/bar', function(){
 });
 
 //Order 
-Route::get('/orders', function(){
-    if (Auth::guest()){
-        return redirect('login');
-    }
-    return view('orders.index');
-});
+Route::get('/orders', [OrderController::class, 'view']);
 
 //Tables 
 Route::get('/tables', [TableController::class, 'view']);

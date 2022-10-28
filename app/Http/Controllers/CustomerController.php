@@ -72,4 +72,11 @@ class CustomerController extends Controller
         $customer->update($formFields);
         return redirect('/customers')->with('success', 'Customer updated successfully.');
     }
+
+    //Delete Customer
+    public function delete (customer $customer) {
+        $customer->delete();
+
+        return redirect('/customers')->with('success', 'Customer deleted successfully!');
+    }
 }
