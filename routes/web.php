@@ -59,14 +59,6 @@ Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'view']);
 
-// transactions
-Route::get('/finance', function() {
-    if (Auth::guest()) {
-        //is a Laravel guest so redirect
-        return redirect('login');
-       }
-    return view('finance.index');
-});
 
 //Inventory Management
 Route::get('/inventory', [InventoryController::class, 'view']);
@@ -149,3 +141,12 @@ Route::get('/tables/{table}', [TableController::class, 'reserve']);
 
 //Reserve table 
 Route::post('/tables/{table}/reserve', [TableController::class, 'reserve_update']);
+
+// transactions
+Route::get('/finance', function() {
+    if (Auth::guest()) {
+        //is a Laravel guest so redirect
+        return redirect('login');
+       }
+    return view('finance.index');
+});
