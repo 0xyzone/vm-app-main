@@ -12,23 +12,24 @@
                         <td class="tabledata">Name</td>
                         <td class="tabledata">Email</td>
                         <td class="tabledata">Phone</td>
-                        <td class="tabledata flex justify-center">Address</td>
-                        <td class="tabledata text-center">Visits(Points)</td>
+                        <td class="tabledata !text-center w-auto">Visits(Points)</td>
                         <td class="tabledata flex justify-center">Action</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="">
                     @foreach ($customers as $customer)
-                        <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300">
+                        <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300 cursor-pointer"
+                            id="customer_{{ $customer->id }}">
                             <td class="user-td">{{ $customer->id }}</td>
                             <td class="user-td">{{ $customer->name }}</td>
                             <td class="user-td">{{ $customer->email }}</td>
                             <td class="user-td">{{ $customer->phone }}</td>
-                            <td class="user-td flex justify-center">{{ $customer->street }}, {{ $customer->city }}, {{ $customer->country }}
-                            </td>
-                            <td class="user-td">{{ $customer->visit }}</td>
+                            <td class="user-td text-center w-auto">{{ $customer->visit }}</td>
                             <td class="user-td">
                                 <div class="flex gap-4 justify-center w-full">
+                                    <a href="/customers/{{ $customer->id }}">
+                                        <i class="fa-solid fa-eye hover:text-blue-400 hover:font-bold smooth"></i>
+                                    </a>
                                     <a href="/customers/{{ $customer->id }}/edit">
                                         <i class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i>
                                     </a>
@@ -37,13 +38,18 @@
                                         @method('DELETE')
                                         <button class=""
                                             onclick="return confirm('Are you sure you want to delete this item?')">
-                                            <i class="fa-regular fa-trash smooth hover:text-rose-600"></i>
+                                            <i class="fa-solid fa-trash smooth hover:text-rose-600"></i>
                                         </button>
                                     </form>
                                     </form>
                                 </div>
                             </td>
                         </tr>
+                        <script>
+                            $('#customer_{{ $customer->id }}').click(function() {
+                                location.href = '/customers/{{ $customer->id }}';
+                            });
+                        </script>
                     @endforeach
                     <div class="mt-6">
                         {{ $customers->links() }}

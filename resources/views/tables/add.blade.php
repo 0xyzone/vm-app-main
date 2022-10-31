@@ -21,35 +21,7 @@
                 @enderror
             </div>
 
-            <div class="mb-6">
-                <label for="type">
-                    Availability
-                </label>
-                <select name="availability" id="type" class="border border-gray-200 rounded p-2 w-full">
-                    @php
-                        $availability = [
-                            [
-                                'name' => 'Available',
-                            ],
-                            [
-                                'name' => 'Reserved',
-                            ],
-                            [
-                                'name' => 'Occupied',
-                            ],
-                        ];
-                    @endphp
-
-                    <option value="" disabled selected hidden>Please Choose an option.</option>
-                    @foreach ($availability as $avail)
-                        <option value="{{ $avail['name'] }}" @if (old('type') === $avail['name']) selected @else @endif>
-                            {{ $avail['name'] }}</option>
-                    @endforeach
-                </select>
-                @error('availability')
-                    <p class="text-white text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+                <input type="text" name="availability" id="availability" value="Available" hidden>
             
             <div class="mb-6">
                 <label for="type">

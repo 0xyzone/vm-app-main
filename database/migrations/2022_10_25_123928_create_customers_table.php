@@ -21,6 +21,9 @@ class CreateCustomersTable extends Migration
             $table->string('city');
             $table->string('street');
             $table->string('country');
+            $table->date('dob');
+            $table->string('marriage');
+            $table->date('marriagedate');
             $table->bigInteger('visit');
             $table->timestamps();
         });

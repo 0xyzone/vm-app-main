@@ -15,6 +15,9 @@ class Customer extends Model
         'city',
         'street',
         'country',
+        'dob',
+        'marriage',
+        'marriagedate',
         'visit',
     ];
 }

@@ -35,7 +35,6 @@
             [
                 "name" => "Miscellanous",
             ],
-            
         ]
         @endphp
 

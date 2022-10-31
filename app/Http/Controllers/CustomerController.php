@@ -40,6 +40,9 @@ class CustomerController extends Controller
             'city' => ['required'],
             'street' => ['required'],
             'country' => ['required'],
+            'dob' => ['required'],
+            'marriage' => ['required'],
+            'marriagedate' => ['required'],
             'visit' => ['required'],
         ]);
 
@@ -67,6 +70,9 @@ class CustomerController extends Controller
             'city' => ['required'],
             'street' => ['required'],
             'country' => ['required'],
+            'dob' => ['required'],
+            'marriage' => ['required'],
+            'marriagedate' => ['required'],
             'visit' => ['required'],
         ]);
         $customer->update($formFields);
@@ -78,5 +84,16 @@ class CustomerController extends Controller
         $customer->delete();
 
         return redirect('/customers')->with('success', 'Customer deleted successfully!');
+    }
+
+    // View Particular Customer
+    public function single ($customer) {
+        if(Auth::guest()) {
+            return redirect('login');
+        } else {
+            return view('customers.single', [
+                'customer' => Customer::find($customer)
+            ]);
+        }
     }
 }

@@ -110,6 +110,9 @@ Route::post('/customers/store', [CustomerController::class, 'store']);
 // Edit Form Customer
 Route::get('/customers/{customer}/edit', [CustomerController::class, 'edit']);
 
+// View Particular Customer
+Route::get('/customers/{customer}', [CustomerController::class, 'single']);
+
 // Update Customer
 Route::put('/customers/{customer}/update', [CustomerController::class, 'update']);
 

@@ -70,13 +70,45 @@
             </div>
 
             <div class="mb-6">
-                <p class="font-light text-2xl">Lotalty</p>
-                <label for="visit" class="reg-label mt-2">
-                    Visits
+                <p class="font-light text-2xl">Details</p>
+                <label for="dob" class="reg-label">
+                    Date Of Birth
                 </label>
-                <input type="number" class="border border-gray-200 rounded p-2 w-full" name="visit"
-                    value="{{ $customer->visit }}" placeholder="1" />
-                @error('visit')
+                <input type="date" class="border border-gray-200 rounded p-2 w-full" name="dob"
+                    value="{{$customer->dob }}"  />
+                @error('dob')
+                    <p class="text-white text-xs mt-1">{{ $message }}</p>
+                @enderror
+
+                <label for="marriage" class="reg-label mt-2">
+                    Marriage Status
+                </label>
+                <select name="marriage" id="marriage" class="border border-gray-200 rounded p-2 w-full">
+                    @php
+                    $marrriages = [
+                        [
+                            "name" => "Married",
+                        ],
+                        [
+                            "name" => "Single",
+                        ],
+                    ]
+                    @endphp
+                    <option value="{{$customer->marriage}}" disabled selected hidden >Please Choose an option.</option>
+                    @foreach($marrriages as $marriage)
+                    <option value="{{ $marriage['name'] }}" @if(old('marriage') === $marriage['name'] ) selected @else @endif>{{ $marriage['name'] }}</option>
+                    @endforeach
+                </select>
+                @error('marriage')
+                    <p class="text-white text-xs mt-1">{{ $message }}</p>
+                @enderror
+            
+                <label for="marriagedate" class="reg-label mt-2">
+                    Date Of Marriage
+                </label>
+                <input type="date" class="border border-gray-200 rounded p-2 w-full" name="marriagedate"
+                    value="{{ $customer->marriagedate }}" />
+                @error('marriagedate')
                     <p class="text-white text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
