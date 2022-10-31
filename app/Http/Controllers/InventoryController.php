@@ -101,7 +101,7 @@ class InventoryController extends Controller
         ]);
     }
 
-    //ddelete item
+    //delete item
     public function item_delete(items $item){
         Storage::delete('public/'.$item->image);
         $item->delete();
