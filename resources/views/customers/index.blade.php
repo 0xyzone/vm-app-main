@@ -41,7 +41,6 @@
                                             <i class="fa-solid fa-trash smooth hover:text-rose-600"></i>
                                         </button>
                                     </form>
-                                    </form>
                                 </div>
                             </td>
                         </tr>

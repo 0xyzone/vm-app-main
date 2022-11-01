@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.vm-theme {
+  --fa-secondary-opacity: 1.0;
+  --fa-primary-color: orange;
+  --fa-secondary-color: rgb(108, 108, 108);
+}
 
 .sacrollbar {
   @apply scrollbar-thin scrollbar-thumb-rounded-md scrollbar-track-rounded-md scrollbar-thumb-gray-800 scrollbar-track-gray-400/50;
