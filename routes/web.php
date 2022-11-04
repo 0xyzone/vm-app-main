@@ -130,6 +130,9 @@ Route::get('/bar', function(){
 //Order 
 Route::get('/orders', [OrderController::class, 'view']);
 
+// Show add Order form
+Route::get('/orders/add', [OrderController::class, 'show']);
+
 //Tables 
 Route::get('/tables', [TableController::class, 'view']);
 
