@@ -25,9 +25,41 @@
             @endif
         </div>
         {{-- Additional Infos --}}
-        <div class="grid text-white font-thin">
-          <div><i class="fa-duotone fa-envelope vm-theme"></i> {{$customer->email}} </div>
-          <div><i class="fa-duotone fa-envelope vm-theme"></i> {{$customer->email}} </div>
+        @php
+            $details = [
+                [
+                    'name' => "{$customer['email']}",
+                    'icon' => 'fa-duotone fa-envelope',
+                ],
+                [
+                    'name' => "{$customer['phone']}",
+                    'icon' => 'fa-duotone fa-phone',
+                ],
+                [
+                    'name' => "{$customer['dob']}",
+                    'icon' => 'fa-duotone fa-cake-candles',
+                ],
+                [
+                    'name' => "{$customer['marriage']}",
+                    'icon' => 'fa-duotone fa-people',
+                ],
+                [
+                    'name' => "{$customer['marriagedate']}",
+                    'icon' => 'fa-duotone fa-calendar',
+                ],
+                [
+                    'name' => "{$customer['visit']}",
+                    'icon' => 'fa-duotone fa-door-open',
+                ],
+            ];
+        @endphp
+
+        <div class="grid grid-cols-2 md:grid-cols-3 text-white font-thin mt-2 gap-4">
+            @foreach ($details as $detail)
+                <div><i class="{{$detail['icon']}} vm-theme"></i><span class="ml-2"> {{$detail['name']}}</span></div>
+            @endforeach
+            <div><i class="fa-duotone fa-map-location-dot vm-theme"></i><span class="ml-2"> {{$customer['street']}}, {{$customer['city']}}, {{$customer['country']}} </span></div>
+
         </div>
     </div>
 </x-layout>
