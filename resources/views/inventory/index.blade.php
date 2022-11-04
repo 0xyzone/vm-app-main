@@ -47,7 +47,7 @@
                 </tbody>
             </table>
             <div class="">
-                {{ $categories->appends(['items' => $items->currentPage()])->links('pagination::tailwind') }}
+                {{ $categories->appends(['items' => $items->currentPage()])->links('') }}
             </div>
         </div>
 
@@ -115,7 +115,6 @@
                                             onclick="return confirm('Are you sure you want to delete this item?')">
                                             <i class="fa-regular fa-trash smooth hover:text-rose-600"></i>
                                         </button>
-                                    </form>
                                     </form>
                                 </div>
                             </td>
