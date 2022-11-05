@@ -62,7 +62,7 @@
         <x-sidebar />
         <div class="flex flex-col flex-1 w-full overflow-x-hidden sacrollbar">
             <x-header />
-            <x-container class="pt-10 px-10">
+            <x-container class="pt-10 lg:px-10">
 
                 {{ $slot }}
 

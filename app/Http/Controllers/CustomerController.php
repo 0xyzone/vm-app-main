@@ -42,6 +42,7 @@ class CustomerController extends Controller
             'country' => ['required'],
             'dob' => ['required'],
             'marriage' => ['required'],
+            'gender' => ['required'],
             'marriagedate' => ['required'],
             'visit' => ['required'],
         ]);
@@ -72,6 +73,7 @@ class CustomerController extends Controller
             'country' => ['required'],
             'dob' => ['required'],
             'marriage' => ['required'],
+            'gender' => ['required'],
             'marriagedate' => ['required'],
             'visit' => ['required'],
         ]);

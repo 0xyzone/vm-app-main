@@ -18,6 +18,7 @@ class Customer extends Model
         'dob',
         'marriage',
         'marriagedate',
+        'gender',
         'visit',
     ];
 }

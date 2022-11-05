@@ -24,6 +24,7 @@ class CreateCustomersTable extends Migration
             $table->date('dob');
             $table->string('marriage');
             $table->date('marriagedate');
+            $table->string('gender');
             $table->bigInteger('visit');
             $table->timestamps();
         });
