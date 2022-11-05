@@ -37,7 +37,6 @@
               @error('email')
                   <p class="text-white text-xs mt-1">{{ $message }}</p>
               @enderror
-
           </div>
           
           <div class="mb-6">

@@ -80,7 +80,6 @@ class InventoryController extends Controller
             'categories' => Categories::paginate(3, ['*'], 'categories'),
             'items' => Items::paginate(3, ['*'], 'items'),
         ]);
-        
     }
 
     //Item form
