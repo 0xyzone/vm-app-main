@@ -42,8 +42,8 @@ class CustomerController extends Controller
             'country' => ['required'],
             'dob' => ['required'],
             'marriage' => ['required'],
+            'marriagedate' => [''],
             'gender' => ['required'],
-            'marriagedate' => ['required'],
             'visit' => ['required'],
         ]);
 

@@ -23,9 +23,8 @@ class CreateCustomersTable extends Migration
             $table->string('country');
             $table->date('dob');
             $table->string('marriage');
-            $table->date('marriagedate');
+            $table->date('marriagedate')->nullable();
             $table->string('gender');
-            $table->bigInteger('visit');
             $table->timestamps();
         });
     }

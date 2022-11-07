@@ -1,12 +1,13 @@
-<x-layout>
+<x-layout class="px-4">
     {{-- Main body --}}
     <div class="w-full border-2 rounded-lg py-4 px-8">
         {{-- top layer with customer name and created date and edit buttons --}}
         <div class="flex justify-between items-center border-b-gray-200/10 border-b pb-2">
             <div class="flex flex-col gap-2">
+                
                 <h1 class="text-xl lg:text-4xl font-bold text-gray-200">{{ $customer->name }}</h1>
-                <p class="font-thin text-xs text-gray-400">Created at
-                    <span class="text-amber-500">{{ $customer->created_at }}</span>
+                <p class="font-thin text-xs text-gray-400">
+                    Customer ID: <span class="text-amber-500">{{$customer->id}}</span> • Created at <span class="text-amber-500">{{ $customer->created_at }}</span>
                 </p>
             </div>
             @if (auth()->user()->role == 'Admin')
@@ -48,14 +49,21 @@
                     'icon' => 'fa-duotone fa-calendar',
                 ],
                 [
-                    'name' => "{$customer['visit']}",
+                    'name' => "{$customer['visit']} visits",
                     'icon' => 'fa-duotone fa-door-open',
+                ],
+                [
+                    'name' => "{$customer['gender']}",
+                    'icon' => 'fa-duotone fa-venus-mars',
                 ],
             ];
         @endphp
 
         <div class="grid grid-cols-2 md:grid-cols-3 text-white font-thin mt-2 gap-4">
             @foreach ($details as $detail)
+            @if ($detail['name'] == '')
+                @continue
+            @endif
                 <div><i class="{{$detail['icon']}} vm-theme"></i><span class="ml-2"> {{$detail['name']}}</span></div>
             @endforeach
             <div><i class="fa-duotone fa-map-location-dot vm-theme"></i><span class="ml-2"> {{$customer['street']}}, {{$customer['city']}}, {{$customer['country']}} </span></div>

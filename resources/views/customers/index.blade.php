@@ -1,10 +1,10 @@
-<x-layout>
+<x-layout class="px-4">
     <div class="container mx-auto flex flex-col items-center">
         <div class="w-full flex justify-between mb-6">
             <p class="text-2xl font-bold text-white">Customers</p>
             <a href="/customers/add" class="btn-primary">Add Customer</a>
         </div>
-        <div class="w-full">
+        <div class="w-full hidden lg:flex">
             <table class="w-full">
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full font-bold">

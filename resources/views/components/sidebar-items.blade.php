@@ -1,11 +1,11 @@
 {{-- Menu Items --}}
 @php
     $menuItems = [
-        [
-            'name' => 'Dashboard',
-            'path' => 'dashboard',
-            'icon_class' => 'fa-duotone fa-house',
-        ],
+        // [
+        //     'name' => 'Dashboard',
+        //     'path' => 'dashboard',
+        //     'icon_class' => 'fa-duotone fa-house',
+        // ],
         [
             'name' => 'Users',
             'path' => 'users',
