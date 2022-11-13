@@ -156,3 +156,6 @@ Route::get('/finance', function() {
        }
     return view('finance.index');
 });
+
+// Search Items
+Route::get('/search/item', [InventoryController::class, 'search']);

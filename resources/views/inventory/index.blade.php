@@ -97,7 +97,7 @@
                             <td class="user-td">{{ $item['name'] }}</td>
                             <td class="user-td">{{ $item['price'] }}</td>
                             <td class="user-td hidden lg:inline-block">
-                                @foreach ($categories as $category)
+                                @foreach ($all_cat as $category)
                                     @if ($item['category'] == $category['id'])
                                         {{ $category['name'] }}
                                     @endif

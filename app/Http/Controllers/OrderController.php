@@ -29,7 +29,7 @@ class OrderController extends Controller
         return view('orders.add', [
             'tables' => Tables::all(),
             'customers' => Customer::all(),
-            'items' => Items::all()
+            'items' => Items::paginate(4)
         ]);
     }
     // Store order
@@ -46,4 +46,5 @@ class OrderController extends Controller
 
         return redirect('/orders')->with('success', 'Order added successfully.');
     }
+    
 }
