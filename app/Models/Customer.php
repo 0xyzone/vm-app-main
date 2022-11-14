@@ -19,6 +19,5 @@ class Customer extends Model
         'marriage',
         'marriagedate',
         'gender',
-        'visit',
     ];
 }

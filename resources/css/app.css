@@ -13,7 +13,7 @@
 }
 
 .smooth {
-    @apply transform duration-300 ease-in-out;
+    @apply transform duration-300;
 }
 
 input[type="number"]::-webkit-inner-spin-button,

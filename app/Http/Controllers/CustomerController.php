@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Visit;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,8 @@ class CustomerController extends Controller
             return redirect('login');
         }
         return view('customers.index', [
-            'customers' => Customer::paginate(5)
+            'customers' => Customer::paginate(3),
+            'visits' => Visit::all()
         ]);
     }
 
@@ -44,11 +46,14 @@ class CustomerController extends Controller
             'marriage' => ['required'],
             'marriagedate' => [''],
             'gender' => ['required'],
-            'visit' => ['required'],
         ]);
 
         // Create Customer
-        $customer = Customer::create($formFields);
+        Customer::create($formFields);
+
+        $visits['customer_id'] = Customer::latest()->first()->id;
+
+        Visit::create($visits);
 
         return redirect('/customers')->with('success', 'Customer added successfully.');
     }
@@ -94,7 +99,8 @@ class CustomerController extends Controller
             return redirect('login');
         } else {
             return view('customers.single', [
-                'customer' => Customer::find($customer)
+                'customer' => Customer::find($customer),
+                'visits' => Visit::all()
             ]);
         }
     }

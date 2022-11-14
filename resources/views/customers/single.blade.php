@@ -27,6 +27,7 @@
         </div>
         {{-- Additional Infos --}}
         @php
+            $count = $visits->where('customer_id', $customer['id'])->count();
             $details = [
                 [
                     'name' => "{$customer['email']}",
@@ -49,7 +50,7 @@
                     'icon' => 'fa-duotone fa-calendar',
                 ],
                 [
-                    'name' => "{$customer['visit']} visits",
+                    'name' => "{$count} visits",
                     'icon' => 'fa-duotone fa-door-open',
                 ],
                 [

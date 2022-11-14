@@ -27,4 +27,29 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-2" id="content">
         </div>
     </div>
+    <script class="text/javascript">
+        $('#search').on('keyup', function() {
+            $value = $(this).val();
+            if ($value) {
+                $('#content_all').hide();
+                $('#content_all_links').hide();
+                $('#content').show();
+            } else {
+                $('#content_all').show();
+                $('#content_all_links').show();
+                $('#content').hide();
+            };
+            $.ajax({
+                type: 'get',
+                url: '{{ URL::to('/search/item') }}',
+                data: {
+                    'search': $value
+                },
+
+                success: function(data) {
+                    $('#content').html(data);
+                }
+            });
+        })
+    </script>
 </x-layout>

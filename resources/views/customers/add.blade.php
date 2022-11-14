@@ -151,11 +151,6 @@
                 </div>
             </div>
 
-
-
-            <input type="number" class="border border-gray-200 rounded p-2 w-full" name="visit" value="1"
-                placeholder="1" hidden />
-
             <div class="mb-6 mt-6">
                 <button for="signup" type="submit" class="btn-primary">
                     Create

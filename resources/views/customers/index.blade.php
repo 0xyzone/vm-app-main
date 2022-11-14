@@ -18,13 +18,19 @@
                 </thead>
                 <tbody class="">
                     @foreach ($customers as $customer)
+                    @php
+                        $id = $customer['id'];
+                        $count = $visits->where('customer_id', $customer['id'])->count();
+                    @endphp
                         <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300 cursor-pointer"
                             id="customer_{{ $customer->id }}">
                             <td class="user-td">{{ $customer->id }}</td>
                             <td class="user-td">{{ $customer->name }}</td>
                             <td class="user-td">{{ $customer->email }}</td>
                             <td class="user-td">{{ $customer->phone }}</td>
-                            <td class="user-td text-center w-auto">{{ $customer->visit }}</td>
+                            <td class="user-td text-center w-auto">
+                                {{$count}}
+                            </td>
                             <td class="user-td">
                                 <div class="flex gap-4 justify-center w-full">
                                     <a href="/customers/{{ $customer->id }}">
