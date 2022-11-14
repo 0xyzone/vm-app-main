@@ -33,18 +33,34 @@ class OrderController extends Controller
         ]);
     }
     // Store order
-    public function store(Request $request)
+    public function store(Request $request, Tables $tab)
     {
         $formFields = $request->validate([
             'table' => ['required'],
-            'customer' => ['required'],
-            'item' => ['required'],
         ]);
-
+        $formFields['table'] = implode(',',$formFields['table']);
         // Create order
-        $order = Order::create($formFields);
+        Order::create($formFields);
+        
+        $tables = explode(',',$formFields['table']);
+        foreach($tables as $table){
+            $avail = Tables::where('id', $table);
+            $avail->update(['availability' => 'Occupied']);
+        }
+        $order_no = Order::latest()->first();
+        return redirect('/orders/'.$order_no['id'].'/additems')->with('success', 'Order added successfully.');
+    }
 
-        return redirect('/orders')->with('success', 'Order added successfully.');
+    // Add Items page
+    public function additems(Order $order_no){
+        if(Auth::guest()){
+            return redirect('/login');
+        } else {
+            return view('orders.add-items', [
+                'order_no' => $order_no,
+                'items' => Items::paginate(8),
+            ]);
+        };
     }
     
 }

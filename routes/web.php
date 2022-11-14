@@ -133,6 +133,12 @@ Route::get('/orders', [OrderController::class, 'view']);
 // Show add Order form
 Route::get('/orders/add', [OrderController::class, 'show']);
 
+// Store Orders
+Route::post('/orders/store', [OrderController::class, 'store']);
+
+// Add items to order
+Route::get('/orders/{order_no}/additems', [OrderController::class, 'additems']);
+
 //Tables 
 Route::get('/tables', [TableController::class, 'view']);
 
