@@ -17,7 +17,10 @@ class OrderController extends Controller
         if (Auth::guest()) {
             return redirect('login');
         }
-        return view('orders.index');
+        return view('orders.index', [
+            'orders' => Order::paginate(5),
+            'tables' => Tables::all()
+        ]);
     }
 
     // Show Add orders form
