@@ -13,7 +13,7 @@
     </div>
     @include('_partials.tables')
 
-    <div class="">
+    <div class="pb-20">
         {{ $tables->links('pagination::tailwind') }}
     </div>
 </x-layout>

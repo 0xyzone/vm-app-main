@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="px-10 pb-10 overflow-y-auto overflow-x-hidden">
+    <div class="pb-10 overflow-y-auto overflow-x-hidden">
         <h2 class="text-2xl font-bold text-amber-400 uppercase text-center my-5">
             Edit customer
         </h2>

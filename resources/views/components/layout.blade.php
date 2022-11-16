@@ -63,7 +63,7 @@
         <x-sidebar />
         <div class="flex flex-col flex-1 w-full overflow-x-hidden sacrollbar">
             <x-header />
-            <x-container {{$attributes->merge(['class' => 'pt-10 lg:px-10 px-5 pb-10'])}}>
+            <x-container {{$attributes->merge(['class' => 'pt-10 lg:px-10 px-5 pb-20'])}}>
 
                 {{ $slot }}
 

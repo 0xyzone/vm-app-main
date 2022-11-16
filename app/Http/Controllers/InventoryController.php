@@ -140,19 +140,24 @@ class InventoryController extends Controller
     // Search Item
     public function search(Request $request)
     {
-        $items = Items::where('name', 'Like', '%' . $request->search . '%')->paginate(4, ['*'], 'items');
+        $items = Items::where('name', 'Like', '%' . $request->search . '%')->orWhere('id', 'Like', '%' . $request->search . '%')->paginate(8, ['*'], 'items');
         $output = '';
         $output.='';
         foreach ($items as $item) {
             $output .=
                 '
-                    <div class="bg-gray-200 rounded-lg flex items-center p-4 flex-col mt-2">
-                        <div class="p-4 flex flex-col items-center">
-                            <p class="text-black  text-center">
-                                ' . $item["name"] . '
+                    <div class="bg-gray-200 rounded-lg flex p-4 justify-between items-center">
+                        <div class="text-black font-bold flex gap-2 items-center flex-shrink">
+                            <div class="bg-gray-300 rounded-lg w-16 h-16 flex justify-center items-center flex-shrink-0">
+                            #'. $item['id'] .'
+                            </div>
+                            <p class="font-thin truncate mr-1">
+                            ' . $item["name"] . '
                             </p>
-                            ' . +$item["price"] . '
                         </div>
+                        <p class="bg-amber-500 rounded-lg text-left flex-shrink-0 p-4 font-medium w-4/12">
+                        Rs. ' . $item["price"] . '
+                        </p>
                     </div>
                 ';
         };

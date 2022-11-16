@@ -18,10 +18,10 @@
                 </thead>
                 <tbody class="">
                     @foreach ($customers as $customer)
-                    @php
-                        $id = $customer['id'];
-                        $count = $visits->where('customer_id', $customer['id'])->count();
-                    @endphp
+                        @php
+                            $id = $customer['id'];
+                            $count = $visits->where('customer_id', $customer['id'])->count();
+                        @endphp
                         <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300 cursor-pointer"
                             id="customer_{{ $customer->id }}">
                             <td class="user-td">{{ $customer->id }}</td>
@@ -29,7 +29,7 @@
                             <td class="user-td">{{ $customer->email }}</td>
                             <td class="user-td">{{ $customer->phone }}</td>
                             <td class="user-td text-center w-auto">
-                                {{$count}}
+                                {{ $count }}
                             </td>
                             <td class="user-td">
                                 <div class="flex gap-4 justify-center w-full">
@@ -61,6 +61,41 @@
                     </div>
                 </tbody>
             </table>
+        </div>
+        <div class="w-full flex flex-col gap-2 lg:hidden">
+            @foreach ($customers as $customer)
+                <x-card class="gap-2 justify-between shadow-lg shadow-gray-600">
+                    <div class="flex gap-2 items-center flex-1 w-full">
+                        <div class="rounded-lg bg-gray-300 w-12 h-12 flex justify-center items-center shadow-lg">
+                            {{ $customer['id'] }}
+                        </div>
+                        <div class="flex flex-col flex-1 w-full leading-none">
+                            <p class="font-bold text-lg text-amber-600">{{ $customer['name'] }}</p>
+                            <p>{{ $customer['phone'] }}</p>
+                        </div>
+
+                    </div>
+                    <div class="flex gap-4 justify-center">
+                        <a href="/customers/{{ $customer->id }}">
+                            <i class="fa-solid fa-eye hover:text-blue-400 hover:font-bold smooth"></i>
+                        </a>
+                        <a href="/customers/{{ $customer->id }}/edit">
+                            <i class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i>
+                        </a>
+                        <form method="POST" action="/customers/{{ $customer->id }}/delete">
+                            @csrf
+                            @method('DELETE')
+                            <button class=""
+                                onclick="return confirm('Are you sure you want to delete this item?')">
+                                <i class="fa-solid fa-trash smooth hover:text-rose-600"></i>
+                            </button>
+                        </form>
+                    </div>
+                </x-card>
+            @endforeach
+            <div class="mt-6">
+                {{ $customers->links() }}
+            </div>
         </div>
     </div>
 </x-layout>

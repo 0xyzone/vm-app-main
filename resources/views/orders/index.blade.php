@@ -67,5 +67,37 @@
                 {{ $orders->links() }}
             </tbody>
         </table>
+        @foreach ($orders as $order)
+            <x-card  id="order_{{ $order->id }}_mob">
+                <div class="flex gap-2 items-center flex-1 w-full">
+                    <div class="rounded-lg bg-gray-300 w-16 h-16 flex justify-center items-center font-bold shadow-lg">
+                        {{ $order['id'] }}
+                    </div>
+                    <div class="flex flex-col flex-1 w-full gap-2">
+                            <span class="font-bold">Tables:</span>
+                        <div class="text-[0.9rem] font-light grid grid-cols-2 gap-2">
+                            @php
+                                $table_no = explode(',', $order->table);
+                            @endphp
+
+                            @foreach ($table_no as $table)
+                                @foreach ($tables as $tab)
+                                    @if ($table == $tab['id'])
+                                        <span class="p-2 rounded-full border w-full border-amber-500 shadow-md">{{$tab['name']}}</span>
+                                    @endif
+                                @endforeach
+                            @endforeach
+                        </div>
+                        <p class="text-[0.7rem] font-bold text-gray-400">{{ $order->created_at->format('jS M Y | g : i a') }}</p>
+                    </div>
+
+                </div>
+            </x-card>
+            <script>
+                $('#order_{{ $order->id }}_mob').click(function() {
+                    location.href = 'orders/{{ $order->id }}/additems';
+                })
+            </script>
+        @endforeach
     </div>
 </x-layout>
