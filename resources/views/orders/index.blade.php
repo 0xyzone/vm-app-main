@@ -68,7 +68,7 @@
             </tbody>
         </table>
         @foreach ($orders as $order)
-            <x-card  id="order_{{ $order->id }}_mob">
+            <x-card  id="order_{{ $order->id }}_mob" class="lg:hidden block">
                 <div class="flex gap-2 items-center flex-1 w-full">
                     <div class="rounded-lg bg-gray-300 w-16 h-16 flex justify-center items-center font-bold shadow-lg">
                         {{ $order['id'] }}

@@ -4,7 +4,7 @@
             <p class="text-2xl font-bold text-white">Customers</p>
             <a href="/customers/add" class="btn-primary">Add Customer</a>
         </div>
-        <div class="w-full hidden lg:flex">
+        <div class="w-full hidden lg:flex flex-col">
             <table class="w-full">
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full font-bold">
@@ -56,11 +56,11 @@
                             });
                         </script>
                     @endforeach
-                    <div class="mt-6">
-                        {{ $customers->links() }}
-                    </div>
                 </tbody>
             </table>
+                <div class="mt-6">
+                    {{ $customers->links() }}
+                </div>
         </div>
         <div class="w-full flex flex-col gap-2 lg:hidden">
             @foreach ($customers as $customer)

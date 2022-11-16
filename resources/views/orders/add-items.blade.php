@@ -15,11 +15,11 @@
             Order # {{ $order_no['id'] }}
         </div>
         <table class="table-auto text-xs w-full">
-            <thead class="font-bold">
+            <thead class="font-bold lg:text-sm">
                 <tr class="bg-gray-400 w-full">
-                    <td class="w-7/12 pl-2 broder-r-white border-r">Items</td>
-                    <td class="w-2/12 broder-r-white border-r text-center">Qty.</td>
-                    <td class="w-3/12 text-center">Price</td>
+                    <td class="w-7/12 pl-2 broder-r-white border-r py-2">Items</td>
+                    <td class="w-2/12 broder-r-white border-r text-center py-2">Qty.</td>
+                    <td class="w-3/12 text-center py-2">Price</td>
                 </tr>
             </thead>
         </table>
