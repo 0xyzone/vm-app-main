@@ -5,7 +5,7 @@
             @include('inc.availability')
         </div>
         @if (auth()->user()->role == 'Admin')
-            <a href="/tables/add" class="btn-primary text-white">Add Table</a>
+            <a href="/tables/add" class="btn-primary text-white justify-between">Add Table</a>
         @endif
     </div>
     <div class="w-full flex gap-4 text-white items-center md:hidden justify-center my-3 px-6">

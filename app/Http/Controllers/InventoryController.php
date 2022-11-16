@@ -148,7 +148,7 @@ class InventoryController extends Controller
                 '
                     <div class="bg-gray-200 rounded-lg flex p-4 justify-between items-center">
                         <div class="text-black font-bold flex gap-2 items-center flex-shrink">
-                            <div class="bg-gray-300 rounded-lg w-16 h-16 flex justify-center items-center flex-shrink-0">
+                            <div class="bg-gray-300 shadow-lg rounded-lg w-16 h-16 flex justify-center items-center flex-shrink-0">
                             #'. $item['id'] .'
                             </div>
                             <p class="font-thin truncate mr-1">
