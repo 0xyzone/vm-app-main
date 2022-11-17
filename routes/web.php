@@ -4,6 +4,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -136,8 +137,11 @@ Route::get('/orders/add', [OrderController::class, 'show']);
 // Store Orders
 Route::post('/orders/store', [OrderController::class, 'store']);
 
-// Add items to order
+// Show Add items to order
 Route::get('/orders/{order_no}/additems', [OrderController::class, 'additems']);
+
+// Order List Resource
+Route::resource('/orders/{id}/additems', OrderItemsController::class);
 
 //Tables 
 Route::get('/tables', [TableController::class, 'view']);

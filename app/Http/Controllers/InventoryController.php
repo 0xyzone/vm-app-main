@@ -146,19 +146,32 @@ class InventoryController extends Controller
         foreach ($items as $item) {
             $output .=
                 '
-                    <div class="bg-gray-200 rounded-lg flex p-4 justify-between items-center" id="'. $item['id'] .'">
+                <li>
+                    <input type="radio" name="item" id="opt_'.$item['id'].'" class="peer" hidden value="'.$item['id'].'">
+                    <div class="rounded-lg flex p-4 justify-between items-center bg-gray-200 peer-checked:bg-amber-300" id="'. $item['id'] .'">
+                        
                         <div class="text-black font-bold flex gap-2 items-center flex-shrink">
                             <div class="bg-gray-300 shadow-lg rounded-lg w-16 h-16 flex justify-center items-center flex-shrink-0">
                             #'. $item['id'] .'
                             </div>
-                            <p class="font-thin truncate mr-1">
-                            ' . $item["name"] . 'Rs. ' . $item["price"] . '
+                            <p class="font-bold mr-1">
+                            ' . $item["name"] . '
+                            <br><span class="font-normal">Rs. ' . $item["price"] . '</span>
                             </p>
                         </div>
-                        <p class="bg-amber-500 rounded-lg text-left flex-shrink-0 p-4 font-medium w-8 h-8">
+                        <p class="bg-amber-500 rounded-lg flex-shrink-0 flex justify-center items-center font-medium w-8 h-8">
                             <i class="fa-solid fa-plus"></i>
                         </p>
                     </div>
+                </li>
+                <script>
+                $("#'.$item['id'].'").click(function(){
+                    if($("#opt_'.$item['id'].'").is(":checked")){
+                    }else{
+                        $("#opt_'.$item['id'].'").prop("checked", true);
+                    }
+                });
+                </script>
                 ';
         };
         return response($output);

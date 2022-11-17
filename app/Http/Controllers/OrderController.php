@@ -6,6 +6,7 @@ use App\Models\Items;
 use App\Models\Order;
 use App\Models\Tables;
 use App\Models\Customer;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,7 +62,8 @@ class OrderController extends Controller
         } else {
             return view('orders.add-items', [
                 'order_no' => $order_no,
-                'items' => Items::paginate(8),
+                'items' => Items::all(),
+                'orderItems' => OrderItem::all(),
             ]);
         };
     }
