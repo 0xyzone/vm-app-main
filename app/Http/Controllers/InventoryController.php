@@ -146,7 +146,7 @@ class InventoryController extends Controller
         foreach ($items as $item) {
             $output .=
                 '
-                    <div class="bg-gray-200 rounded-lg flex p-4 justify-between items-center" id="'. $item['id'] .'">
+                    <div class="bg-gray-200 rounded-lg flex p-4 justify-between items-center" id="'. $item['id'] .'">.
                         <div class="text-black font-bold flex gap-2 items-center flex-shrink">
                             <div class="bg-gray-300 shadow-lg rounded-lg w-16 h-16 flex justify-center items-center flex-shrink-0">
                             #'. $item['id'] .'
