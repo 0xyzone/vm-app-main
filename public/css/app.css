@@ -619,6 +619,9 @@ video {
 .-ml-px {
   margin-left: -1px;
 }
+.mr-1 {
+  margin-right: 0.25rem;
+}
 .block {
   display: block;
 }
@@ -676,6 +679,9 @@ video {
 }
 .h-5 {
   height: 1.25rem;
+}
+.h-8 {
+  height: 2rem;
 }
 .w-max {
   width: -moz-max-content;
@@ -735,6 +741,15 @@ video {
 .w-5 {
   width: 1.25rem;
 }
+.w-8 {
+  width: 2rem;
+}
+.w-11\/12 {
+  width: 91.666667%;
+}
+.w-6\/12 {
+  width: 50%;
+}
 .max-w-xl {
   max-width: 36rem;
 }
@@ -746,6 +761,9 @@ video {
 }
 .flex-shrink-0 {
   flex-shrink: 0;
+}
+.flex-shrink {
+  flex-shrink: 1;
 }
 .table-auto {
   table-layout: auto;
@@ -771,6 +789,9 @@ video {
 }
 .cursor-default {
   cursor: default;
+}
+.list-none {
+  list-style-type: none;
 }
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -841,6 +862,11 @@ video {
 }
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .rounded-lg {
   border-radius: 0.5rem;
@@ -975,6 +1001,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-amber-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 211 77 / var(--tw-bg-opacity));
+}
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
@@ -1072,11 +1102,17 @@ video {
 .pb-4 {
   padding-bottom: 1rem;
 }
+.text-left {
+  text-align: left;
+}
 .text-center {
   text-align: center;
 }
 .\!text-center {
   text-align: center !important;
+}
+.text-right {
+  text-align: right;
 }
 .text-xl {
   font-size: 1.25rem;
@@ -1206,6 +1242,18 @@ video {
 .text-amber-800 {
   --tw-text-opacity: 1;
   color: rgb(146 64 14 / var(--tw-text-opacity));
+}
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.text-rose-500 {
+  --tw-text-opacity: 1;
+  color: rgb(244 63 94 / var(--tw-text-opacity));
+}
+.text-rose-400 {
+  --tw-text-opacity: 1;
+  color: rgb(251 113 133 / var(--tw-text-opacity));
 }
 .opacity-0 {
   opacity: 0;
@@ -1567,6 +1615,11 @@ input {
 .group:hover .group-hover\:text-amber-500 {
   --tw-text-opacity: 1;
   color: rgb(245 158 11 / var(--tw-text-opacity));
+}
+
+.peer:checked ~ .peer-checked\:bg-amber-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 211 77 / var(--tw-bg-opacity));
 }
 
 .peer:checked ~ .peer-checked\:text-2xl {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class OrderItemsController extends Controller
@@ -23,7 +24,7 @@ class OrderItemsController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -34,7 +35,19 @@ class OrderItemsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Add items to database
+        $formFields = $request->validate([
+            'order_no' => ['required'],
+            'item' => ['required'],
+            'status' => ['required'],
+            'qty' => ['required']
+        ]);
+        $formFields['order_id'] = $request['order_no'];
+        $formFields['item_id'] = $request['item'];
+        $id = $request['order_no'];
+        OrderItem::create($formFields);
+
+        return redirect('/orders/'.$id.'/additems')->with('success', 'Item added successfully.');
     }
 
     /**
@@ -68,7 +81,14 @@ class OrderItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request);
+        $orderItem = OrderItem::find($id);
+        $formFields = $request->validate([
+            'price' => 'required'
+        ]);
         //
+        $orderItem->update($form)
+        return redirect('/orders/'.$id.'/additems')->with('success', 'Item updated successfully.');
     }
 
     /**
