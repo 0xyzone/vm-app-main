@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="mb-6">
+    <form action="orders/$order_no['id']/create" method="POST" class="mb-6">
         <label for="item" class="text-white">
             Choose items:
         </label>
@@ -9,7 +9,11 @@
         {{-- end search bar --}}
         <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mt-2" id="content">
         </div>
-    </div>
+        <div class="flex gap-2 mt-4">
+            <input type="number" name="qty" id="qty" placeholder="Enter quantity" class="border border-gray-200 rounded p-2 w-full">
+            <button type="submit" class="btn-primary">Add</button>
+        </div>
+    </form>
     <x-card class="flex-col !items-start">
         <div class="font-bold text-2xl pb-2 w-full">
             Order # {{ $order_no['id'] }}

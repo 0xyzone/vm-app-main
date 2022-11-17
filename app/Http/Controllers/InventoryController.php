@@ -140,23 +140,23 @@ class InventoryController extends Controller
     // Search Item
     public function search(Request $request)
     {
-        $items = Items::where('name', 'Like', '%' . $request->search . '%')->orWhere('id', 'Like', '%' . $request->search . '%')->paginate(8, ['*'], 'items');
+        $items = Items::where('name', 'Like', '%' . $request->search . '%')->orWhere('id', 'Like', '%' . $request->search . '%')->paginate(4, ['*'], 'items');
         $output = '';
         $output.='';
         foreach ($items as $item) {
             $output .=
                 '
-                    <div class="bg-gray-200 rounded-lg flex p-4 justify-between items-center">
+                    <div class="bg-gray-200 rounded-lg flex p-4 justify-between items-center" id="'. $item['id'] .'">
                         <div class="text-black font-bold flex gap-2 items-center flex-shrink">
                             <div class="bg-gray-300 shadow-lg rounded-lg w-16 h-16 flex justify-center items-center flex-shrink-0">
                             #'. $item['id'] .'
                             </div>
                             <p class="font-thin truncate mr-1">
-                            ' . $item["name"] . '
+                            ' . $item["name"] . 'Rs. ' . $item["price"] . '
                             </p>
                         </div>
-                        <p class="bg-amber-500 rounded-lg text-left flex-shrink-0 p-4 font-medium w-4/12">
-                        Rs. ' . $item["price"] . '
+                        <p class="bg-amber-500 rounded-lg text-left flex-shrink-0 p-4 font-medium w-8 h-8">
+                            <i class="fa-solid fa-plus"></i>
                         </p>
                     </div>
                 ';
