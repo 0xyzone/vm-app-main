@@ -1,5 +1,5 @@
 <x-layout class="pb-20">
-    <form action="additems" method="POST" class="mb-6">
+    <form action="additems" method="POST" class="mb-6" id="orderItems">
         @csrf
         <label for="item" class="text-white">
             Choose items:
@@ -51,8 +51,16 @@
                         @endforeach
                         <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300">
                             <td class="user-td">{{ $item_name }}</td>
-                            <td class="user-td text-center">{{ $orderItem->qty }}</td>
-                            <td class="user-td text-center">{{ 'Rs. ' . $item_price }}</td>
+                            <td class="user-td text-center">
+                                {{ $orderItem->qty }}
+                                <form action="additems/{{$orderItem->id}}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                <input type="number" name="price" id="price" value="{{$orderItem->qty}}">
+                                </form></td>
+                            <td class="user-td text-center">
+                                {{ 'Rs. ' . $item_price }}
+                            </td>
                             <td class="user-td text-left">{{ 'Rs. ' . $amount }}</td>
                         </tr>
                     @endif

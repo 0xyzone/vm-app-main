@@ -81,7 +81,14 @@ class OrderItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request);
+        $orderItem = OrderItem::find($id);
+        $formFields = $request->validate([
+            'price' => 'required'
+        ]);
         //
+        $orderItem->update($form)
+        return redirect('/orders/'.$id.'/additems')->with('success', 'Item updated successfully.');
     }
 
     /**
