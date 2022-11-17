@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\TableController;
@@ -113,12 +114,7 @@ Route::put('/customers/{customer}/update', [CustomerController::class, 'update']
 Route::delete('/customers/{customer}/delete', [CustomerController::class, 'delete']);
 
 //Kitchen 
-Route::get('/kitchen', function(){
-    if (Auth::guest()){
-        return redirect('login');
-    }
-    return view('kitchen.index');
-});
+Route::get('/kitchen', [KitchenController::class, 'index']);
 
 //Bar 
 Route::get('/bar', function(){

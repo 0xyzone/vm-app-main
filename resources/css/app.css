@@ -8,6 +8,10 @@
   --fa-secondary-color: rgb(108, 108, 108);
 }
 
+.kitchen-titles {
+  @apply bg-gray-900 p-4 rounded-lg font-bold text-white;
+}
+
 .sacrollbar {
   @apply scrollbar-thin scrollbar-thumb-rounded-md scrollbar-track-rounded-md scrollbar-thumb-gray-800 scrollbar-track-gray-400/50;
 }

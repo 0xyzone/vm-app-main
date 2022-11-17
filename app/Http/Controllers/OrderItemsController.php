@@ -36,17 +36,13 @@ class OrderItemsController extends Controller
     public function store(Request $request)
     {
         // Add items to database
-        $formFields = $request->validate([
-            'order_no' => ['required'],
-            'item' => ['required'],
-            'status' => ['required'],
-            'qty' => ['required']
-        ]);
         $formFields['order_id'] = $request['order_no'];
         $formFields['item_id'] = $request['item'];
+        $formFields['status'] = $request['status'];
+        $formFields['qty'] = $request['qty'];
         $id = $request['order_no'];
-        OrderItem::create($formFields);
 
+        $item = OrderItem::create($formFields);
         return redirect('/orders/'.$id.'/additems')->with('success', 'Item added successfully.');
     }
 
@@ -79,15 +75,15 @@ class OrderItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $additem)
     {
-        dd($request);
-        $orderItem = OrderItem::find($id);
+        $orderItem = OrderItem::find($additem);
+        $id = $orderItem['order_id'];
         $formFields = $request->validate([
-            'price' => 'required'
+            'qty' => 'required'
         ]);
         //
-        $orderItem->update($form)
+        $orderItem->update($formFields);
         return redirect('/orders/'.$id.'/additems')->with('success', 'Item updated successfully.');
     }
 

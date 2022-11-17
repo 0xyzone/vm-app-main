@@ -31,17 +31,18 @@
             <thead class="font-bold lg:text-sm">
                 <tr class="bg-gray-400 w-full">
                     <td class="w-6/12 pl-2 broder-r-white border-r py-2">Items</td>
-                    <td class="w-2/12 broder-r-white border-r text-center py-2">Qty.</td>
-                    <td class="w-2/12 text-center py-2 broder-r-white border-r">Price</td>
-                    <td class="w-2/12 text-center py-2">Amount</td>
+                    <td class="w-1/12 broder-r-white border-r text-center py-2 px-2">Qty.</td>
+                    <td class="w-3/12 text-center py-2 broder-r-white border-r">Price</td>
+                    <td class="w-1/12 text-center py-2">Amount</td>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="lg:text-lg">
                 @foreach ($orderItems as $orderItem)
                     @if ($orderItem['order_id'] == $order_no['id'])
                         @foreach ($items as $item)
                             @if ($orderItem['item_id'] == $item['id'])
                                 @php
+                                    $item_id = $item['id'];
                                     $item_name = $item['name'];
                                     $item_price = $item['price'];
                                     $amount = $orderItem['qty'] * $item['price'];
@@ -50,19 +51,29 @@
                             @endif
                         @endforeach
                         <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300">
-                            <td class="user-td">{{ $item_name }}</td>
-                            <td class="user-td text-center">
-                                {{ $orderItem->qty }}
-                                <form action="additems/{{$orderItem->id}}" method="post">
+                            <td class="pl-2 py-2">
+                                <div class="px-1 rounded-full flex-1 inline items-center w-max mr-2 @if($orderItem['status'] == "pending")bg-yellow-500 @elseif($orderItem['status'] == "cooking")bg-blue-500 @elseif($orderItem['status'] == "served")bg-green-500 @endif"></div> {{ $item_name }} </td>
+                            <td class="text-center">
+                                <span class="@if(isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) hidden @else flex flex-1 gap-2 justify-center @endif" id="span_{{$orderItem['id']}}">{{ $orderItem->qty }}<i
+                                        class="fa-duotone fa-edit vm-theme" id="icon_{{$orderItem['id']}}"></i></span>
+                                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
+                                    class="@if(isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif" id="form_{{$orderItem->id}}">
                                     @csrf
                                     @method('PUT')
-                                <input type="number" name="price" id="price" value="{{$orderItem->qty}}">
-                                </form></td>
-                            <td class="user-td text-center">
+                                    <input type="number" name="qty" id="qty" value="{{ $orderItem->qty }}" class="w-10 bg-gray-300 animate-pulse text-center">
+                                    <button type="submit"><i class="fa-duotone fa-check vm-theme"></i></button>
+                                </form>
+                            </td>
+                            <td class="text-center">
                                 {{ 'Rs. ' . $item_price }}
                             </td>
-                            <td class="user-td text-left">{{ 'Rs. ' . $amount }}</td>
+                            <td class="text-left px-2">{{ 'Rs. ' . $amount }}</td>
                         </tr>
+                        <script>
+                            $("#icon_{{$orderItem['id']}}").click(function(){
+                                location.replace('?edit={{$orderItem->id}}');
+                            });
+                        </script>
                     @endif
                 @endforeach
 
@@ -71,7 +82,7 @@
                         <td class="broder-r-white border-r py-2 px-4 text-right" colspan="3">
                             Total
                         </td>
-                        <td class="px-6">Rs. {{ array_sum($amounts) }}</td>
+                        <td class="flex px-2 w-max items-center py-2">Rs. {{ array_sum($amounts) }}</td>
                     </tr>
                 @endif
             </tbody>
