@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
@@ -117,12 +118,7 @@ Route::delete('/customers/{customer}/delete', [CustomerController::class, 'delet
 Route::get('/kitchen', [KitchenController::class, 'index']);
 
 //Bar 
-Route::get('/bar', function(){
-    if (Auth::guest()){
-        return redirect('login');
-    }
-    return view('bar.index');
-});
+Route::get('/bar', [BarController::class, 'index']);
 
 //Order 
 Route::get('/orders', [OrderController::class, 'view']);
@@ -138,6 +134,12 @@ Route::get('/orders/{order_no}/additems', [OrderController::class, 'additems']);
 
 // Order List Resource
 Route::resource('/orders/{id}/additems', OrderItemsController::class);
+
+// update order list item
+Route::put('/orderitems/{id}/update', [OrderItemsController::class, 'update_item']);
+
+// update order list item - bar
+Route::put('/orderitems/bar/{id}/update', [BarController::class, 'update_item']);
 
 //Tables 
 Route::get('/tables', [TableController::class, 'view']);

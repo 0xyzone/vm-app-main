@@ -39,6 +39,7 @@ class OrderItemsController extends Controller
         $formFields['order_id'] = $request['order_no'];
         $formFields['item_id'] = $request['item'];
         $formFields['status'] = $request['status'];
+        $formFields['type'] = $request['type'];
         $formFields['qty'] = $request['qty'];
         $id = $request['order_no'];
 
@@ -96,5 +97,12 @@ class OrderItemsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // Upadte itmes
+    public function update_item(Request $request, OrderItem $id){
+        $formFields['status'] = $request['status'];
+        $id->update($formFields);
+        return redirect('/kitchen')->with('success', 'Item updated successfully.');
     }
 }

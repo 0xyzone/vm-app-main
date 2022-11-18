@@ -50,31 +50,43 @@
                                 @endphp
                             @endif
                         @endforeach
-                        <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300">
+                        <tr
+                            class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300  @if ($orderItem['status'] == 'done') !bg-lime-300 @elseif($orderItem['status'] == 'cooking') animate-pulse @endif">
                             <td class="pl-2 py-2">
-                                <div class="px-1 rounded-full flex-1 inline items-center w-max mr-2 @if($orderItem['status'] == "pending")bg-yellow-500 @elseif($orderItem['status'] == "cooking")bg-blue-500 @elseif($orderItem['status'] == "served")bg-green-500 @endif"></div> {{ $item_name }} </td>
-                            <td class="text-center">
-                                <span class="@if(isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) hidden @else flex flex-1 gap-2 justify-center @endif" id="span_{{$orderItem['id']}}">{{ $orderItem->qty }}<i
-                                        class="fa-duotone fa-edit vm-theme" id="icon_{{$orderItem['id']}}"></i></span>
-                                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
-                                    class="@if(isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif" id="form_{{$orderItem->id}}">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="number" name="qty" id="qty" value="{{ $orderItem->qty }}" class="w-10 bg-gray-300 animate-pulse text-center">
-                                    <button type="submit"><i class="fa-duotone fa-check vm-theme"></i></button>
-                                </form>
+                                <div
+                                    class="px-1 rounded-full flex-1 inline items-center w-max mr-2 @if ($orderItem['status'] == 'pending') bg-yellow-500 @elseif($orderItem['status'] == 'cooking')bg-blue-500 @elseif($orderItem['status'] == 'done')bg-green-500 @endif">
+                                </div> {{ $item_name }}
                             </td>
-                            <td class="text-center">
-                                {{ 'Rs. ' . $item_price }}
-                            </td>
-                            <td class="text-left px-2">{{ 'Rs. ' . $amount }}</td>
-                        </tr>
-                        <script>
-                            $("#icon_{{$orderItem['id']}}").click(function(){
-                                location.replace('?edit={{$orderItem->id}}');
-                            });
-                        </script>
+                            <td
+                                class="text-center @if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center h-full pl-2 py-2 @endif">
+                                <span
+                                    class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) hidden @else flex flex-1 gap-2 justify-center @endif"
+                                    id="span_{{ $orderItem['id'] }}">{{ $orderItem->qty }}
+                                    @if ($orderItem['status'] == 'pending')
+                                        <i class="fa-duotone fa-edit vm-theme" id="icon_{{ $orderItem['id'] }}"></i>
+                                </span>
                     @endif
+                    <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
+                        class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif"
+                        id="form_{{ $orderItem->id }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="number" name="qty" id="qty" value="{{ $orderItem->qty }}"
+                            class="w-10 bg-gray-300 animate-pulse text-center">
+                        <button type="submit"><i class="fa-duotone fa-check vm-theme"></i></button>
+                    </form>
+                    </td>
+                    <td class="text-center">
+                        {{ 'Rs. ' . $item_price }}
+                    </td>
+                    <td class="text-left px-2">{{ 'Rs. ' . $amount }}</td>
+                    </tr>
+                    <script>
+                        $("#icon_{{ $orderItem['id'] }}").click(function() {
+                            location.replace('?edit={{ $orderItem->id }}');
+                        });
+                    </script>
+                @endif
                 @endforeach
 
                 @if (isset($amounts))

@@ -140,19 +140,31 @@ class InventoryController extends Controller
     // Search Item
     public function search(Request $request)
     {
+        $categories = Categories::all();
         $items = Items::where('name', 'Like', '%' . $request->search . '%')->orWhere('id', 'Like', '%' . $request->search . '%')->paginate(4, ['*'], 'items');
         $output = '';
-        $output.='';
+        $output .= '';
         foreach ($items as $item) {
+            foreach ($categories as $category) {
+                if ($item['category'] == $category['id']) {
+                    $type = $category['type'];
+                    if($type == "Food"){
+                        $val = 1;
+                    } else{
+                        $val = 2;
+                    }
+                }
+            }
             $output .=
                 '
                 <li>
-                    <input type="radio" name="item" id="opt_'.$item['id'].'" class="peer" hidden value="'.$item['id'].'">
-                    <div class="rounded-lg flex p-4 justify-between items-center bg-gray-200 peer-checked:bg-amber-300" id="'. $item['id'] .'">.
+                    <input type="radio" name="item" id="opt_' . $item['id'] . '" class="peer" hidden value="' . $item['id'] . '">
+                    <input type="number" name="type" id="type_' . $item['id'] . '" value="' . $val . '" hidden>
+                    <div class="rounded-lg flex p-4 justify-between items-center bg-gray-200 peer-checked:bg-amber-300" id="' . $item['id'] . '">
                         
                         <div class="text-black font-bold flex gap-2 items-center flex-shrink">
                             <div class="bg-gray-300 shadow-lg rounded-lg w-16 h-16 flex justify-center items-center flex-shrink-0">
-                            #'. $item['id'] .'
+                            #' . $item['id'] . '
                             </div>
                             <p class="font-bold mr-1">
                             ' . $item["name"] . '
@@ -165,10 +177,10 @@ class InventoryController extends Controller
                     </div>
                 </li>
                 <script>
-                $("#'.$item['id'].'").click(function(){
-                    if($("#opt_'.$item['id'].'").is(":checked")){
+                $("#' . $item['id'] . '").click(function(){
+                    if($("#opt_' . $item['id'] . '").is(":checked")){
                     }else{
-                        $("#opt_'.$item['id'].'").prop("checked", true);
+                        $("#opt_' . $item['id'] . '").prop("checked", true);
                     }
                 });
                 </script>

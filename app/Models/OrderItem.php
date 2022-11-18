@@ -12,6 +12,11 @@ class OrderItem extends Model
         'order_id',
         'item_id',
         'qty',
+        'type',
         'status'
     ];
+
+    public function items(){
+        return $this->hasOne(Items::class, 'id');
+    }
 }

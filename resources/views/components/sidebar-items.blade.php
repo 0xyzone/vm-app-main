@@ -12,6 +12,11 @@
             'icon_class' => 'fa-duotone fa-user-cog',
         ],
         [
+            'name' => 'Customers',
+            'path' => 'customers',
+            'icon_class' => 'fa-duotone fa-users',
+        ],
+        [
             'name' => 'Inventory',
             'path' => 'inventory',
             'icon_class' => 'fa-duotone fa-box-circle-check',
@@ -22,19 +27,9 @@
             'icon_class' => 'fa-duotone fa-loveseat',
         ],
         [
-            'name' => 'Customers',
-            'path' => 'customers',
-            'icon_class' => 'fa-duotone fa-users',
-        ],
-        [
             'name' => 'Orders',
             'path' => 'orders',
             'icon_class' => 'fa-duotone fa-clipboard-list',
-        ],
-        [
-            'name' => 'Finance',
-            'path' => 'finance',
-            'icon_class' => 'fa-duotone fa-cash-register',
         ],
         [
             'name' => 'Kitchen',
@@ -45,6 +40,11 @@
             'name' => 'Bar',
             'path' => 'bar',
             'icon_class' => 'fa-duotone fa-martini-glass-citrus',
+        ],
+        [
+            'name' => 'Reports',
+            'path' => 'reports',
+            'icon_class' => 'fa-duotone fa-clipboard',
         ],
     ];
     

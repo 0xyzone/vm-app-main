@@ -15,4 +15,8 @@ class Items extends Model
         'category',
         'image',
     ];
+
+    public function categories(){
+        return $this->hasOne(Categories::class, 'id');
+    }
 }

@@ -20,4 +20,8 @@ class Customer extends Model
         'marriagedate',
         'gender',
     ];
+
+    public function visits(){
+        $this->hasMany(Visit::class);
+    }
 }

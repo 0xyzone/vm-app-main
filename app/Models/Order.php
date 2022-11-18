@@ -13,5 +13,6 @@ class Order extends Model
         'customer',
         'item',
         'quantity',
+        'status',
     ];
 }
