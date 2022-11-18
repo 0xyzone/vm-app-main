@@ -60,11 +60,9 @@ class OrderController extends Controller
         if(Auth::guest()){
             return redirect('/login');
         } else {
-            return view('orders.add-items', [
-                'order_no' => $order_no,
-                'items' => Items::all(),
-                'orderItems' => OrderItem::all(),
-            ]);
+            $items = Items::all();
+            $orderItems = OrderItem::all();
+            return view('orders.add-items', compact('items', 'orderItems', 'order_no'));
         };
     }
     

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\BarController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
@@ -167,3 +168,7 @@ Route::get('/finance', function() {
 
 // Search Items
 Route::get('/search/item', [InventoryController::class, 'search']);
+
+
+// Kitch Ajaxs
+Route::get('/ajax/kitchen_new', [AjaxController::class, 'new']);

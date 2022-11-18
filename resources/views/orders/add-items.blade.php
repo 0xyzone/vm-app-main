@@ -66,27 +66,27 @@
                                         <i class="fa-duotone fa-edit vm-theme" id="icon_{{ $orderItem['id'] }}"></i>
                                 </span>
                     @endif
-                    <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
-                        class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif"
-                        id="form_{{ $orderItem->id }}">
-                        @csrf
-                        @method('PUT')
-                        <input type="number" name="qty" id="qty" value="{{ $orderItem->qty }}"
-                            class="w-10 bg-gray-300 animate-pulse text-center">
-                        <button type="submit"><i class="fa-duotone fa-check vm-theme"></i></button>
-                    </form>
-                    </td>
-                    <td class="text-center">
-                        {{ 'Rs. ' . $item_price }}
-                    </td>
-                    <td class="text-left px-2">{{ 'Rs. ' . $amount }}</td>
-                    </tr>
-                    <script>
-                        $("#icon_{{ $orderItem['id'] }}").click(function() {
-                            location.replace('?edit={{ $orderItem->id }}');
-                        });
-                    </script>
                 @endif
+                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
+                    class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif"
+                    id="form_{{ $orderItem->id }}">
+                    @csrf
+                    @method('PUT')
+                    <input type="number" name="qty" id="qty" value="{{ $orderItem->qty }}"
+                        class="w-10 bg-gray-300 animate-pulse text-center">
+                    <button type="submit"><i class="fa-duotone fa-check vm-theme"></i></button>
+                </form>
+                </td>
+                <td class="text-center">
+                    {{ 'Rs. ' . $item_price }}
+                </td>
+                <td class="text-left px-2">{{ 'Rs. ' . $amount }}</td>
+                </tr>
+                <script>
+                    $("#icon_{{ $orderItem['id'] }}").click(function() {
+                        location.replace('?edit={{ $orderItem->id }}');
+                    });
+                </script>
                 @endforeach
 
                 @if (isset($amounts))

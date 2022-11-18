@@ -37,6 +37,17 @@
                     @endforeach
                 @endforeach
             </div>
+            <script>
+                function fetchdata(){
+                    $.ajax({
+                        url: '/ajax/kitchen_new',
+                        type: 'get',
+                        success: function(data){
+                            $("#new").html(data)
+                        }
+                    })
+                }
+            </script>
             <div class="my-4">
                 {{ $pendings->appends(['cookings' => $cookings->currentPage()])->appends(['dones' => $dones->currentPage()])->links() }}
             </div>
@@ -122,3 +133,8 @@
         </div>
     </div>
 </x-layout>
+<script>
+    $(document).ready(function(){
+        setInterval(fetchdata, 1000);
+    })
+</script>
