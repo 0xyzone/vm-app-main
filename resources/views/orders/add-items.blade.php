@@ -24,8 +24,25 @@
         <input type="text" name="status" id="status" value="pending" hidden>
     </form>
     <x-card class="flex-col !items-start">
-        <div class="font-bold text-2xl pb-2 w-full">
-            Order # {{ $order_no['id'] }}
+        <div class="font-bold text-2xl pb-2 w-full flex flex-col lg:flex-row justify-between">
+            <p>Order # {{ $order_no['id'] }}</p>
+            <div class="flex gap-2 text-sm items-center font-thin">{{-- Index --}}
+                <div class="flex gap-2 items-center">
+                    <p class="font-bold">Item Status: </p>
+                    <div class="w-max px-1 py-2 rounded-full bg-amber-500 flex-1 inline items-center"></div>
+                    <p>Pending Item</p>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <div class="w-max px-1 py-2 rounded-full bg-blue-500 flex-1 inline items-center"></div>
+                    <p>Cooking</p>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <div class="w-max px-1 py-2 rounded-full bg-green-500 flex-1 inline items-center"></div>
+                    <p>
+                        Cooked
+                    </p>
+                </div>
+            </div>
         </div>
         <table class="table-auto text-xs w-full">
             <thead class="font-bold lg:text-sm">
@@ -38,24 +55,16 @@
             </thead>
             <tbody class="lg:text-lg">
                 @foreach ($orderItems as $orderItem)
-                    @if ($orderItem['order_id'] == $order_no['id'])
-                        @foreach ($items as $item)
-                            @if ($orderItem['item_id'] == $item['id'])
-                                @php
-                                    $item_id = $item['id'];
-                                    $item_name = $item['name'];
-                                    $item_price = $item['price'];
-                                    $amount = $orderItem['qty'] * $item['price'];
-                                    $amounts[] = $orderItem['qty'] * $item['price'];
-                                @endphp
-                            @endif
-                        @endforeach
+                    @if ($order_no['id'] == $orderItem['order_id'])
+                        @php
+                            $amounts[] = $orderItem['qty'] * $orderItem->items->price;
+                        @endphp
                         <tr
                             class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300  @if ($orderItem['status'] == 'done') !bg-lime-300 @elseif($orderItem['status'] == 'cooking') animate-pulse @endif">
                             <td class="pl-2 py-2">
                                 <div
                                     class="px-1 rounded-full flex-1 inline items-center w-max mr-2 @if ($orderItem['status'] == 'pending') bg-yellow-500 @elseif($orderItem['status'] == 'cooking')bg-blue-500 @elseif($orderItem['status'] == 'done')bg-green-500 @endif">
-                                </div> {{ $item_name }}
+                                </div> {{ $orderItem->items->name }}
                             </td>
                             <td
                                 class="text-center @if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center h-full pl-2 py-2 @endif">
@@ -64,29 +73,29 @@
                                     id="span_{{ $orderItem['id'] }}">{{ $orderItem->qty }}
                                     @if ($orderItem['status'] == 'pending')
                                         <i class="fa-duotone fa-edit vm-theme" id="icon_{{ $orderItem['id'] }}"></i>
+                                    @endif
                                 </span>
+                                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
+                                    class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif"
+                                    id="form_{{ $orderItem->id }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="number" name="qty" id="qty" value="{{ $orderItem->qty }}"
+                                        class="w-10 bg-gray-300 animate-pulse text-center">
+                                    <button type="submit"><i class="fa-duotone fa-check vm-theme"></i></button>
+                                </form>
+                            </td>
+                            <td class="text-center">
+                                {{ 'Rs. ' . $orderItem->items->price }}
+                            </td>
+                            <td class="text-left px-2">{{ 'Rs. ' . $orderItem->qty * $orderItem->items->price }}</td>
+                        </tr>
+                        <script>
+                            $("#icon_{{ $orderItem['id'] }}").click(function() {
+                                location.replace('?edit={{ $orderItem->id }}');
+                            });
+                        </script>
                     @endif
-                @endif
-                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
-                    class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif"
-                    id="form_{{ $orderItem->id }}">
-                    @csrf
-                    @method('PUT')
-                    <input type="number" name="qty" id="qty" value="{{ $orderItem->qty }}"
-                        class="w-10 bg-gray-300 animate-pulse text-center">
-                    <button type="submit"><i class="fa-duotone fa-check vm-theme"></i></button>
-                </form>
-                </td>
-                <td class="text-center">
-                    {{ 'Rs. ' . $item_price }}
-                </td>
-                <td class="text-left px-2">{{ 'Rs. ' . $amount }}</td>
-                </tr>
-                <script>
-                    $("#icon_{{ $orderItem['id'] }}").click(function() {
-                        location.replace('?edit={{ $orderItem->id }}');
-                    });
-                </script>
                 @endforeach
 
                 @if (isset($amounts))

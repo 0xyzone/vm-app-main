@@ -61,7 +61,7 @@ class OrderController extends Controller
             return redirect('/login');
         } else {
             $items = Items::all();
-            $orderItems = OrderItem::all();
+            $orderItems = OrderItem::with('orders')->get();
             return view('orders.add-items', compact('items', 'orderItems', 'order_no'));
         };
     }

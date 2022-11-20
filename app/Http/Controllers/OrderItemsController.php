@@ -76,9 +76,9 @@ class OrderItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $additem)
+    public function update(Request $request, $order_no)
     {
-        $orderItem = OrderItem::find($additem);
+        $orderItem = OrderItem::find($order_no);
         $id = $orderItem['order_id'];
         $formFields = $request->validate([
             'qty' => 'required'
