@@ -31,6 +31,7 @@ class OrderController extends Controller
             return redirect('login');
         }
         return view('orders.add', [
+            'title' => 'Add New Order',
             'tables' => Tables::all(),
             'customers' => Customer::all(),
             'items' => Items::paginate(4)

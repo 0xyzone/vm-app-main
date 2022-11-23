@@ -8,6 +8,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemsController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -158,12 +159,12 @@ Route::get('/tables/{table}', [TableController::class, 'reserve']);
 Route::post('/tables/{table}/reserve', [TableController::class, 'reserve_update']);
 
 // transactions
-Route::get('/finance', function() {
+Route::get('/reports', function() {
     if (Auth::guest()) {
         //is a Laravel guest so redirect
         return redirect('login');
        }
-    return view('finance.index');
+    return view('reports.index');
 });
 
 // Search Items
@@ -172,3 +173,7 @@ Route::get('/search/item', [InventoryController::class, 'search']);
 
 // Kitch Ajaxs
 Route::get('/ajax/kitchen_new', [AjaxController::class, 'new']);
+
+// PUBLIC Routes
+Route::get('/public/tables', [PublicController::class, 'viewTable']);
+Route::get('/ajax/public/tables', [PublicController::class, 'fetch']);

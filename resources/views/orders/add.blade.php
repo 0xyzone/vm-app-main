@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :title="$title">
     <div class="px-10 max-w-lg mx-auto pb-4 overflow-y-auto overflow-x-hidden">
         <h2 class="text-2xl font-bold text-white uppercase text-center my-5">
             Add new Order

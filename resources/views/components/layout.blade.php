@@ -5,9 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {{-- Links --}}
     <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon"> 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+
+    {{-- Scripts --}}
+    <script src="{{ mix('js/app.js') }}"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="{{ asset('js/init-alpine.js') }}"></script>
     <script src="{{ asset('js/focus-trap.js') }}"></script>
@@ -15,11 +20,13 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>
-        @hasSection('title')
-            @yield('title') | Vishudda Momocha
-        @else
+        @isset($title)
+            {{ $title }} | Vishudda Momocha
+        @endisset
+            
+        @empty($title)
             Vishudda Momocha
-        @endif
+        @endempty
     </title>
     <script type="text/javascript">
         function display_ct7() {
@@ -60,7 +67,9 @@
     <x-flash-success />
 
     <div class="flex h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        @if (!isset($public))
         <x-sidebar />
+        @endif
         <div class="flex flex-col flex-1 w-full overflow-x-hidden sacrollbar">
             <x-header />
             <x-container {{$attributes->merge(['class' => 'pt-10 lg:px-10 px-5 pb-20'])}}>

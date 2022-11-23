@@ -1,8 +1,8 @@
 @if (Request::path() == 'login')
 @else
     <header class="z-20 py-4 shadow-md bg-gray-900 sticky top-0 w-full">
-        
-        <div class="container flex items-center justify-between md:justify-end h-full px-6 mx-auto text-white">
+
+        <div class="container flex items-center @if (!str_contains(url()->current(), 'public')) justify-between md:justify-end @else justify-center @endif h-full px-6 mx-auto text-white">
             <!-- Mobile hamburger -->
             <button class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-lime"
                 @click="toggleSideMenu" aria-label="Menu">
@@ -12,26 +12,31 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </button>
-            <div class="flex md:justify-between w-full">
-                <span id='ct7' class="w-full md:w-auto text-center md:text-left"></span>
-                <p class="hidden md:block">Hi <span class="mr-2 font-bold text-amber-500">{{ auth()->user()->name }}</span></p>
+            <div class="flex @if (!str_contains(url()->current(), 'public')) md:justify-between @else md:justify-center @endif w-full">
+                <span id='ct7' class="w-full md:w-auto text-center @if (!str_contains(url()->current(), 'public')) md:text-left @endif"></span>
+                @if (isset(auth()->user()->name))
+                    <p class="hidden md:block">Hi <span
+                            class="mr-2 font-bold text-amber-500">{{ auth()->user()->name }}</span></p>
+                @endif
             </div>
-            <ul class="md:flex items-center flex-shrink-0 space-x-6 hidden">
+            @if (isset(auth()->user()->name))
+                <ul class="md:flex items-center flex-shrink-0 space-x-6 hidden">
 
-                <li>
-                    <button @click="openModal" id="lgbtn2" class="hidden lg:block"><i
-                            class="fa-solid fa-right-from-bracket"></i>
-                        Logout</button>
-                    <script>
-                        $('#lgbtn2').click(function() {
-                            console.log('btn clicked');
-                            $('#modal').removeClass('hidden');
-                            $('#modalbg').removeClass('hidden');
-                            $('#modalbg').addClass('flex');
-                        });
-                    </script>
-                </li>
-            </ul>
+                    <li>
+                        <button @click="openModal" id="lgbtn2" class="hidden lg:block"><i
+                                class="fa-solid fa-right-from-bracket"></i>
+                            Logout</button>
+                        <script>
+                            $('#lgbtn2').click(function() {
+                                console.log('btn clicked');
+                                $('#modal').removeClass('hidden');
+                                $('#modalbg').removeClass('hidden');
+                                $('#modalbg').addClass('flex');
+                            });
+                        </script>
+                    </li>
+                </ul>
+            @endif
         </div>
     </header>
 @endif
