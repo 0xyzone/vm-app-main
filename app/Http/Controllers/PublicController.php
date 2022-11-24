@@ -30,14 +30,14 @@ class PublicController extends Controller
                 $pclass = "text-gray-200";
                 $divclass = "text-gray-500";
             } elseif ($table['availability'] == 'Reserved') {
-                $aclass = 'bg-amber-500 hover:scale-105 hover:bg-gray-500/50';
+                $aclass = 'bg-amber-500';
                 $iclassBig = 'fa-solid fa-book-bookmark fa-4x !hidden lg:!inline-block text-amber-800 group-hover:text-amber-500 smooth';
                 $iclassSmall = 'fa-solid fa-book-bookmark fa-2x lg:!hidden text-amber-800 group-hover:text-amber-500 smooth';
                 $style = '';
-                $pclass = "group-hover:text-gray-200 smooth";
+                $pclass = "smooth";
                 $divclass = "text-amber-800 smooth";
             } elseif ($table['availability'] == 'Available') {
-                $aclass = 'hover:text-white hover:scale-105 hover:bg-gray-500/50';
+                $aclass = '';
                 $iclassBig = 'fa-duotone fa-lock-open fa-4x !hidden lg:!inline-block';
                 $iclassSmall = 'fa-duotone fa-lock-open fa-3x lg:!hidden';
                 $style = '#4CAF50';
@@ -47,7 +47,7 @@ class PublicController extends Controller
 
             $output.=
             '
-            <a href="/tables/'. $table['id'] .'"
+            <div
                 class="bg-gray-200 rounded-lg flex gap-4 items-center p-4 '. $aclass .' smooth group">
                 <i class="'. $iclassBig .'"
                     style="--fa-primary-color: '. $style .'"></i>
@@ -57,16 +57,16 @@ class PublicController extends Controller
                         class="lg:text-4xl font-thin '. $pclass .'">
                         '. $table['name'] .'</p>
                     <div
-                        class="text-xs '. $divclass .' text-gray-400 lg:pl-1.5 group-hover:text-white smooth">
+                        class="text-xs '. $divclass .' text-gray-400 lg:pl-1.5">
                         Floor:
                         <span class="font-bold">'. $table['floor'] .'</span>
                         <span class="gap-1 text-xs font-thin inline-flex">
-                            <i class="fa-solid fa-loveseat lg:pl-1.5 text-gray-700 group-hover:text-white smooth"></i>
+                            <i class="fa-solid fa-loveseat lg:pl-1.5 text-gray-700 smooth"></i>
                         </span><span class="font-bold"> '. $table['seats'] .' </span> seats
                     </div>
 
                 </div>
-            </a>
+            </div>
             ';
         }
         return response($output);

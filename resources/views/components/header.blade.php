@@ -14,12 +14,12 @@
             </button>
             <div class="flex @if (!str_contains(url()->current(), 'public')) md:justify-between @else md:justify-center @endif w-full">
                 <span id='ct7' class="w-full md:w-auto text-center @if (!str_contains(url()->current(), 'public')) md:text-left @endif"></span>
-                @if (isset(auth()->user()->name))
+                @if (isset(auth()->user()->name) && !str_contains(url()->current(), 'public'))
                     <p class="hidden md:block">Hi <span
                             class="mr-2 font-bold text-amber-500">{{ auth()->user()->name }}</span></p>
                 @endif
             </div>
-            @if (isset(auth()->user()->name))
+            @if (isset(auth()->user()->name) && !str_contains(url()->current(), 'public'))
                 <ul class="md:flex items-center flex-shrink-0 space-x-6 hidden">
 
                     <li>
