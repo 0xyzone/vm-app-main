@@ -110,12 +110,13 @@
         </table>
         @if (isset($amounts))
             <div class="flex lg:justify-end justify-center mt-4 gap-4 w-full">
-                <a href="" class="btn-secondary hover:scale-105">Transfer Table</a>
+                <a href="/orders/{{$order_no['id']}}/transfer" class="btn-secondary hover:scale-105">Transfer Table</a>
                 <a href="" class="btn-secondary hover:scale-105">Mark as paid</a>
                 <a href="" class="btn-secondary hover:scale-105">Complete</a>
             </div>
         @endif
     </x-card>
+
     {{-- Ajax Starting --}}
     <script class="text/javascript">
         $('#search').on('keyup', function() {

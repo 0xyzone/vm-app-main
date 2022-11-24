@@ -67,4 +67,15 @@ class OrderController extends Controller
         };
     }
     
+    // Show Transfer Table form
+    public function transferView(Order $order_no){
+        if (Auth::guest()) {
+            return redirect('login');
+        }
+        $title = "Transfer Tables";
+        $items = Items::all();
+        $orderItems = OrderItem::with('orders')->get();
+        $tables = Tables::all();
+        return view('tables.transfer', compact('order_no', 'items', 'orderItems', 'title', 'tables'));
+    }
 }

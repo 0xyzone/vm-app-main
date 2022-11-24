@@ -61,23 +61,6 @@
                     </script>
                 @endforeach
             </div>
-            {{-- <div class="grid grid-cols-4 gap-4 mt-2">
-                @foreach ($tables as $table)
-                    @if ($table['availability'] == 'Occupied')
-                        @continue
-                    @endif
-                    <div class="flex gap-2 border border-amber-500 p-8 rounded-lg cursor-pointer smooth"
-                        id="table_div{{ $table['id'] }}">
-                        <input type="checkbox" class="peer" name="table[]" id="table{{ $table['id'] }}"
-                            value="{{ $table['id'] }}" hidden>
-                        <label for="table{{ $table['id'] }}"
-                            class="cursor-pointer peer-checked:text-gray-800 peer-checked:text-2xl smooth text-xl">{{ $table['name'] }}</label>
-                    </div>
-
-                @endforeach
-            </div>
-        </div> --}}
-
 
             <div class="mb-6">
                 <button for="add" type="submit"

@@ -61,6 +61,9 @@ class CustomerController extends Controller
     // Edit Form - Customer
     public function edit(customer $customer)
     {
+        if (Auth::guest()) {
+            return redirect('login');
+        }
         return view('customers.edit', [
             'customer' => $customer,
         ]);

@@ -15,7 +15,7 @@
                     Name
                 </label>
                 <input type="text" class="border border-gray-200 rounded p-2 w-full" name="name"
-                    value="{{ $tables->id }}" autofocus placeholder="Table No." disabled/>
+                    value="{{ $tables->name }}" autofocus placeholder="Table No." disabled/>
                 @error('name')
                     <p class="text-white text-xs mt-1">{{ $message }}</p>
                 @enderror

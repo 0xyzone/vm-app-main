@@ -29,7 +29,7 @@ class UserController extends Controller
         // Create user
         $user = User::create($formFields);
 
-        return redirect('/umgmt')->with('success', 'User registered successfully.');
+        return redirect('/users')->with('success', 'User registered successfully.');
     }
 
     //show register
@@ -79,10 +79,13 @@ class UserController extends Controller
         return back()->with('error', 'Credentials does not match in our database.');
     }
 
-    // User Management
-    public function usermanagement()
+    // User Index
+    public function index()
     {
-        return view('users.management', [
+        if(Auth::guest()){
+            return redirect('/login');
+        }
+        return view('users.index', [
             'users' =>  User::paginate(5, ['*'], 'users')
         ]);
     }
@@ -90,6 +93,9 @@ class UserController extends Controller
     //edit user
     public function edit(user $user)
     {
+        if (Auth::guest()) {
+            return redirect('login');
+        }
         return view('users.edit', [
             'user' =>  $user
         ]);

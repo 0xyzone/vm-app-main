@@ -87,40 +87,6 @@
                         <p class="error-text">{{ $message }}</p>
                     @enderror
 
-                    <label for="marriage" class="reg-label mt-2">
-                        Marriage Status
-                    </label>
-                    <select name="marriage" id="marriage" class="border border-gray-200 rounded p-2 w-full">
-                        @php
-                            $marrriages = [
-                                [
-                                    'name' => 'Married',
-                                ],
-                                [
-                                    'name' => 'Single',
-                                ],
-                            ];
-                        @endphp
-                        <option value="" disabled selected hidden>Please Choose an option.</option>
-                        @foreach ($marrriages as $marriage)
-                            <option value="{{ $marriage['name'] }}"
-                                @if (old('marriage') === $marriage['name']) selected @else @endif>{{ $marriage['name'] }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('marriage')
-                        <p class="error-text">{{ $message }}</p>
-                    @enderror
-
-                    <label for="marriagedate" class="reg-label mt-2">
-                        Date Of Marriage
-                    </label>
-                    <input type="date" class="border border-gray-200 rounded p-2 w-full" name="marriagedate"
-                        value="{{ old('marriagedate') }}" />
-                    @error('marriagedate')
-                        <p class="error-text">{{ $message }}</p>
-                    @enderror
-
                     <label for="gender" class="reg-label mt-2">
                         Gender
                     </label>
@@ -148,6 +114,44 @@
                     @error('gender')
                         <p class="error-text">{{ $message }}</p>
                     @enderror
+
+                    <label for="marriage" class="reg-label mt-2">
+                        Marriage Status
+                    </label>
+                    <select name="marriage" id="marriage" class="border border-gray-200 rounded p-2 w-full">
+                        @php
+                            $marrriages = [
+                                [
+                                    'name' => 'Married',
+                                ],
+                                [
+                                    'name' => 'Single',
+                                ],
+                            ];
+                        @endphp
+                        <option value="" disabled selected hidden>Please Choose an option.</option>
+                        @foreach ($marrriages as $marriage)
+                            <option value="{{ $marriage['name'] }}"
+                                @if (old('marriage') === $marriage['name']) selected @else @endif>{{ $marriage['name'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('marriage')
+                        <p class="error-text">{{ $message }}</p>
+                    @enderror
+
+                    <div id="marriagedate">
+                        <label for="marriagedate" class="reg-label mt-2">
+                            Date Of Marriage
+                        </label>
+                        <input type="date" class="border border-gray-200 rounded p-2 w-full" name="marriagedate"
+                            value="{{ old('marriagedate') }}" />
+                        @error('marriagedate')
+                            <p class="error-text">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+
                 </div>
             </div>
 
@@ -156,8 +160,24 @@
                     Create
                 </button>
             </div>
-
-
         </form>
     </div>
+    <script>
+        $(document).ready(function() {
+            if ($('#marriage').val() == 'Married') {
+                $('#marriagedate').show();
+            } else {
+                console.log('Single')
+                $('#marriagedate').hide();
+            }
+
+            $('#marriage').on('change', function() {
+                if (this.value === "Married") {
+                    $('#marriagedate').show();
+                } else {
+                    $('#marriagedate').hide();
+                }
+            });
+        });
+    </script>
 </x-layout>

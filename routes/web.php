@@ -38,7 +38,7 @@ Route::get('/', function () {
 Route::get('/users/register', [UserController::class, 'create']);
 
 //Show User Management form
-Route::get('/users', [UserController::class, 'usermanagement']);
+Route::get('/users', [UserController::class, 'index']);
 
 // Store user
 Route::post('/users/store', [UserController::class, 'store']);
@@ -133,6 +133,12 @@ Route::post('/orders/store', [OrderController::class, 'store']);
 
 // Show Add items to order
 Route::get('/orders/{order_no}/additems', [OrderController::class, 'additems']);
+
+// Transfer Table view
+Route::get('/orders/{order_no}/transfer', [OrderController::class, 'transferView']);
+
+// Transfer Table Update
+Route::get('/orders/{order_no}/transfer/update', [OrderController::class, 'transfer']);
 
 // Order List Resource
 Route::resource('/orders/{id}/additems', OrderItemsController::class);

@@ -57,6 +57,9 @@ class InventoryController extends Controller
     //category edit
     public function category_edit(categories $category)
     {
+        if (Auth::guest()) {
+            return redirect('login');
+        }
         return view('inventory.category-edit', [
             'categories' => Categories::all(),
             'category' =>  $category,
@@ -103,6 +106,9 @@ class InventoryController extends Controller
     //edit item
     public function item_edit(items $item)
     {
+        if (Auth::guest()) {
+            return redirect('login');
+        }
         return view('inventory.item-edit', [
             'categories' => Categories::all(),
             'item' =>  $item,
