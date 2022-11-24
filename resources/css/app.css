@@ -53,6 +53,10 @@ input{
 .btn-primary {
   @apply border border-gray-300 py-2 px-4 rounded-lg text-white hover:bg-amber-500 hover:text-gray-200 hover:border-amber-500 smooth text-xl;
 }
+
+.btn-secondary {
+  @apply border border-current py-2 px-4 rounded-lg smooth lg:text-xl text-xs;
+}
 /* ----
     Animations
   ---- */

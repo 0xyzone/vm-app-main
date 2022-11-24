@@ -1531,6 +1531,28 @@ input {
   --tw-text-opacity: 1;
   color: rgb(229 231 235 / var(--tw-text-opacity));
 }
+
+.btn-secondary {
+  border-radius: 0.5rem;
+  border-width: 1px;
+  border-color: currentColor;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transition-duration: 300ms;
+}
+
+@media (min-width: 1024px) {
+
+  .btn-secondary {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
 /* ----
     Animations
   ---- */
@@ -1933,6 +1955,10 @@ input {
 
   .lg\:flex-row {
     flex-direction: row;
+  }
+
+  .lg\:justify-end {
+    justify-content: flex-end;
   }
 
   .lg\:border-l-2 {
