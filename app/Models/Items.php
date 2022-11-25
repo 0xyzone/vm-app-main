@@ -17,6 +17,10 @@ class Items extends Model
     ];
 
     public function categories(){
-        return $this->hasOne(Categories::class, 'id');
+        return $this->hasOne(Categories::class);
+    }
+
+    public function orderItems(){
+        return $this->hasMany(OrderItem::class);
     }
 }

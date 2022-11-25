@@ -17,11 +17,11 @@ class OrderItem extends Model
         'status'
     ];
 
-    public function items(){
-        return $this->hasOne(Items::class, 'id');
+    public function item(){
+        return $this->belongsTo(Items::class);
     }
 
-    public function orders(){
-        return $this->hasMany(Order::class, 'id');
+    public function order(){
+        return $this->belongsTo(Order::class);
     }
 }

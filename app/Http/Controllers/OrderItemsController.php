@@ -35,6 +35,10 @@ class OrderItemsController extends Controller
      */
     public function store(Request $request)
     {
+        $formFields = $request->validate([
+            'item' => 'required',
+            'qty' => 'required',
+        ]);
         // Add items to database
         $formFields['order_id'] = $request['order_no'];
         $formFields['item_id'] = $request['item'];

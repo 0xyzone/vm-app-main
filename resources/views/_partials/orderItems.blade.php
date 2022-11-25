@@ -1,11 +1,11 @@
 <div class="flex gap-2 items-center relative">
     <div class="w-10 h-10 rounded-lg bg-gray-300 flex justify-center items-center self-start">
-        {{ $var->items->id }}
+        {{ $var->item->id }}
     </div>
     <div class="grid grid-cols-1 border-separate gap-2">
         <div class="flex flex-col">
             <p class="font-bold">Order #{{ $var->order_id }}</p>
-            <p class="">{{ $var->items->name }}</p>
+            <p class="">{{ $var->item->name }}</p>
         </div>
         <div class="flex items-center gap-2">
             <p class="font-bold">Qty.</p>

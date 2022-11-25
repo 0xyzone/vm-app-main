@@ -21,9 +21,9 @@ mix.js("resources/js/app.js", "public/js").postCss(
     [require("tailwindcss")]
 );
 
-// mix.options({
-//     hmrOptions: {
-//         host: "localhost",
-//         port: 8000,
-//     },
-// });
+mix.options({
+    hmrOptions: {
+        host: "localhost",
+        port: 8000,
+    },
+});

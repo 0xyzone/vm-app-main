@@ -57,13 +57,12 @@ class OrderController extends Controller
     }
 
     // Add Items page
-    public function additems(Order $order_no){
+    public function additems(Order $order){
         if(Auth::guest()){
             return redirect('/login');
         } else {
-            $items = Items::all();
-            $orderItems = OrderItem::with('orders')->get();
-            return view('orders.add-items', compact('items', 'orderItems', 'order_no'));
+        
+            return view('orders.add-items', compact('order'));
         };
     }
     
@@ -74,7 +73,7 @@ class OrderController extends Controller
         }
         $title = "Transfer Tables";
         $items = Items::all();
-        $orderItems = OrderItem::with('orders')->get();
+        $orderItems = OrderItem::with('order')->get();
         $tables = Tables::all();
         return view('tables.transfer', compact('order_no', 'items', 'orderItems', 'title', 'tables'));
     }

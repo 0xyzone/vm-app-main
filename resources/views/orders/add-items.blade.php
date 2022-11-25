@@ -8,24 +8,29 @@
         <input type="search" name="search" class="border border-gray-200 rounded p-2 w-full my-2"
             placeholder="Search Items..." id="search">
         {{-- end search bar --}}
-        <ul class="grid grid-cols-1 md:grid-cols-4 gap-2 mt-2 list-none" id="content">
+        <ul class="grid grid-cols-1 md:grid-cols-4 gap-2 my-2 list-none hidden" id="content">
         </ul>
+        @error('item')
+            <p class="text-rose-400 text-xs ">
+                {{ $message }}
+            </p>
+        @enderror
         <div class="flex gap-2 mt-4">
             <input type="number" name="qty" id="qty" placeholder="Enter quantity"
                 class="border border-gray-200 rounded p-2 w-full">
             <button type="submit" class="btn-primary">Add</button>
         </div>
         @error('qty')
-            <p class="text-rose-400 text-xs ">
+            <p class="text-rose-400 text-xs mt-2">
                 {{ $message }}
             </p>
         @enderror
-        <input type="number" name="order_no" id="order_no" value="{{ $order_no['id'] }}" hidden>
+        <input type="number" name="order_no" id="order_no" value="{{ $order->id }}" hidden>
         <input type="text" name="status" id="status" value="pending" hidden>
     </form>
     <x-card class="flex-col !items-start">
         <div class="font-bold text-2xl pb-2 w-full flex flex-col lg:flex-row justify-between">
-            <p>Order # {{ $order_no['id'] }}</p>
+            <p>Order # {{ $order->id }}</p>
             <div class="flex gap-2 text-sm items-center font-thin">{{-- Index --}}
                 <div class="flex gap-2 items-center">
                     <p class="font-bold">Item Status: </p>
@@ -54,25 +59,27 @@
                 </tr>
             </thead>
             <tbody class="lg:text-lg">
-                @foreach ($orderItems as $orderItem)
-                    @if ($order_no['id'] == $orderItem['order_id'])
+                @foreach ($order->orderItems as $orderItem)
+                    @if ($order->id == $orderItem->order_id)
                         @php
-                            $amounts[] = $orderItem['qty'] * $orderItem->items->price;
+                            $amounts[] = $orderItem['qty'] * $orderItem->item->price;
+                            
                         @endphp
                         <tr
-                            class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300  @if ($orderItem['status'] == 'done') !bg-lime-300 @elseif($orderItem['status'] == 'cooking') animate-pulse @endif">
+                            class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300  @if ($orderItem->status == 'done') !bg-lime-300 @elseif($orderItem->status == 'cooking') animate-pulse @endif">
                             <td class="pl-2 py-2">
                                 <div
-                                    class="px-1 rounded-full flex-1 inline items-center w-max mr-2 @if ($orderItem['status'] == 'pending') bg-yellow-500 @elseif($orderItem['status'] == 'cooking')bg-blue-500 @elseif($orderItem['status'] == 'done')bg-green-500 @endif">
-                                </div> {{ $orderItem->items->name }}
+                                    class="px-1 rounded-full flex-1 inline items-center w-max mr-2 @if ($orderItem->status == 'pending') bg-yellow-500 @elseif($orderItem->status == 'cooking')bg-blue-500 @elseif($orderItem->status == 'done')bg-green-500 @endif">
+                                </div>
+                                {{$orderItem->item->name}}
                             </td>
                             <td
                                 class="text-center @if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center h-full pl-2 py-2 @endif">
                                 <span
                                     class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) hidden @else flex flex-1 gap-2 justify-center @endif"
-                                    id="span_{{ $orderItem['id'] }}">{{ $orderItem->qty }}
-                                    @if ($orderItem['status'] == 'pending')
-                                        <i class="fa-duotone fa-edit vm-theme" id="icon_{{ $orderItem['id'] }}"></i>
+                                    id="span_{{ $orderItem->id }}">{{ $orderItem->qty }}
+                                    @if ($orderItem->status == 'pending')
+                                        <i class="fa-duotone fa-edit vm-theme hover:cursor-pointer" id="icon_{{ $orderItem->id }}"></i>
                                     @endif
                                 </span>
                                 <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
@@ -86,12 +93,12 @@
                                 </form>
                             </td>
                             <td class="text-center">
-                                {{ 'Rs. ' . $orderItem->items->price }}
+                                {{ 'Rs. ' . $orderItem->item->price }}
                             </td>
-                            <td class="text-left px-2">{{ 'Rs. ' . $orderItem->qty * $orderItem->items->price }}</td>
+                            <td class="text-left px-2">{{'Rs. ' . $orderItem->qty * $orderItem->item->price }}</td>
                         </tr>
                         <script>
-                            $("#icon_{{ $orderItem['id'] }}").click(function() {
+                            $("#icon_{{ $orderItem->id }}").click(function() {
                                 location.replace('?edit={{ $orderItem->id }}');
                             });
                         </script>
@@ -110,7 +117,7 @@
         </table>
         @if (isset($amounts))
             <div class="flex lg:justify-end justify-center mt-4 gap-4 w-full">
-                <a href="/orders/{{$order_no['id']}}/transfer" class="btn-secondary hover:scale-105">Transfer Table</a>
+                <a href="/orders/{{$order->id}}/transfer" class="btn-secondary hover:scale-105">Transfer Table</a>
                 <a href="" class="btn-secondary hover:scale-105">Mark as paid</a>
                 <a href="" class="btn-secondary hover:scale-105">Complete</a>
             </div>
@@ -122,9 +129,11 @@
         $('#search').on('keyup', function() {
             $value = $(this).val();
             if ($value) {
-                $('#content').show();
+                $('#content').removeClass('hidden');
+                $('#content').show().removeClass('hidden');
             } else {
-                $('#content').hide();
+                $('#content').addClass('hidden');
+                $('#content').hide().addClass('hidden');
             };
             $.ajax({
                 type: 'get',

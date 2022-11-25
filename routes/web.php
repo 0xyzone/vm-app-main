@@ -132,7 +132,7 @@ Route::get('/orders/add', [OrderController::class, 'show']);
 Route::post('/orders/store', [OrderController::class, 'store']);
 
 // Show Add items to order
-Route::get('/orders/{order_no}/additems', [OrderController::class, 'additems']);
+Route::get('/orders/{order}/additems', [OrderController::class, 'additems']);
 
 // Transfer Table view
 Route::get('/orders/{order_no}/transfer', [OrderController::class, 'transferView']);

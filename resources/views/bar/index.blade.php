@@ -80,31 +80,16 @@
             <div class="kitchen-titles">Done</div>
             <div class="flex flex-col gap-2 mt-2 max-h-fit" id="done">
                 @foreach ($dones as $var)
-                    @foreach ($items as $item)
-                        @if ($item['id'] == $var['item_id'])
-                            <x-card class="justify-between">
-                                <div class="flex gap-2 items-center">
-                                    <div class="w-10 h-10 rounded-lg bg-gray-300 flex justify-center items-center">
-                                        {{ $var['id'] }}
-                                    </div>
-                                    <div class="grid grid-cols-2 border-separate gap-2">
-                                        <div class="flex flex-col">
-                                            <p class="font-bold">Order #{{ $var['order_id'] }}</p>
-                                            <p class="">{{ $item['name'] }}</p>
-                                        </div>
-                                        <div class="flex flex-col pl-2">
-                                            <p class="font-bold">Qty.</p>
-                                            <p class="font-normal">{{ $var['qty'] }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                    class="py-2 px-4 rounded-lg smooth text-xl bg-transparent text-lime-600 border border-current font-bold">
-                                    Completed
-                                </div>
-                            </x-card>
-                        @endif
-                    @endforeach
+                    @php
+                        $today = date('Y-m-d');
+                        $date = strtotime($var['updated_at']);
+                        $compare = date('Y-m-d', $date);
+                    @endphp
+                    @if ($today == $compare)
+                        <x-card class="justify-between">
+                            @include('_partials.orderItems')
+                        </x-card>
+                    @endif
                 @endforeach
             </div>
             <div class="my-4">
