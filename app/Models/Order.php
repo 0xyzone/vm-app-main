@@ -15,6 +15,7 @@ class Order extends Model
         'item',
         'quantity',
         'status',
+        'payment'
     ];
 
     public function orderItems(){

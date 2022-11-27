@@ -135,16 +135,31 @@ Route::post('/orders/store', [OrderController::class, 'store']);
 Route::get('/orders/{order}/additems', [OrderController::class, 'additems']);
 
 // Transfer Table view
-Route::get('/orders/{order_no}/transfer', [OrderController::class, 'transferView']);
+Route::get('/orders/{order}/transfer', [OrderController::class, 'transferView']);
+
+// Transfer Table view
+Route::get('/orders/{order}/merge', [OrderController::class, 'mergeView']);
 
 // Transfer Table Update
-Route::get('/orders/{order_no}/transfer/update', [OrderController::class, 'transfer']);
+Route::post('/orders/{order}/transfer/update', [OrderController::class, 'transfer']);
+
+// Transfer Table Update
+Route::post('/orders/{order}/merge/update', [OrderController::class, 'merge']);
 
 // Order List Resource
 Route::resource('/orders/{id}/additems', OrderItemsController::class);
 
+// Order Paid
+Route::get('/orders/{id}/paid', [OrderController::class, 'paid']);
+
+// Order Completed
+Route::get('/orders/{id}/complete', [OrderController::class, 'complete']);
+
 // update order list item
 Route::put('/orderitems/{id}/update', [OrderItemsController::class, 'update_item']);
+
+// Delete order list item
+Route::delete('/orderitems/{order}/{item}/delete', [OrderItemsController::class, 'delete_item']);
 
 // update order list item - bar
 Route::put('/orderitems/bar/{id}/update', [BarController::class, 'update_item']);

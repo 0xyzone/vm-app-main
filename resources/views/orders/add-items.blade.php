@@ -30,8 +30,36 @@
     </form>
     <x-card class="flex-col !items-start">
         <div class="font-bold text-2xl pb-2 w-full flex flex-col lg:flex-row justify-between">
-            <p>Order # {{ $order->id }}</p>
-            <div class="flex gap-2 text-sm items-center font-thin">{{-- Index --}}
+            <div class="flex flex-col justify-center gap-2 py-2 lg:py-0">
+                <div class="flex items-center gap-2">
+                    <p>Order # {{ $order->id }}</p>
+                    @if ($order->payment == 'Paid')
+                        <span class="px-2 py-1 border border-current text-lime-500 rounded-lg text-sm">
+                            <i class="fa-duotone fa-badge-check fa-swap-opacity"></i> Paid
+                        </span>
+                    @else
+                        <span class="px-2 py-1 border border-current text-gray-400 rounded-lg text-sm">
+                            <i class="fa-duotone fa-hourglass-half"></i> Unpaid
+                        </span>
+                    @endif
+                </div>
+                @php
+                    $table_no = explode(',', $order->table);
+                @endphp
+                <p class="text-lg py-2 flex flex-wrap gap-2 items-center">
+                    Tables:
+                    @foreach ($table_no as $table)
+                        @foreach ($tables as $tab)
+                            @if ($table == $tab['id'])
+                                <span class="p-2 rounded-full border w-max border-amber-500 text-xs">{{ $tab['name'] }}
+                                </span>
+                            @endif
+                        @endforeach
+                    @endforeach
+                </p>
+
+            </div>
+            <div class="flex gap-2 text-sm items-center font-thin self-start lg:mt-2">{{-- Index --}}
                 <div class="flex gap-2 items-center">
                     <p class="font-bold">Item Status: </p>
                     <div class="w-max px-1 py-2 rounded-full bg-amber-500 flex-1 inline items-center"></div>
@@ -71,7 +99,7 @@
                                 <div
                                     class="px-1 rounded-full flex-1 inline items-center w-max mr-2 @if ($orderItem->status == 'pending') bg-yellow-500 @elseif($orderItem->status == 'cooking')bg-blue-500 @elseif($orderItem->status == 'done')bg-green-500 @endif">
                                 </div>
-                                {{$orderItem->item->name}}
+                                {{ $orderItem->item->name }}
                             </td>
                             <td
                                 class="text-center @if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center h-full pl-2 py-2 @endif">
@@ -79,10 +107,12 @@
                                     class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) hidden @else flex flex-1 gap-2 justify-center @endif"
                                     id="span_{{ $orderItem->id }}">{{ $orderItem->qty }}
                                     @if ($orderItem->status == 'pending')
-                                        <i class="fa-duotone fa-edit vm-theme hover:cursor-pointer" id="icon_{{ $orderItem->id }}"></i>
+                                        <i class="fa-duotone fa-edit vm-theme hover:cursor-pointer"
+                                            id="icon_{{ $orderItem->id }}"></i>
                                     @endif
                                 </span>
-                                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
+                                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}"
+                                    method="post"
                                     class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif"
                                     id="form_{{ $orderItem->id }}">
                                     @csrf
@@ -95,7 +125,21 @@
                             <td class="text-center">
                                 {{ 'Rs. ' . $orderItem->item->price }}
                             </td>
-                            <td class="text-left px-2">{{'Rs. ' . $orderItem->qty * $orderItem->item->price }}</td>
+                            <td class="text-left px-2">
+                                <div class="flex justify-between items-center">
+                                    <p>{{ 'Rs. ' . $orderItem->qty * $orderItem->item->price }}</p>
+                                    @if ($orderItem->status == 'pending')
+                                    <form method="POST"
+                                        action="/orderitems/{{ $order->id }}/{{ $orderItem->id }}/delete">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button id="delete"
+                                            onclick="return confirm('Are you sure you want to delete this record?')" type="submit"> <i
+                                                class="fa-solid fa-trash smooth hover:text-rose-600"></i></button>
+                                    </form>
+                                    @endif
+                                </div>
+                            </td>
                         </tr>
                         <script>
                             $("#icon_{{ $orderItem->id }}").click(function() {
@@ -110,16 +154,21 @@
                         <td class="broder-r-white border-r py-2 px-4 text-right" colspan="3">
                             Total
                         </td>
-                        <td class="flex px-2 w-max items-center py-2">Rs. {{ array_sum($amounts) }}</td>
+                        <td class="flex px-2 w-max items-center py-2">
+                            Rs. {{ array_sum($amounts) }}
+                        </td>
                     </tr>
                 @endif
             </tbody>
         </table>
         @if (isset($amounts))
-            <div class="flex lg:justify-end justify-center mt-4 gap-4 w-full">
-                <a href="/orders/{{$order->id}}/transfer" class="btn-secondary hover:scale-105">Transfer Table</a>
-                <a href="" class="btn-secondary hover:scale-105">Mark as paid</a>
-                <a href="" class="btn-secondary hover:scale-105">Complete</a>
+            <div class="flex lg:justify-end justify-center mt-4 gap-4 w-full flex-wrap">
+                <a href="/orders/{{ $order->id }}/transfer" class="btn-secondary hover:scale-105">Transfer Table</a>
+                <a href="/orders/{{ $order->id }}/merge" class="btn-secondary hover:scale-105">Merge Table</a>
+                @if ($order->payment != 'Paid')
+                    <a href="/orders/{{ $order->id }}/paid" class="btn-secondary hover:scale-105">Mark as paid</a>
+                @endif
+                <a href="/orders/{{ $order->id }}/complete" class="btn-secondary hover:scale-105">Complete</a>
             </div>
         @endif
     </x-card>

@@ -5,10 +5,10 @@
 
 <x-layout :title="$title">
     <div class="text-white text-2xl">
-        Transfer Tables
+        Merge Tables
     </div>
-    <form action="/orders/{{ $order->id }}/transfer/update" method="POST"
-        class="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2" id="transfer">
+    <form action="/orders/{{ $order->id }}/merge/update" method="POST"
+        class="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2" id="merge">
         @csrf
         @foreach ($tables as $table)
             @if (in_array("$table->id", $table_no) ||
@@ -53,5 +53,5 @@
     @error('table')
         <p class="py-2 text-xs text-rose-600 mt-2">{{$message}}</p>
     @enderror
-    <button form="transfer" type="submit" class="btn-secondary mt-6 text-amber-500 hover:bg-amber-600 hover:text-white hover:border-amber-600">Transfer</button>
+    <button form="merge" type="submit" class="btn-secondary mt-6 text-amber-500 hover:bg-amber-600 hover:text-white hover:border-amber-600">Merge</button>
 </x-layout>

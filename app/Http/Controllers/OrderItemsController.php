@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,7 @@ class OrderItemsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Order $id)
     {
         $formFields = $request->validate([
             'item' => 'required',
@@ -45,10 +46,12 @@ class OrderItemsController extends Controller
         $formFields['status'] = $request['status'];
         $formFields['type'] = $request['type'];
         $formFields['qty'] = $request['qty'];
-        $id = $request['order_no'];
-
-        $item = OrderItem::create($formFields);
-        return redirect('/orders/'.$id.'/additems')->with('success', 'Item added successfully.');
+        if($id->payment == "Paid"){
+            $id->update(['payment' => null]);
+        }
+        
+        OrderItem::create($formFields);
+        return redirect('/orders/'.$id->id.'/additems')->with('success', 'Item added successfully.');
     }
 
     /**
@@ -108,5 +111,12 @@ class OrderItemsController extends Controller
         $formFields['status'] = $request['status'];
         $id->update($formFields);
         return redirect('/kitchen')->with('success', 'Item updated successfully.');
+    }
+
+    // Delete Items
+    public function delete_item(Order $order, OrderItem $item){
+        $item->delete();
+
+        return redirect('/orders/'.$order->id.'/additems')->with('success', 'Item deleted successfully!');
     }
 }

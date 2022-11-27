@@ -61,13 +61,31 @@ class OrderController extends Controller
         if(Auth::guest()){
             return redirect('/login');
         } else {
-        
-            return view('orders.add-items', compact('order'));
+            $tables = Tables::all();
+            return view('orders.add-items', compact('order', 'tables'));
         };
+    }
+
+    // Update order payment to paid
+    public function paid(Order $id) {
+        $id->update(['payment' => 'Paid']);
+        return redirect('/orders/'.$id->id .'/additems')->with('success', 'Order status updated to PAID!');
+    }
+
+    // Update order status to complete
+    public function complete(Order $id) {
+        $id->update(['status' => 'Completed']);
+
+        $tables = explode(',', $id->table);
+        foreach($tables as $table){
+            $update = Tables::where('id', $table);
+            $update->update(['availability' => 'Available']);
+        }
+        return redirect('/orders')->with('success', 'Order status updated to Completed!');
     }
     
     // Show Transfer Table form
-    public function transferView(Order $order_no){
+    public function transferView(Order $order){
         if (Auth::guest()) {
             return redirect('login');
         }
@@ -75,6 +93,60 @@ class OrderController extends Controller
         $items = Items::all();
         $orderItems = OrderItem::with('order')->get();
         $tables = Tables::all();
-        return view('tables.transfer', compact('order_no', 'items', 'orderItems', 'title', 'tables'));
+        return view('tables.transfer', compact('order', 'items', 'orderItems', 'title', 'tables'));
+    }
+    
+    // Show Transfer Table form
+    public function mergeView(Order $order){
+        if (Auth::guest()) {
+            return redirect('login');
+        }
+        $title = "Merge Tables";
+        $items = Items::all();
+        $orderItems = OrderItem::with('order')->get();
+        $tables = Tables::all();
+        return view('tables.merge', compact('order', 'items', 'orderItems', 'title', 'tables'));
+    }
+
+    // Update the table transfer
+    public function transfer(Request $request, Order $order){
+
+        $request->validate([
+            'table' => ['required'],
+        ]);
+        $tables = explode(",", $order->table);
+        
+        foreach($tables as $table){
+            $update = Tables::where('id', $table);
+            $update->update(['availability' => 'Available']);
+        }
+
+        $formFields = $request;
+        foreach($formFields->table as $table2){
+            $update2 = Tables::where('id', $table2);
+            $update2->update(['availability' => 'Occupied']);
+        }
+
+        $formFields2 = implode(',', $request['table']);
+        $order->update(['table' => $formFields2]);
+
+        return redirect('/orders/'. $order->id .'/additems')->with('success', 'Table transfered successfully!');
+    }
+
+    // Merge Table
+    public function merge(Request $request, Order $order){
+        $request->validate([
+            'table' => ['required'],
+        ]);
+        $tables = implode(',', $request->table);
+        $mergeTable = $order->table . ','. $tables;
+        $order->update(['table' => $mergeTable]);
+
+        foreach($request->table as $req){
+            $tables = Tables::where('id', $req);
+            $tables->update(['availability' => 'Occupied']);
+        }
+        return redirect('/orders/'. $order->id .'/additems')->with('success', 'Table merged successfully!');
+
     }
 }
