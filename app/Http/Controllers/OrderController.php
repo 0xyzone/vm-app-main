@@ -19,7 +19,7 @@ class OrderController extends Controller
             return redirect('login');
         }
         return view('orders.index', [
-            'orders' => Order::paginate(5),
+            'orders' => Order::where('status', null)->paginate(5),
             'tables' => Tables::all()
         ]);
     }
@@ -74,15 +74,15 @@ class OrderController extends Controller
     }
 
     // Update order status to complete
-    public function complete(Order $id) {
-        $id->update(['status' => 'Completed']);
+    public function complete(Order $id, $amount) {
+        $id->update(['status' => 'Completed', 'amount' => $amount]);
 
         $tables = explode(',', $id->table);
         foreach($tables as $table){
             $update = Tables::where('id', $table);
             $update->update(['availability' => 'Available']);
         }
-        return redirect('/orders')->with('success', 'Order status updated to Completed!');
+        return redirect('/invoices')->with('success', 'Order status updated to Completed!');
     }
     
     // Show Transfer Table form

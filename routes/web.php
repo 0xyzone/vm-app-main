@@ -154,7 +154,7 @@ Route::resource('/orders/{id}/additems', OrderItemsController::class);
 Route::get('/orders/{id}/paid', [OrderController::class, 'paid']);
 
 // Order Completed
-Route::get('/orders/{id}/complete', [OrderController::class, 'complete']);
+Route::get('/orders/{id}/complete/{amount}', [OrderController::class, 'complete']);
 
 // update order list item
 Route::put('/orderitems/{id}/update', [OrderItemsController::class, 'update_item']);

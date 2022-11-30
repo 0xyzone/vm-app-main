@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Visit;
 use App\Models\Customer;
 use Illuminate\Http\Request;
@@ -99,7 +100,8 @@ class CustomerController extends Controller
         } else {
             return view('customers.single', [
                 'customer' => Customer::find($customer),
-                'visits' => Visit::all()
+                'visits' => Visit::where('customer_id', $customer)->orderByDesc('id')->paginate(5, ['*'], 'visits'),
+                'orders' => Order::where('customer', $customer)->orderByDesc('id')->paginate(5, ['*'], 'orders')
             ]);
         }
     }

@@ -12,10 +12,10 @@ class Order extends Model
     protected $fillable = [
         'table',
         'customer',
-        'discount_type',
         'discount',
         'status',
-        'payment'
+        'payment',
+        'amount',
     ];
 
     public function orderItems(){

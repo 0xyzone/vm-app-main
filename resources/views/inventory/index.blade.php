@@ -1,6 +1,6 @@
 <x-layout>
     <div class="grid grid-cols-1 gap-10 h-32 w-full place-items-center">
-        <div class="2xl:w-6/12 w-full flex flex-col gap-4">
+        <div class="w-full flex flex-col gap-4">
             <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
                 {{-- category --}}
                 <p>Categories</p>
@@ -52,7 +52,7 @@
         </div>
 
         {{-- items --}}
-        <div class="2xl:w-6/12 w-full flex flex-col gap-4 pb-20">
+        <div class="w-full flex flex-col gap-4 pb-20">
             <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
                 <p>Items</p>
                 <a href="/inventory/item/add" class="btn-primary"> Add Item</a>

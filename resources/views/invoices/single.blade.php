@@ -174,29 +174,13 @@
                             $totalAfterDiscount = $subtotal - $discountAmount;
                         @endphp
                     @endif
-                    <tr class="bg-gray-200 text-lg">
-                        <td class="broder-r-white border-r py-2 px-4 text-right" colspan="3">
-                            VAT(13%) <br>
-                        </td>
-                        <td class="flex px-2 w-max items-center py-2">
-                            @php
-                                if (isset($totalAfterDiscount)) {
-                                    $vat = 0.13 * $totalAfterDiscount;
-                                    $grandTotal = $totalAfterDiscount + $vat;
-                                } else {
-                                    $vat = 0.13 * $subtotal;
-                                    $grandTotal = $subtotal + $vat;
-                                }
-                            @endphp
-                            Rs. {{ number_format($vat, 2) }}
-                        </td>
-                    </tr>
+                    
                     <tr class="bg-gray-400 font-bold text-xl">
                         <td class="broder-r-white border-r py-2 px-4 text-right" colspan="3">
                             Grand Total
                         </td>
                         <td class="flex px-2 w-max items-center py-2 font-medium text-lg self-center">
-                            Rs. {{ number_format($grandTotal, 2) }}
+                            Rs. {{ isset($totalAfterDiscount) ? number_format($totalAfterDiscount, 2) : number_format($subtotal, 2) }}
                         </td>
                     </tr>
                 @endif
@@ -277,7 +261,7 @@
                                 class="btn-secondary hover:scale-105 !text-green-600">Paid</a>
                         @endif
                         @if ($order->customer != null)
-                            <a href="/orders/{{ $order->id }}/complete" class="btn-secondary hover:scale-105"
+                            <a href="/orders/{{ $order->id }}/complete/{{ isset($totalAfterDiscount) ? number_format($totalAfterDiscount, 2) : number_format($subtotal, 2) }}" class="btn-secondary hover:scale-105"
                                 title="Complete Order">Complete</a>
                         @endif
                     </div>

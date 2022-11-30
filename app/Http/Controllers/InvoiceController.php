@@ -19,7 +19,7 @@ class InvoiceController extends Controller
         }
         return view('invoices.index', [
             'title' => 'Invoices',
-            'orders' => Order::paginate(5),
+            'orders' => Order::where('status', null)->paginate(5),
             'tables' => Tables::all()
         ]);
     }
