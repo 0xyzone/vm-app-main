@@ -231,6 +231,29 @@
 
     {{-- Ajax Starting --}}
     <script class="text/javascript">
+        $('#search').on('keyup', function() {
+            $value = $(this).val();
+            if ($value) {
+                $('#content').removeClass('hidden');
+                $('#content').show().removeClass('hidden');
+            } else {
+                $('#content').addClass('hidden');
+                $('#content').hide().addClass('hidden');
+            };
+            $.ajax({
+                type: 'get',
+                url: '{{ URL::to('/search/item') }}',
+                data: {
+                    'search': $value
+                },
+
+                success: function(data) {
+                    $('#content').html(data);
+                }
+            });
+        })
+    </script>
+    <script>
         $(document).ready(function() {
             @if (isset($order->discount))
                 $('#discountAmt').show();
@@ -266,26 +289,6 @@
                 $("#discount").val(discount);
             }
         })
-        $('#search').on('keyup', function() {
-            $value = $(this).val();
-            if ($value) {
-                $('#content').removeClass('hidden');
-                $('#content').show().removeClass('hidden');
-            } else {
-                $('#content').addClass('hidden');
-                $('#content').hide().addClass('hidden');
-            };
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('/search/item') }}',
-                data: {
-                    'search': $value
-                },
-
-                success: function(data) {
-                    $('#content').html(data);
-                }
-            });
-        })
     </script>
+        
 </x-layout>

@@ -74,13 +74,8 @@
                             </td>
                             <td
                                 class="text-center @if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center h-full pl-2 py-2 @endif">
-                                <span
-                                    class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) hidden @else flex flex-1 gap-2 justify-center @endif"
+                                <span class="flex flex-1 gap-2 justify-center"
                                     id="span_{{ $orderItem->id }}">{{ $orderItem->qty }}
-                                    @if ($orderItem->status == 'pending')
-                                        <i class="fa-duotone fa-edit vm-theme hover:cursor-pointer"
-                                            id="icon_{{ $orderItem->id }}"></i>
-                                    @endif
                                 </span>
                                 <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
                                     class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif"
@@ -269,22 +264,24 @@
                         <span class="font-bold text-xl text-amber-600">
                             @foreach ($customers as $customer)
                                 @if ($customer->id == $order->customer)
-                                    {{ $customer->name }} 
+                                    {{ $customer->name }}
                                 @endif
                             @endforeach
                         </span>
                     </p>
                 @endif
-                <div class="flex lg:justify-end justify-center mt-4 md:!mt-0 gap-4 w-full">
-                    @if ($order->payment != 'Paid')
-                        <a href="/orders/{{ $order->id }}/paid"
-                            class="btn-secondary hover:scale-105 !text-green-600">Paid</a>
-                    @endif
-                    @if ($order->customer != null)
-                        <a href="/orders/{{ $order->id }}/complete"
-                            class="btn-secondary hover:scale-105" title="Complete Order">Complete</a>
-                    @endif
-                </div>
+                @if (isset($order->customer))
+                    <div class="flex lg:justify-end justify-center mt-4 md:!mt-0 gap-4 w-full">
+                        @if ($order->payment != 'Paid')
+                            <a href="/orders/{{ $order->id }}/paid"
+                                class="btn-secondary hover:scale-105 !text-green-600">Paid</a>
+                        @endif
+                        @if ($order->customer != null)
+                            <a href="/orders/{{ $order->id }}/complete" class="btn-secondary hover:scale-105"
+                                title="Complete Order">Complete</a>
+                        @endif
+                    </div>
+                @endif
             </div>
             @error('customer')
                 <p class="text-xs text-rose-600">{{ $message }}</p>
