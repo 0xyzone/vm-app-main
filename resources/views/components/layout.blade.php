@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     {{-- Links --}}
-    <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon"> 
+    <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
 
@@ -22,11 +22,9 @@
     <title>
         @isset($title)
             {{ $title }} | Vishudda Momocha
-        @endisset
-            
-        @empty($title)
+        @else
             Vishudda Momocha
-        @endempty
+        @endisset
     </title>
     <script type="text/javascript">
         function display_ct7() {
@@ -60,7 +58,10 @@
         display_c7()
     </script>
 </head>
-<body class="w-screen relative font-light lg:font-normal z-0 smooth sacroll overflow-hidden @if(Request::path() == "login") bg-gray-300 @else bg-gray-800 @endif" onload='display_ct7();'>
+
+<body
+    class="w-screen relative font-light lg:font-normal z-0 smooth sacroll overflow-hidden @if (Request::path() == 'login') bg-gray-300 @else bg-gray-800 @endif"
+    onload='display_ct7();'>
 
     <x-flash-error />
 
@@ -68,12 +69,11 @@
 
     <div class="flex h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
         @if (!isset($public))
-        <x-sidebar />
+            <x-sidebar />
         @endif
         <div class="flex flex-col flex-1 w-full overflow-x-hidden sacrollbar">
             <x-header />
-            <x-container {{$attributes->merge(['class' => 'pt-10 lg:px-10 px-5 pb-20 h-max'])}}>
-
+            <x-container {{ $attributes->merge(['class' => 'pt-10 lg:px-10 px-5 pb-20 h-max']) }}>
                 {{ $slot }}
 
             </x-container>
@@ -134,7 +134,7 @@
         </div>
     </div>
     <!-- End of modal backdrop -->
-    
+
 </body>
 
 </html>

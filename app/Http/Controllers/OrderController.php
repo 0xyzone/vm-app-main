@@ -62,7 +62,8 @@ class OrderController extends Controller
             return redirect('/login');
         } else {
             $tables = Tables::all();
-            return view('orders.add-items', compact('order', 'tables'));
+            $customers = Customer::all();
+            return view('orders.add-items', compact('order', 'tables', 'customers'));
         };
     }
 

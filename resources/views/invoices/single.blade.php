@@ -1,33 +1,4 @@
-<x-layout class="pb-20">
-    <form action="additems" method="POST" class="mb-6" id="orderItems">
-        @csrf
-        <label for="item" class="text-white">
-            Choose items:
-        </label>
-        {{-- Search Bar --}}
-        <input type="search" name="search" class="border border-gray-200 rounded p-2 w-full my-2"
-            placeholder="Search Items..." id="search">
-        {{-- end search bar --}}
-        <ul class="grid grid-cols-1 md:grid-cols-4 gap-2 my-2 list-none hidden" id="content">
-        </ul>
-        @error('item')
-            <p class="text-rose-400 text-xs ">
-                {{ $message }}
-            </p>
-        @enderror
-        <div class="flex gap-2 mt-4">
-            <input type="number" name="qty" id="qty" placeholder="Enter quantity"
-                class="border border-gray-200 rounded p-2 w-full">
-            <button type="submit" class="btn-primary">Add</button>
-        </div>
-        @error('qty')
-            <p class="text-rose-400 text-xs mt-2">
-                {{ $message }}
-            </p>
-        @enderror
-        <input type="number" name="order_no" id="order_no" value="{{ $order->id }}" hidden>
-        <input type="text" name="status" id="status" value="pending" hidden>
-    </form>
+<x-layout class="pb-20" :title="$title">
     <x-card class="flex-col !items-start">
         <div class="font-bold text-2xl pb-2 w-full flex flex-col lg:flex-row justify-between">
             <div class="flex flex-col justify-center gap-2 py-2 lg:py-0">
@@ -111,8 +82,7 @@
                                             id="icon_{{ $orderItem->id }}"></i>
                                     @endif
                                 </span>
-                                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}"
-                                    method="post"
+                                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
                                     class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif"
                                     id="form_{{ $orderItem->id }}">
                                     @csrf
@@ -162,6 +132,27 @@
                             Rs. {{ $subtotal }}
                         </td>
                     </tr>
+                    @if ($order->discount == null)
+                        <tr class="bg-gray-200 text-lg">
+                            <td class="broder-r-white border-r py-2 px-4 text-right" colspan="3">
+                                Discount Type <br>
+                            </td>
+                            <td class="flex px-2 w-max items-center py-2">
+                                @if ($order->discount == null)
+                                    <select name="discount_type" id="discount_type"
+                                        class="w-20 rounded-lg outline-none p-2 text-sm">
+                                        <option value="">-</option>
+                                        <option value="10%">10%</option>
+                                        <option value="15%">15%</option>
+                                        <option value="20%">20%</option>
+                                        <option value="bulk">Bulk</option>
+                                    </select>
+                                @else
+                                    {{ $order->discount_type }}
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
                     <tr class="bg-gray-200" id="discountAmt">
                         <td class="broder-r-white border-r py-2 px-4 text-right" colspan="3">
                             Discount Amount <br>
@@ -214,78 +205,94 @@
                         </td>
                     </tr>
                 @endif
+                <script>
+                    $(document).ready(function() {
+                        @if (isset($order->discount))
+                            $('#discountAmt').show();
+                        @else
+                            $('#discountAmt').hide();
+                        @endif
+                    })
+                    $('#discount_type').on('change', function() {
+                        const subtotal = {{ isset($subtotal) ? $subtotal : '' }};
+
+                        if ($('#discount_type').val() === 'bulk') {
+                            $("#discountAmt").show();
+                        }
+                        if ($('#discount_type').val() === '10%') {
+                            var discount = subtotal * 0.1;
+                            var discountAmt = (subtotal - discount);
+                            var gtotal = discountAmt + (0.13 * discountAmt);
+                            $("#discountAmt").show();
+                            $("#discount").val(discount);
+                        }
+                        if ($('#discount_type').val() === '15%') {
+                            var discount = subtotal * 0.15;
+                            var discountAmt = (subtotal - discount);
+                            var gtotal = discountAmt + (0.13 * discountAmt);
+                            $("#discountAmt").show();
+                            $("#discount").val(discount);
+                        }
+                        if ($('#discount_type').val() === '20%') {
+                            var discount = subtotal * 0.2;
+                            var discountAmt = (subtotal - discount);
+                            var gtotal = discountAmt + (0.13 * discountAmt);
+                            $("#discountAmt").show();
+                            $("#discount").val(discount);
+                        }
+                        if ($('#discount_type').val() === 'bulk') {
+                            $("#discountAmt").show();
+                            $("#discount").val('');
+                        }
+                    })
+                </script>
             </tbody>
         </table>
         @if (isset($amounts))
             <div class="flex justify-between items-center w-full mt-4">
-                <div>
-                </div>
-                <div class="flex lg:justify-end justify-center mt-4 md:!mt-0 gap-4 w-full flex-wrap">
-                    <a href="/orders/{{ $order->id }}/transfer" class="btn-secondary hover:scale-105">Transfer
-                        Table</a>
-                    <a href="/orders/{{ $order->id }}/merge" class="btn-secondary hover:scale-105">Merge Table</a>
+                @if ($order->customer == null)
+                    <form action="/invoices/{{ $order->id }}/customer/update" method="POST" id="customer"
+                        class="flex items-center gap-2">
+                        @csrf
+                        <select name="customer"
+                            class="p-2 rounded-lg bg-gray-600/10 text-gray-800 border broder border-current outline-none">
+                            <option value="" hidden>Please choose a customer.</option>
+                            @foreach ($customers as $customer)
+                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit" form="customer"
+                            class="!py-1 btn-primary !text-gray-800 hover:text-gray-100">Update</button>
+                    </form>
+                @else
+                    <p class="w-full flex flex-wrap items-center gap-2">Customer:
+                        <span class="font-bold text-xl text-amber-600">
+                            @foreach ($customers as $customer)
+                                @if ($customer->id == $order->customer)
+                                    {{ $customer->name }} 
+                                @endif
+                            @endforeach
+                        </span>
+                    </p>
+                @endif
+                <div class="flex lg:justify-end justify-center mt-4 md:!mt-0 gap-4 w-full">
+                    @if ($order->payment != 'Paid')
+                        <a href="/orders/{{ $order->id }}/paid"
+                            class="btn-secondary hover:scale-105 !text-green-600">Paid</a>
+                    @endif
+                    @if ($order->customer != null)
+                        <a href="/orders/{{ $order->id }}/complete"
+                            class="btn-secondary hover:scale-105" title="Complete Order">Complete</a>
+                    @endif
                 </div>
             </div>
+            @error('customer')
+                <p class="text-xs text-rose-600">{{ $message }}</p>
+            @enderror
+
         @endif
     </x-card>
 
     {{-- Ajax Starting --}}
-    <script class="text/javascript">
-        $(document).ready(function() {
-            @if (isset($order->discount))
-                $('#discountAmt').show();
-            @else
-                $('#discountAmt').hide();
-            @endif
-        })
-        $('#discount_type').on('change', function() {
-            const subtotal = {{ isset($subtotal) ? $subtotal : '' }};
-
-            if ($('#discount_type').val() === 'bulk') {
-                $("#discountAmt").show();
-            }
-            if ($('#discount_type').val() === '10%') {
-                var discount = subtotal * 0.1;
-                var discountAmt = (subtotal - discount);
-                var gtotal = discountAmt + (0.13 * discountAmt);
-                $("#discountAmt").show();
-                $("#discount").val(discount);
-            }
-            if ($('#discount_type').val() === '15%') {
-                var discount = subtotal * 0.15;
-                var discountAmt = (subtotal - discount);
-                var gtotal = discountAmt + (0.13 * discountAmt);
-                $("#discountAmt").show();
-                $("#discount").val(discount);
-            }
-            if ($('#discount_type').val() === '20%') {
-                var discount = subtotal * 0.2;
-                var discountAmt = (subtotal - discount);
-                var gtotal = discountAmt + (0.13 * discountAmt);
-                $("#discountAmt").show();
-                $("#discount").val(discount);
-            }
-        })
-        $('#search').on('keyup', function() {
-            $value = $(this).val();
-            if ($value) {
-                $('#content').removeClass('hidden');
-                $('#content').show().removeClass('hidden');
-            } else {
-                $('#content').addClass('hidden');
-                $('#content').hide().addClass('hidden');
-            };
-            $.ajax({
-                type: 'get',
-                url: '{{ URL::to('/search/item') }}',
-                data: {
-                    'search': $value
-                },
-
-                success: function(data) {
-                    $('#content').html(data);
-                }
-            });
-        })
-    </script>
+    <script class="text/javascript"></script>
 </x-layout>

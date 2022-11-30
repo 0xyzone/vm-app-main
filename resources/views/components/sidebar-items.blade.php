@@ -32,6 +32,11 @@
             'icon_class' => 'fa-duotone fa-clipboard-list',
         ],
         [
+            'name' => 'Invoices',
+            'path' => 'invoices',
+            'icon_class' => 'fa-duotone fa-file-invoice-dollar',
+        ],
+        [
             'name' => 'Kitchen',
             'path' => 'kitchen',
             'icon_class' => 'fa-duotone fa-burger-soda',

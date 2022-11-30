@@ -24,4 +24,8 @@ class Customer extends Model
     public function visits(){
         $this->hasMany(Visit::class);
     }
+
+    public function order(){
+        return $this->hasMany(Order::class);
+    }
 }

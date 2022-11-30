@@ -51,10 +51,6 @@ class CustomerController extends Controller
         // Create Customer
         Customer::create($formFields);
 
-        $visits['customer_id'] = Customer::latest()->first()->id;
-
-        Visit::create($visits);
-
         return redirect('/customers')->with('success', 'Customer added successfully.');
     }
 

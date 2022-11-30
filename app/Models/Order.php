@@ -12,13 +12,17 @@ class Order extends Model
     protected $fillable = [
         'table',
         'customer',
-        'item',
-        'quantity',
+        'discount_type',
+        'discount',
         'status',
         'payment'
     ];
 
     public function orderItems(){
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function customers(){
+        return $this->belongsTo(Customer::class);
     }
 }

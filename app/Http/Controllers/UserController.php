@@ -115,7 +115,7 @@ class UserController extends Controller
         // Update user
         $user->update($formFields);
 
-        return redirect('/umgmt')->with('success', 'User updated successfully.');
+        return redirect('/users')->with('success', 'User updated successfully.');
     }
 
     // Delete User
@@ -123,6 +123,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect('/umgmt')->with('success', 'User deleted successfully!');
+        return redirect('/users')->with('success', 'User deleted successfully!');
     }
 }

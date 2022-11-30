@@ -5,6 +5,7 @@ use App\Http\Controllers\BarController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemsController;
@@ -37,7 +38,7 @@ Route::get('/', function () {
 //Show register form
 Route::get('/users/register', [UserController::class, 'create']);
 
-//Show User Management form
+//Show Users Main page
 Route::get('/users', [UserController::class, 'index']);
 
 // Store user
@@ -119,7 +120,7 @@ Route::delete('/customers/{customer}/delete', [CustomerController::class, 'delet
 //Kitchen 
 Route::get('/kitchen', [KitchenController::class, 'index']);
 
-//Bar 
+//Bar
 Route::get('/bar', [BarController::class, 'index']);
 
 //Order 
@@ -163,6 +164,18 @@ Route::delete('/orderitems/{order}/{item}/delete', [OrderItemsController::class,
 
 // update order list item - bar
 Route::put('/orderitems/bar/{id}/update', [BarController::class, 'update_item']);
+
+// View Invoice index
+Route::get('/invoices', [InvoiceController::class, 'index']);
+
+// Show single Invoice
+Route::get('/invoices/{order}', [InvoiceController::class, 'show']);
+
+// Update customer in Invoice
+Route::post('/invoices/{order}/customer/update', [InvoiceController::class, 'customerUpdate']);
+
+// Update discount in Invoice
+Route::post('/invoices/{order}/discount/update', [InvoiceController::class, 'discountUpdate']);
 
 //Tables 
 Route::get('/tables', [TableController::class, 'view']);

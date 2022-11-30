@@ -26,6 +26,10 @@ input[type="number"]::-webkit-inner-spin-button,
     margin: 0;
   }
 
+option:hover {
+  @apply bg-purple-500;
+}
+
 .reg-label{
   @apply inline-block text-gray-200 text-lg;
 }
@@ -51,7 +55,7 @@ input{
 }
 
 .btn-primary {
-  @apply border border-gray-300 py-2 px-4 rounded-lg text-white hover:bg-amber-500 hover:text-gray-200 hover:border-amber-500 smooth text-xl;
+  @apply border border-current py-2 px-4 rounded-lg text-white hover:bg-amber-500 hover:text-gray-200 hover:border-amber-500 smooth text-xl;
 }
 
 .btn-secondary {
