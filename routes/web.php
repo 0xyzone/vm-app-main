@@ -204,6 +204,15 @@ Route::get('/reports', function() {
 // Search Items
 Route::get('/search/item', [InventoryController::class, 'search']);
 
+// Search Orders
+Route::get('/search/orders', [AjaxController::class, 'searchOrder']);
+
+// Search Invoices
+Route::get('/search/invoices', [AjaxController::class, 'searchInvoice']);
+
+// Search Params
+Route::get('/search/top/{param}', [AjaxController::class, 'search']);
+
 
 // Kitch Ajaxs
 Route::get('/ajax/kitchen_new', [AjaxController::class, 'new']);

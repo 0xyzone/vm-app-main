@@ -1,5 +1,26 @@
 <x-layout>
+    @include('_partials.search')
+    <script>
+        $('#search').on('keyup', function() {
+            $value = $(this).val();
+            if ($value) {
+                $('#results').show();
+            } else {
+                $('#results').hide();
+            };
+            $.ajax({
+                type: 'get',
+                url: '{{ URL::to('/search/top/users') }}',
+                data: {
+                    'search': $value
+                },
 
+                success: function(data) {
+                    $('#results').html(data);
+                }
+            });
+        })
+    </script>
     <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
         <p>Manage User</p>
         <a href="/users/register" class="btn-primary"> Create user </a>

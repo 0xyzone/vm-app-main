@@ -56,8 +56,12 @@ class UserController extends Controller
     //show login form
     public function login()
     {
+        if(Auth::guest()){
         Redirect::setIntendedUrl(url()->previous());
         return view('users.login');
+        } else {
+            return redirect('/');
+        }
     }
 
     //authenticate user

@@ -1,11 +1,33 @@
 <x-layout>
+    @include('_partials.search')
+    <script>
+        $('#search').on('keyup', function() {
+            $value = $(this).val();
+            if ($value) {
+                $('#results').show();
+            } else {
+                $('#results').hide();
+            };
+            $.ajax({
+                type: 'get',
+                url: '{{ URL::to('/search/orders') }}',
+                data: {
+                    'search': $value
+                },
+
+                success: function(data) {
+                    $('#results').html(data);
+                }
+            });
+        })
+    </script>
     <div class="w-full flex flex-col gap-4 justify-center">
         <div class="justify-between flex w-full text-xl font-bold text-gray-300 items-center">
             <p>Orders</p>
             <a href="/orders/add" class="btn-primary"> Add Orders</a>
         </div>
 
-        <table class="w-full mt-5 hidden md:inline-block">
+        <table class="w-full hidden md:inline-block">
             <thead class="w-full">
                 <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full">
                     <td class="tabledata">id</td>
