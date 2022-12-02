@@ -67,7 +67,7 @@ class CustomerController extends Controller
     }
 
     // Update Customer
-    public function update(Request $request, customer $customer)
+    public function update(Request $request, Customer $customer)
     {
         $formFields = $request->validate([
             'name' => ['required'],
@@ -79,8 +79,7 @@ class CustomerController extends Controller
             'dob' => ['required'],
             'marriage' => ['required'],
             'gender' => ['required'],
-            'marriagedate' => ['required'],
-            'visit' => ['required'],
+            'marriagedate' => '',
         ]);
         $customer->update($formFields);
         return redirect('/customers')->with('success', 'Customer updated successfully.');

@@ -3,7 +3,7 @@
         <h2 class="text-2xl font-bold text-amber-400 uppercase text-center my-5">
             Edit customer
         </h2>
-        <form method="POST" action="/customers/{{$customer->id}}/update"
+        <form method="POST" action="/customers/{{ $customer->id }}/update"
             class="rounded-xl border-2 border-white bg-transparent shadow-lg  p-10 mb-10 h-full w-full" id="signup">
             @csrf
             @method('PUT')
@@ -26,7 +26,7 @@
                     <div class="mb-6">
                         <label for="email" class="reg-label">Email</label>
                         <input type="email" class="border border-gray-200 rounded p-2 w-full" name="email"
-                            value="{{ $customer->email }}"/>
+                            value="{{ $customer->email }}" />
                         @error('email')
                             <p class="error-text">{{ $message }}</p>
                         @enderror
@@ -38,7 +38,7 @@
                             Phone No
                         </label>
                         <input type="number" class="border border-gray-200 rounded p-2 w-full" name="phone"
-                            value="{{ $customer->phone }}"/>
+                            value="{{ $customer->phone }}" />
                         @error('phone')
                             <p class="error-text">{{ $message }}</p>
                         @enderror
@@ -51,7 +51,7 @@
                         Street
                     </label>
                     <input type="text" class="border border-gray-200 rounded p-2 w-full" name="street"
-                        value="{{ $customer->street }}"/>
+                        value="{{ $customer->street }}" />
                     @error('street')
                         <p class="error-text">{{ $message }}</p>
                     @enderror
@@ -60,7 +60,7 @@
                         City
                     </label>
                     <input type="text" class="border border-gray-200 rounded p-2 w-full" name="city"
-                        value="{{ $customer->city }}"/>
+                        value="{{ $customer->city }}" />
                     @error('city')
                         <p class="error-text">{{ $message }}</p>
                     @enderror
@@ -69,7 +69,7 @@
                         Country
                     </label>
                     <input type="text" class="border border-gray-200 rounded p-2 w-full" name="country"
-                        value="{{ $customer->country }}"/>
+                        value="{{ $customer->country }}" />
                     @error('country')
                         <p class="error-text">{{ $message }}</p>
                     @enderror
@@ -111,15 +111,16 @@
                     @error('marriage')
                         <p class="error-text">{{ $message }}</p>
                     @enderror
-
-                    <label for="marriagedate" class="reg-label mt-2">
-                        Date Of Marriage
-                    </label>
-                    <input type="date" class="border border-gray-200 rounded p-2 w-full" name="marriagedate"
-                        value="{{ old('marriagedate') }}" />
-                    @error('marriagedate')
-                        <p class="error-text">{{ $message }}</p>
-                    @enderror
+                    <div id="marriagedate">
+                        <label for="marriagedate" class="reg-label mt-2">
+                            Date Of Marriage
+                        </label>
+                        <input type="date" class="border border-gray-200 rounded p-2 w-full" name="marriagedate"
+                            value="{{ $customer->marriagedate }}" />
+                        @error('marriagedate')
+                            <p class="error-text">{{ $message }}</p>
+                        @enderror
+                    </div>
 
                     <label for="gender" class="reg-label mt-2">
                         Gender
@@ -152,12 +153,28 @@
             </div>
 
             <div class="mb-6 mt-6">
-                <button for="signup" type="submit" class="btn-primary">
+                <button form="signup" type="submit" class="btn-primary">
                     Update
                 </button>
             </div>
-
-
         </form>
     </div>
+    <script>
+        $(document).ready(function() {
+            if ($('#marriage').val() == 'Married') {
+                $('#marriagedate').show();
+            } else {
+                console.log('Single')
+                $('#marriagedate').hide();
+            }
+
+            $('#marriage').on('change', function() {
+                if (this.value === "Married") {
+                    $('#marriagedate').show();
+                } else {
+                    $('#marriagedate').hide();
+                }
+            });
+        });
+    </script>
 </x-layout>

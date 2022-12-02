@@ -1170,15 +1170,6 @@ video {
 .pb-4 {
   padding-bottom: 1rem;
 }
-.pl-4 {
-  padding-left: 1rem;
-}
-.pl-10 {
-  padding-left: 2.5rem;
-}
-.pl-20 {
-  padding-left: 5rem;
-}
 .text-left {
   text-align: left;
 }
@@ -1779,6 +1770,11 @@ input {
 .group:hover .group-hover\:text-amber-500 {
   --tw-text-opacity: 1;
   color: rgb(245 158 11 / var(--tw-text-opacity));
+}
+
+.group:hover .group-hover\:text-rose-600 {
+  --tw-text-opacity: 1;
+  color: rgb(225 29 72 / var(--tw-text-opacity));
 }
 
 .peer:checked ~ .peer-checked\:bg-amber-300 {

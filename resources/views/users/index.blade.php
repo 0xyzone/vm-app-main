@@ -98,7 +98,7 @@
                     <form method="POST" action="/users/{{ $user->id }}">
                         @csrf
                         @method('DELETE')
-                        <button href='/umgmt' id="delete"
+                        <button id="delete"
                             onclick="return confirm('Are you sure you want to delete this record?')"> <i
                                 class="fa-regular fa-trash smooth hover:text-rose-600"></i></button>
                     </form>
