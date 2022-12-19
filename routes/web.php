@@ -10,6 +10,7 @@ use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderItemsController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -193,13 +194,7 @@ Route::get('/tables/{table}', [TableController::class, 'reserve']);
 Route::post('/tables/{table}/reserve', [TableController::class, 'reserve_update']);
 
 // transactions
-Route::get('/reports', function() {
-    if (Auth::guest()) {
-        //is a Laravel guest so redirect
-        return redirect('login');
-       }
-    return view('reports.index');
-});
+Route::get('/reports', [ReportController::class, 'index']);
 
 // Search Items
 Route::get('/search/item', [InventoryController::class, 'search']);
