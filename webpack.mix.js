@@ -27,3 +27,5 @@ mix.options({
         port: 8000,
     },
 });
+
+mix.disableNotifications();
