@@ -17,7 +17,10 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('table');
             $table->string('customer')->nullable();
+            $table->decimal('discount', 7, 2)->nullable;
             $table->string('status')->nullable();
+            $table->string('payment')->nullable();
+            $table->decimal('amount', 7, 2)->nullable();
             $table->timestamps();
         });
     }
