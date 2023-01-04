@@ -22,6 +22,7 @@
         "webpack-notifier": "^1.15.0"
     },
     "dependencies": {
-        "laravel-echo": "^1.14.2"
+        "laravel-echo": "^1.14.2",
+        "pusher-js": "^8.0.0"
     }
 }

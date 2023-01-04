@@ -119,4 +119,22 @@ class OrderItemsController extends Controller
 
         return redirect('/orders/'.$order->id.'/additems')->with('success', 'Item deleted successfully!');
     }
+
+    // Cooking Item
+    public function update_item_cooking(OrderItem $id) {
+        $formFields['status'] = 'cooking';
+
+        $id->update($formFields);
+
+        return redirect('/kitchen')->with('success', 'Item updated successfully.');
+    }
+
+    // Cooked Item
+    public function update_item_cooked(OrderItem $id) {
+        $formFields['status'] = 'done';
+
+        $id->update($formFields);
+
+        return redirect('/kitchen')->with('success', 'Item updated successfully.');
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MessageNotification;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\BarController;
 use App\Http\Controllers\CustomerController;
@@ -160,6 +161,12 @@ Route::get('/orders/{id}/complete/{amount}', [OrderController::class, 'complete'
 // update order list item
 Route::put('/orderitems/{id}/update', [OrderItemsController::class, 'update_item']);
 
+// update order list item
+Route::get('/orderitems/{id}/update/cooking', [OrderItemsController::class, 'update_item_cooking']);
+
+// update order list item
+Route::get('/orderitems/{id}/update/cooked', [OrderItemsController::class, 'update_item_cooked']);
+
 // Delete order list item
 Route::delete('/orderitems/{order}/{item}/delete', [OrderItemsController::class, 'delete_item']);
 
@@ -215,3 +222,13 @@ Route::get('/ajax/kitchen_new', [AjaxController::class, 'new']);
 // PUBLIC Routes
 Route::get('/public/tables', [PublicController::class, 'viewTable']);
 Route::get('/ajax/public/tables', [PublicController::class, 'fetch']);
+
+
+// Events
+Route::get('/event', function() {
+    event(new MessageNotification('This is our first Notification'));
+});
+
+Route::get('/listen', function() {
+    return view('listen');
+});

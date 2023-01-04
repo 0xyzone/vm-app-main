@@ -6,13 +6,7 @@
                 @foreach ($pendings as $var)
                     <x-card class="justify-between">
                         @include('_partials.orderItems')
-                        <form action="/orderitems/{{ $var->id }}/update" method="post">
-                            @csrf
-                            @method('PUT')
-                            <input type="text" name="status" id="status" value="cooking" hidden>
-                            <button type="submit"
-                                class="py-2 px-4 rounded-lg text-white hover:bg-amber-500 hover:text-gray-200 smooth text-xl bg-amber-600">Start</button>
-                        </form>
+                        <a href="/orderitems/{{ $var->id }}/update/cooking" class="py-2 px-4 rounded-lg text-white hover:bg-amber-500 hover:text-gray-200 smooth text-xl bg-amber-600">Start</a>
                     </x-card>
                 @endforeach
             </div>
@@ -39,13 +33,7 @@
                         @if ($item['id'] == $var['item_id'])
                             <x-card class="justify-between">
                                 @include('_partials.orderItems')
-                                <form action="/orderitems/{{ $var['id'] }}/update" method="post">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="text" name="status" id="status" value="done" hidden>
-                                    <button type="submit"
-                                        class="py-2 px-4 rounded-lg text-white hover:bg-lime-500 hover:text-gray-200 smooth text-xl bg-lime-600">Done</button>
-                                </form>
+                                <a href="/orderitems/{{ $var->id }}/update/cooked" class="py-2 px-4 rounded-lg text-white hover:bg-lime-500 hover:text-gray-200 smooth text-xl bg-lime-600">Done</a>
                             </x-card>
                         @endif
                     @endforeach
@@ -79,6 +67,6 @@
 </x-layout>
 <script>
     // $(document).ready(function(){
-    //     setInterval(fetchdata, 1000);
+    //     setInterval(fetchdata, 10000);
     // })
 </script>
