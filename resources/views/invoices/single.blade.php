@@ -174,13 +174,14 @@
                             $totalAfterDiscount = $subtotal - $discountAmount;
                         @endphp
                     @endif
-                    
+
                     <tr class="bg-gray-400 font-bold text-xl">
                         <td class="broder-r-white border-r py-2 px-4 text-right" colspan="3">
                             Grand Total
                         </td>
                         <td class="flex px-2 w-max items-center py-2 font-medium text-lg self-center">
-                            Rs. {{ isset($totalAfterDiscount) ? number_format($totalAfterDiscount, 2) : number_format($subtotal, 2) }}
+                            Rs.
+                            {{ isset($totalAfterDiscount) ? number_format($totalAfterDiscount, 2) : number_format($subtotal, 2) }}
                         </td>
                     </tr>
                 @endif
@@ -228,20 +229,36 @@
             </tbody>
         </table>
         @if (isset($amounts))
-            <div class="flex justify-between items-center w-full mt-4">
+            <div class="flex items-center w-full mt-4">
                 @if ($order->customer == null)
+                    <form action="" method="get" id="search">
+                        <input type="search" name="search" id="customer_search" placeholder="Search customer"
+                            class="p-2 rounded-l-lg bg-gray-600/10 text-gray-800 border broder border-current outline-none">
+                    </form>
                     <form action="/invoices/{{ $order->id }}/customer/update" method="POST" id="customer"
                         class="flex items-center gap-2">
                         @csrf
                         <select name="customer"
-                            class="p-2 rounded-lg bg-gray-600/10 text-gray-800 border broder border-current outline-none">
+                            class="p-2 rounded-r-lg bg-gray-600/10 text-gray-800 border broder border-current outline-none">
                             <option value="" hidden>Please choose a customer.</option>
                             @foreach ($customers as $customer)
-                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                <option value="{{ $customer->id }}"
+                                    @if ((isset($_GET['search']) && $_GET['search'] == $customer->phone) ||
+                                        (isset($_GET['search']) && $_GET['search'] == $customer->id)) selected @endif>{{ $customer->name }}</option>
                             @endforeach
                         </select>
                         <button type="submit" form="customer"
                             class="!py-1 btn-primary !text-gray-800 hover:text-gray-100">Update</button>
+                        @if (isset($_GET['search']))
+                            @php
+                                $customer = App\Models\Customer::where('id', $_GET['search'])
+                                    ->orWhere('phone', $_GET['search'])
+                                    ->get();
+                            @endphp
+                            @if (count($customer) < 1)
+                                <p>No customer with such record!</p>
+                            @endif
+                        @endif
                     </form>
                 @else
                     <p class="w-full flex flex-wrap items-center gap-2">Customer:
@@ -261,8 +278,8 @@
                                 class="btn-secondary hover:scale-105 !text-green-600">Paid</a>
                         @endif
                         @if ($order->customer != null)
-                            <a href="/orders/{{ $order->id }}/complete/{{ isset($totalAfterDiscount) ? number_format($totalAfterDiscount, 2) : number_format($subtotal, 2) }}" class="btn-secondary hover:scale-105"
-                                title="Complete Order">Complete</a>
+                            <a href="/orders/{{ $order->id }}/complete/{{ isset($totalAfterDiscount) ? number_format($totalAfterDiscount, 2) : number_format($subtotal, 2) }}"
+                                class="btn-secondary hover:scale-105" title="Complete Order">Complete</a>
                         @endif
                     </div>
                 @endif
