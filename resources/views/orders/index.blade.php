@@ -48,9 +48,9 @@
                     </tr>
                 @endif
                 @foreach ($orders as $order)
-                @if ($order->status == 'Completed')
-                    @continue
-                @endif
+                    @if ($order->status == 'Completed')
+                        @continue
+                    @endif
                     <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300 font-normal cursor-pointer"
                         id="order_{{ $order->id }}">
                         <td class="user-td">{{ $order->id }}</td>
@@ -82,15 +82,17 @@
                         <td class="user-td">{{ $order->created_at->format('jS M Y | g : i a') }}</td>
                         <td class="user-td">
                             <div class="flex gap-4 justify-center w-full">
-                                <a href="orders/{{ $order->id }}/edit"><i
+                                <a href="orders/{{ $order->id }}/additems"><i
                                         class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i></a>
-                                <form method="POST" action="/orders/{{ $order->id }}/delete">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button id="delete"
-                                        onclick="return confirm('Are you sure you want to delete this record?')"> <i
-                                            class="fa-regular fa-trash smooth hover:text-rose-600"></i></button>
-                                </form>
+                                @if (!isset($order->customer))
+                                    <form method="POST" action="/orders/{{ $order->id }}/delete">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button id="delete"
+                                            onclick="return confirm('Are you sure you want to delete this record?')"> <i
+                                                class="fa-regular fa-trash smooth hover:text-rose-600"></i></button>
+                                    </form>
+                                @endif
                             </div>
                         </td>
                     </tr>
