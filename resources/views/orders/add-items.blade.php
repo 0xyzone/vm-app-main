@@ -67,12 +67,12 @@
                 </div>
                 <div class="flex gap-2 items-center">
                     <div class="w-max px-1 py-2 rounded-full bg-blue-500 flex-1 inline items-center"></div>
-                    <p>Cooking</p>
+                    <p>Cooking/Preparing</p>
                 </div>
                 <div class="flex gap-2 items-center">
                     <div class="w-max px-1 py-2 rounded-full bg-green-500 flex-1 inline items-center"></div>
                     <p>
-                        Cooked
+                        Cooked/Prepared
                     </p>
                 </div>
             </div>

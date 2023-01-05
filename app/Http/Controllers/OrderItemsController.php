@@ -128,6 +128,14 @@ class OrderItemsController extends Controller
 
         return redirect('/kitchen')->with('success', 'Item updated successfully.');
     }
+    // Preparing Item
+    public function update_item_preparing(OrderItem $id) {
+        $formFields['status'] = 'cooking';
+
+        $id->update($formFields);
+
+        return redirect('/bar')->with('success', 'Item updated successfully.');
+    }
 
     // Cooked Item
     public function update_item_cooked(OrderItem $id) {
@@ -136,5 +144,14 @@ class OrderItemsController extends Controller
         $id->update($formFields);
 
         return redirect('/kitchen')->with('success', 'Item updated successfully.');
+    }
+
+    // Prepared Item
+    public function update_item_prepared(OrderItem $id) {
+        $formFields['status'] = 'done';
+
+        $id->update($formFields);
+
+        return redirect('/bar')->with('success', 'Item updated successfully.');
     }
 }

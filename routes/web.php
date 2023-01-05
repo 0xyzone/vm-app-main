@@ -168,7 +168,13 @@ Route::put('/orderitems/{id}/update', [OrderItemsController::class, 'update_item
 Route::get('/orderitems/{id}/update/cooking', [OrderItemsController::class, 'update_item_cooking']);
 
 // update order list item
+Route::get('/orderitems/{id}/update/preparing', [OrderItemsController::class, 'update_item_preparing']);
+
+// update order list item
 Route::get('/orderitems/{id}/update/cooked', [OrderItemsController::class, 'update_item_cooked']);
+
+// update order list item
+Route::get('/orderitems/{id}/update/prepared', [OrderItemsController::class, 'update_item_prepared']);
 
 // Delete order list item
 Route::delete('/orderitems/{order}/{item}/delete', [OrderItemsController::class, 'delete_item']);
