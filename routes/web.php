@@ -155,6 +155,9 @@ Route::resource('/orders/{id}/additems', OrderItemsController::class);
 // Order Paid
 Route::get('/orders/{id}/paid', [OrderController::class, 'paid']);
 
+// Order Delete
+Route::delete('/orders/{id}/delete', [OrderController::class, 'destroy']);
+
 // Order Completed
 Route::get('/orders/{id}/complete/{amount}', [OrderController::class, 'complete']);
 
@@ -205,6 +208,9 @@ Route::get('/reports', [ReportController::class, 'index']);
 
 // Search Items
 Route::get('/search/item', [InventoryController::class, 'search']);
+
+// Search Items
+Route::get('/search/items', [InventoryController::class, 'searchItems']);
 
 // Search Orders
 Route::get('/search/orders', [AjaxController::class, 'searchOrder']);

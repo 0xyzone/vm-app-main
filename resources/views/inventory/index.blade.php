@@ -57,7 +57,30 @@
                 <p>Items</p>
                 <a href="/inventory/item/add" class="btn-primary"> Add Item</a>
             </div>
+            @include('_partials.search')
+            <script>
+                $('#search').on('keyup', function() {
+                    $value = $(this).val();
+                    if ($value) {
+                        $('#result').show();
+                        $('#content').hide();
+                    } else {
+                        $('#result').hide();
+                        $('#content').show();
+                    };
+                    $.ajax({
+                        type: 'get',
+                        url: '{{ URL::to('/search/items') }}',
+                        data: {
+                            'search': $value
+                        },
 
+                        success: function(data) {
+                            $('#result').html(data);
+                        }
+                    });
+                })
+            </script>
             @php
                 $count_items = $items->count();
             @endphp
@@ -65,7 +88,7 @@
                 <thead>
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal w-full font-bold">
                         <td class="tabledata"> ID </td>
-                        <td class="tabledata hidden lg:block"> Image </td>
+                        {{-- <td class="tabledata hidden lg:block"> Image </td> --}}
                         <td class="tabledata"> Name </td>
                         <td class="tabledata"> Price </td>
                         <td class="tabledata hidden lg:block"> Category </td>
@@ -76,14 +99,14 @@
                         </td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="content">
                     @if ($count_items == 0)
                         <p class="text-white">No items found!</p>
                     @endif
                     @foreach ($items as $item)
                         <tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300">
                             <td class="user-td">{{ $item['id'] }} </td>
-                            <td class="user-td hidden lg:inline-block">
+                            {{-- <td class="user-td hidden lg:inline-block">
                                 @if ($item->image)
                                     <img src="{{ asset('storage/' . $item->image) }}" alt="item image"
                                         class="w-10 h-10 object-cover rounded-lg"
@@ -93,34 +116,27 @@
                                         class="w-10 h-10 object-cover rounded-lg"
                                         onerror="this.onerror=null;this.src='{{ asset('img/logo.png') }}';">
                                 @endif
-                            </td>
+                            </td> --}}
                             <td class="user-td">{{ $item['name'] }}</td>
                             <td class="user-td">{{ $item['price'] }}</td>
                             <td class="user-td hidden lg:inline-block">
-                                @foreach ($all_cat as $category)
-                                    @if ($item['category'] == $category['id'])
-                                        {{ $category['name'] }}
-                                    @endif
-                                @endforeach
+                                {{$item->categories->name}}
                             </td>
                             <td class="user-td">
                                 <div class="flex gap-4 justify-center w-full">
                                     <a href="/inventory/items/{{ $item->id }}/edit">
                                         <i class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i>
                                     </a>
-                                    <form method="POST" action="items/{{ $item->id }}/delete">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class=""
-                                            onclick="return confirm('Are you sure you want to delete this item?')">
-                                            <i class="fa-regular fa-trash smooth hover:text-rose-600"></i>
-                                        </button>
-                                    </form>
+                                    <a href="items/{{ $item->id }}/delete" class=""
+                                        onclick="return confirm('Are you sure you want to delete this item?')">
+                                        <i class="fa-regular fa-trash smooth hover:text-rose-600"></i>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
+                <tbody id="result"></tbody>
             </table>
             <div class="mt-6 ">
                 {{ $items->appends(['categories' => $categories->currentPage()])->links() }}

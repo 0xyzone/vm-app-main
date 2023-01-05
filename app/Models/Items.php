@@ -17,7 +17,7 @@ class Items extends Model
     ];
 
     public function categories(){
-        return $this->hasOne(Categories::class);
+        return $this->hasOne(Categories::class, 'id', 'category');
     }
 
     public function orderItems(){

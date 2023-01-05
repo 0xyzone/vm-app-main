@@ -88,7 +88,7 @@ class InventoryController extends Controller
         return view('inventory.index', [
             'categories' => Categories::orderByDesc('id')->paginate(3, ['*'], 'categories'),
             'all_cat' => Categories::all(),
-            'items' => Items::orderByDesc('id')->paginate(3, ['*'], 'items'),
+            'items' => Items::orderByDesc('id')->paginate(10, ['*'], 'items'),
         ]);
     }
 
@@ -154,9 +154,9 @@ class InventoryController extends Controller
             foreach ($categories as $category) {
                 if ($item['category'] == $category['id']) {
                     $type = $category['type'];
-                    if($type == "Food"){
+                    if ($type == "Food") {
                         $val = 1;
-                    } else{
+                    } else {
                         $val = 2;
                     }
                 }
@@ -192,6 +192,38 @@ class InventoryController extends Controller
                 </script>
                 ';
         };
+        return response($output);
+    }
+
+    // Search Items
+    public function searchItems(Request $request)
+    {
+        $categories = Categories::all();
+        $items = Items::where('name', 'Like', '%' . $request->search . '%')->orWhere('id', 'Like', '%' . $request->search . '%')->paginate(4, ['*'], 'items');
+        $output = '';
+        $output .= '';
+        foreach ($items as $item) {
+            $output .=
+                '<tr class="hover:bg-gray-200 odd:bg-gray-100 even:bg-gray-300">
+                            <td class="user-td">' . $item['id'] . ' </td>
+                            <td class="user-td">' . $item['name'] . '</td>
+                            <td class="user-td">' . $item['price'] . '</td>
+                            <td class="user-td hidden lg:inline-block">
+                                ' . $item->categories->name . '
+                            </td>
+                            <td class="user-td">
+                                <div class="flex gap-4 justify-center w-full">
+                                    <a href="/inventory/items/' .$item->id .'/edit">
+                                        <i class="fa-solid fa-edit hover:text-amber-600 hover:font-bold smooth"></i>
+                                    </a>
+                                    <a href="items/' . $item->id . '/delete" class=""
+                                        onclick="return confirm("Are you sure you want to delete this item?.)">
+                                        <i class="fa-regular fa-trash smooth hover:text-rose-600"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>';
+        }
         return response($output);
     }
 }

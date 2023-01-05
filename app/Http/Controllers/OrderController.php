@@ -150,4 +150,14 @@ class OrderController extends Controller
         return redirect('/orders/'. $order->id .'/additems')->with('success', 'Table merged successfully!');
 
     }
+
+    // Order Delete
+    public function destroy(Order $id) {
+        $tables = explode(',', $id->table);
+        Tables::whereIn('id', $tables)->update(['availability' => 'Available']);
+        $items = OrderItem::where('order_id', $id->id)->delete();
+        $id->delete();
+
+        return redirect()->back()->with('success', 'Order Deleted Successfully!');
+    }
 }
