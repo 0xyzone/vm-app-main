@@ -294,7 +294,7 @@
             @enderror
         @endif
     </x-card>
-    <div class="hidden">
+    <div class="">
         <div id="printContent" class="w-max text-xs flex flex-col items-center bg-white px-2 mx-auto">
             <h1 class="my-4 text-lg font-bold">Receipt</h1>
             <div class="flex justify-between w-full mt-2">
