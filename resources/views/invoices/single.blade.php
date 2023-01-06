@@ -1,5 +1,5 @@
 <x-layout class="pb-20" :title="$title">
-    <x-card class="flex-col !items-start">
+    <x-card class="flex-col !items-start" id="printContent">
         <div class="font-bold text-2xl pb-2 w-full flex flex-col lg:flex-row justify-between">
             <div class="flex flex-col justify-center gap-2 py-2 lg:py-0">
                 <div class="flex items-center gap-2">
@@ -30,7 +30,7 @@
                 </p>
 
             </div>
-            <div class="flex gap-2 text-sm items-center font-thin self-start lg:mt-2">{{-- Index --}}
+            <div class="flex gap-2 text-sm items-center font-thin self-start lg:mt-2 no-print">{{-- Index --}}
                 <div class="flex gap-2 items-center">
                     <p class="font-bold">Item Status: </p>
                     <div class="w-max px-1 py-2 rounded-full bg-amber-500 flex-1 inline items-center"></div>
@@ -95,7 +95,7 @@
                                     <p>{{ 'Rs. ' . $orderItem->qty * $orderItem->item->price }}</p>
                                     @if ($orderItem->status == 'pending')
                                         <form method="POST"
-                                            action="/orderitems/{{ $order->id }}/{{ $orderItem->id }}/delete">
+                                            action="/orderitems/{{ $order->id }}/{{ $orderItem->id }}/delete" class="no-print">
                                             @csrf
                                             @method('DELETE')
                                             <button id="delete"
@@ -128,7 +128,7 @@
                         </td>
                     </tr>
                     @if ($order->discount == null)
-                        <tr class="bg-gray-200 text-lg">
+                        <tr class="bg-gray-200 text-lg no-print">
                             <td class="broder-r-white border-r py-2 px-4 text-right" colspan="3">
                                 Discount Type <br>
                             </td>
@@ -231,12 +231,12 @@
         @if (isset($amounts))
             <div class="flex items-center w-full mt-4">
                 @if ($order->customer == null)
-                    <form action="" method="get" id="search">
+                    <form action="" method="get" id="search" class="no-print">
                         <input type="search" name="search" id="customer_search" placeholder="Search customer"
                             class="p-2 rounded-l-lg bg-gray-600/10 text-gray-800 border broder border-current outline-none">
                     </form>
                     <form action="/invoices/{{ $order->id }}/customer/update" method="POST" id="customer"
-                        class="flex items-center gap-2">
+                        class="flex items-center gap-2 no-print mr-2">
                         @csrf
                         <select name="customer"
                             class="p-2 rounded-r-lg bg-gray-600/10 text-gray-800 border broder border-current outline-none">
@@ -283,14 +283,13 @@
                         @endif
                     </div>
                 @endif
+                @include('_partials/printBtn')
             </div>
             @error('customer')
                 <p class="text-xs text-rose-600">{{ $message }}</p>
             @enderror
-
         @endif
     </x-card>
-
     {{-- Ajax Starting --}}
     <script class="text/javascript"></script>
 </x-layout>
