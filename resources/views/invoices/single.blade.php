@@ -1,5 +1,8 @@
 <x-layout class="pb-20" :title="$title">
-    <x-card class="flex-col !items-start" id="printContent">
+    @php
+        $table_no = explode(',', $order->table);
+    @endphp
+    <x-card class="flex-col !items-start">
         <div class="font-bold text-2xl pb-2 w-full flex flex-col lg:flex-row justify-between">
             <div class="flex flex-col justify-center gap-2 py-2 lg:py-0">
                 <div class="flex items-center gap-2">
@@ -14,9 +17,6 @@
                         </span>
                     @endif
                 </div>
-                @php
-                    $table_no = explode(',', $order->table);
-                @endphp
                 <p class="text-lg py-2 flex flex-wrap gap-2 items-center">
                     Tables:
                     @foreach ($table_no as $table)
@@ -77,7 +77,8 @@
                                 <span class="flex flex-1 gap-2 justify-center"
                                     id="span_{{ $orderItem->id }}">{{ $orderItem->qty }}
                                 </span>
-                                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}" method="post"
+                                <form action="/orders/{{ $orderItem->id }}/additems/{{ $orderItem->id }}"
+                                    method="post"
                                     class="@if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center gap-2 w-max @else hidden @endif"
                                     id="form_{{ $orderItem->id }}">
                                     @csrf
@@ -95,7 +96,8 @@
                                     <p>{{ 'Rs. ' . $orderItem->qty * $orderItem->item->price }}</p>
                                     @if ($orderItem->status == 'pending')
                                         <form method="POST"
-                                            action="/orderitems/{{ $order->id }}/{{ $orderItem->id }}/delete" class="no-print">
+                                            action="/orderitems/{{ $order->id }}/{{ $orderItem->id }}/delete"
+                                            class="no-print">
                                             @csrf
                                             @method('DELETE')
                                             <button id="delete"
@@ -283,13 +285,108 @@
                         @endif
                     </div>
                 @endif
-                @include('_partials/printBtn')
+                <div class="flex-shrink-0 ml-2">
+                    @include('_partials/printBtn')
+                </div>
             </div>
             @error('customer')
                 <p class="text-xs text-rose-600">{{ $message }}</p>
             @enderror
         @endif
     </x-card>
+    <div class="hidden">
+        <div id="printContent" class="w-max text-xs flex flex-col items-center bg-white px-2 mx-auto">
+            <h1 class="my-4 text-lg font-bold">Receipt</h1>
+            <div class="flex justify-between w-full mt-2">
+                <p>Invoice No. {{ $order->id }}</p>
+                <p>{{ date('Y-m-d', strtotime($order->created_at)) }}</p>
+            </div>
+            <div class="flex justify-between w-full">
+                <p class="flex gap-2">Tables:
+                    @foreach ($table_no as $table)
+                        @foreach ($tables as $tab)
+                            @if ($table == $tab['id'])
+                                <span class="">{{ $tab['name'] . ',' }}
+                                </span>
+                            @endif
+                        @endforeach
+                    @endforeach
+                </p>
+                <p class="flex gap-2 font-bold">
+                    @if (isset($order->customer))
+                        @foreach ($customers as $customer)
+                            @if ($customer->id == $order->customer)
+                                {{ $customer->name }}
+                            @endif
+                        @endforeach
+                    @endif
+                </p>
+            </div>
+            <hr class="mt-4">
+            <table class="">
+                <thead>
+                    <tr>
+                        <th class="text-right w-1/6 pr-2">S.No.</th>
+                        <th class="text-left">Items</th>
+                        <th>Price</th>
+                        <th class="text-right min-w-[5rem]">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($order->orderItems as $orderItem)
+                    @if ($order->id == $orderItem->order_id)
+                        @php
+                            $amounts[] = $orderItem['qty'] * $orderItem->item->price;
+                            
+                        @endphp
+                        <tr class="border-b-2 border-b-slate-500">
+                            <td class="max-w-max text-right pr-2">{{$loop->iteration}}</td>
+                            <td class="py-1 min-w-[10rem]">
+                                {{ $orderItem->item->name }}
+                            </td>
+                            <td
+                                class="text-center @if (isset($_GET['edit']) && $_GET['edit'] == $orderItem->id) flex justify-center items-center h-full pl-2 py-2 @endif">
+                                <span class="flex flex-1 gap-2 justify-center"
+                                    id="span_{{ $orderItem->id }}">{{ $orderItem->item->price . '(x' . $orderItem->qty . ')'}}
+                                </span>
+                            </td>
+                            <td class="text-right">
+                                    <p>{{ $orderItem->qty * $orderItem->item->price }}</p>
+                            </td>
+                        </tr>
+                        <script>
+                            $("#icon_{{ $orderItem->id }}").click(function() {
+                                location.replace('?edit={{ $orderItem->id }}');
+                            });
+                        </script>
+                    @endif
+                @endforeach
+                    <tr>
+                        <td colspan="3" class="text-right">Net total</td>
+                        <td class="text-right ">
+                            @if (isset($subtotal))
+                            {{ $subtotal }}
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right">Discount</td>
+                        <td class="text-right ">{{ $order->discount }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right">Grand total</td>
+                        <td class="text-right">
+                            @if (isset($subtotal))
+                                Rs. {{ isset($totalAfterDiscount) ? number_format($totalAfterDiscount, 2) : number_format($subtotal, 2) }}
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr class="mt-4">
+            <p class="font-bold text-center my-2">Thank you for visiting! Hope to see you again!</p>
+        </div>
+    </div>
     {{-- Ajax Starting --}}
     <script class="text/javascript"></script>
 </x-layout>
