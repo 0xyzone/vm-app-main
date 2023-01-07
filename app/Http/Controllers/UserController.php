@@ -90,7 +90,7 @@ class UserController extends Controller
             return redirect('/login');
         }
         return view('users.index', [
-            'users' =>  User::paginate(5, ['*'], 'users')
+            'users' =>  User::paginate(10, ['*'], 'users')
         ]);
     }
 
@@ -115,6 +115,10 @@ class UserController extends Controller
             'phone' => ['required', 'max:10'],
             'role' => ['required'],
         ]);
+
+        if(isset($request['password'])){
+            $formFields['password'] = bcrypt($request['password']);
+        }
 
         // Update user
         $user->update($formFields);

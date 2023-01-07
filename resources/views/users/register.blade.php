@@ -5,7 +5,7 @@
         </h2>
 
         <form method="POST" action="/users/store"
-            class="rounded-xl border-2 border-white bg-gradient-to-t to-gray-50/80 from-gray-500/80 shadow-lg  p-10 mb-10 h-full"
+            class="rounded-xl border-2 border-white bg-transparent shadow-lg  p-10 mb-10 h-full"
             id="signup">
             @csrf
             <div class="mb-6">
@@ -23,9 +23,9 @@
                 <label for="username"  class="reg-label">
                     Username 
                 </label>
-                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="username"
-                    value="{{ old('username') }}" placeholder="john" pattern="[a-z0-9]+"/>
-                    <p class="text-xs text-gray-900/50 font-light leading-tight py-2">Please use lowercase characters and/or numbers for username.</p>
+                <input type="text" class="border border-gray-200 rounded p-2 w-full peer" name="username"
+                    value="{{ old('username') }}" placeholder="john123" pattern="[a-z0-9]+"/>
+                    <p class="text-xs font-light leading-tight py-2 text-slate-400 peer-focus:block hidden">Please use lowercase characters and/or numbers for username.</p>
                 @error('username')
                     <p class="text-white text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -64,7 +64,7 @@
             </div>
 
             <div class="mb-6">
-                <label for="phone" class="reg-label"></label>
+                <label for="phone" class="reg-label">
                     Phone No
                 </label>
                 <input type="number" class="border border-gray-200 rounded p-2 w-full" name="phone"

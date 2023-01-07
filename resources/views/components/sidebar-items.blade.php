@@ -68,7 +68,7 @@
             @include('inc.menubutton')
         @elseif ($role == 'KitchenMaster' && $name == 'Kitchen')
             @include('inc.menubutton')
-        @elseif ($role == 'Cashier' && ($name == 'Tables' || $name == 'Finance' || $name == 'Customers'))
+        @elseif ($role == 'Cashier' && ($name == 'Tables' || $name == 'Invoices' || $name == 'Customers'))
             @include('inc.menubutton')
         @elseif ($role == 'Cook' && $name == 'Kitchen')
             @include('inc.menubutton')

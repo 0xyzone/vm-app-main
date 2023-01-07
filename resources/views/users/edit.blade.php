@@ -69,6 +69,19 @@
             </div>
 
             <div class="mb-6">
+                <input type="checkbox" name="changePassword" class="peer">
+                <label for="changePassowrd">Change Password</label>
+                <label for="password" class="reg-label peer-checked:!flex !hidden">
+                    Password
+                </label>
+                <input type="password" class="border border-gray-200 rounded p-2 w-full hidden peer-checked:!block" name="password"
+                    value="{{ old('password') }}" />
+                @error('password')
+                    <p class="text-white text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
                 <button title="Update User" form="signup"
                     class="text-white  border border-sky-200 rounded py-2 px-4 hover:bg-black">
                     Update
